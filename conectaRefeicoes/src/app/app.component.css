@@ -1,0 +1,5 @@
+.conteudo {
+  margin-left: 250px; /* Mesma largura do seu sidebar-container */
+  flex-grow: 1; /* Faz com que o conteúdo ocupe o espaço restante */
+  padding: 20px; /* Espaçamento interno para o seu conteúdo */
+}

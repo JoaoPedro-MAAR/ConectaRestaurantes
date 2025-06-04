@@ -1,0 +1,91 @@
+.sidebar-container {
+  width: 250px; /* Largura do seu navbar */
+  background-color: #f7b731; /* Cor de fundo amarela */
+  height: 100vh; /* Ocupa a altura total da viewport */
+  position: fixed; /* Fixa o navbar na tela */
+  top: 0;
+  left: 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidade */
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  background-color: #f7b731; /* Mesma cor de fundo */
+  color: #333; /* Cor do texto do cabeçalho */
+  padding: 20px;
+  font-size: 2.0em;
+  font-weight: bold;
+  text-align: center;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1); /* Linha divisória */
+}
+
+.sidebar-nav {
+  flex-grow: 1; /* Faz com que a navegação ocupe o espaço restante */
+  padding: 20px 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-nav li {
+  margin-bottom: 10px;
+}
+
+.sidebar-nav a {
+  display: flex; /* Para alinhar ícone e texto */
+  align-items: center;
+  background-color: #fdd835; /* Cor de fundo dos botões */
+  color: #333; /* Cor do texto dos links */
+  padding: 12px 20px;
+  text-decoration: none;
+  border-radius: 5px; /* Bordas arredondadas */
+  margin: 0 15px; /* Espaçamento lateral */
+  transition: background-color 0.3s ease; /* Transição suave ao hover */
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Sombra nos botões */
+}
+
+.sidebar-nav a:hover {
+  background-color: #fef3ce; /* Cor de fundo ao passar o mouse */
+}
+
+.sidebar-nav a.active {
+  background-color: #ffc107; /* Cor de fundo do item ativo */
+  font-weight: bold;
+}
+
+.sidebar-nav span {
+  margin-right: 10px; /* Espaçamento entre o ícone e o texto */
+  font-size: 1.2em;
+}  
+
+.sidebar-footer { 
+  border-top: 3px solid rgba(0, 0, 0, 0.1);
+  padding: 20px 0;
+}
+
+.sidebar-footer-div{
+  display: flex; /* Para alinhar ícone e texto */
+  align-items: center;
+  background-color: #fdd835; /* Cor de fundo dos botões */
+  color: #333; /* Cor do texto dos links */
+  padding: 12px 20px;
+  text-decoration: none;
+  border-radius: 5px; /* Bordas arredondadas */
+  margin: 0 15px; /* Espaçamento lateral */
+  transition: background-color 0.3s ease; /* Transição suave ao hover */
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+.sidebar-footer-div a.active {
+  background-color: #ffc107; /* Cor de fundo do item ativo */
+  font-weight: bold;
+}
+.sidebar-footer-div:hover {
+  background-color: #fef3ce; /* Cor de fundo ao passar o mouse */
+}
+
+
+
