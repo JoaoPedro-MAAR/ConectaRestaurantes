@@ -11,9 +11,9 @@
             <div class="order-list">
                 @for (card of List_of_card_order; track card) {
                     <app-order-card 
-                    [company]="card.company" 
-                    [applicant]="card.applicant" 
-                    [number_of_lunchbox]="card.number_of_lunchbox">
+                    [obra]="card.obra" 
+                    [gestor]="card.gestor" 
+                    [qtdRefeicoes]="card.qtdRefeicoes">
                     </app-order-card>
                 }
             </div>

@@ -8,10 +8,7 @@ import { input } from '@angular/core';
   styleUrl: './order-card.component.css'
 })
 export class OrderCardComponent {
-  company = input.required<string>();
-  applicant = input.required<string>();
-  number_of_lunchbox = input.required<string>();
-
-
-
+  obra = input.required<string>();
+  gestor = input.required<string>();
+  qtdRefeicoes = input.required<string>();
 }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { OrderCardComponent } from './order-card/order-card.component';
+import { RequisicaoService } from './services/requisicao.service';
 
 @Component({
   selector: 'app-root',
@@ -9,24 +10,31 @@ import { OrderCardComponent } from './order-card/order-card.component';
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
+ export class AppComponent {
   title = 'conectaRefeicoes';
-List_of_card_order = [
+   List_of_card_order: any[] = [];
+  constructor(private requisicaoService: RequisicaoService) {
+    this.requisicaoService.getAll().subscribe((dados) => {
+      this.List_of_card_order = dados;
+    });
+  }  
+
+/* List_of_card_order = [
   {
-    company: 'Restaurante Sabor Caseiro',
-    applicant: 'João Silva',
-    number_of_lunchbox: '15'
+    obra: 'Restaurante Sabor Caseiro',
+    gestor: 'João Silva',
+    qtdRefeicoes: '15'
   },
   {
-    company: 'Delícias da Vó',
-    applicant: 'Maria Souza',
-    number_of_lunchbox: '8'
+    obra: 'Delícias da Vó',
+    gestor: 'Maria Souza',
+    qtdRefeicoes: '8'
   },
   {
-    company: 'Comida Express',
-    applicant: 'Carlos Pereira',
-    number_of_lunchbox: '20'
+    obra: 'Comida Express',
+    gestor: 'Carlos Pereira',
+    qtdRefeicoes: '20'
   }
-];
+]; */
 
 } 

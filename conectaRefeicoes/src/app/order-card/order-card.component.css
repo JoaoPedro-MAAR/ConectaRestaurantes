@@ -48,3 +48,9 @@
   transition: background-color 0.3s ease, transform 0.2s ease;
   align-self: normal;
 }
+
+
+.order-card-container button:hover {
+  background-color: #949494; /* Cor de fundo mais escura ao passar o mouse */
+  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+}
