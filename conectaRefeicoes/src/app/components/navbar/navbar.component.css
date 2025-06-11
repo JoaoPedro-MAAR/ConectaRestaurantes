@@ -1,27 +1,30 @@
 .sidebar-container {
-  width: 250px; /* Largura do seu navbar */
-  background-color: #f7b731; /* Cor de fundo amarela */
-  height: 100vh; /* Ocupa a altura total da viewport */
-  position: fixed; /* Fixa o navbar na tela */
+  width: 250px;
+  background-color: #f7b731;
+  height: 100vh;
+  position: fixed;
   top: 0;
   left: 0;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidade */
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
 }
 
 .sidebar-header {
-  background-color: #f7b731; /* Mesma cor de fundo */
-  color: #333; /* Cor do texto do cabeçalho */
-  padding: 20px;
+  background-color: #f7b731;
+  color: #333;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  height: 60px;
   font-size: 2.0em;
   font-weight: bold;
   text-align: center;
-  border-bottom: 3px solid rgba(0, 0, 0, 0.1); /* Linha divisória */
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1); 
+  border-right: 3px solid rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-nav {
-  flex-grow: 1; /* Faz com que a navegação ocupe o espaço restante */
+  flex-grow: 1;
   padding: 20px 0;
 }
 
@@ -36,56 +39,70 @@
 }
 
 .sidebar-nav a {
-  display: flex; /* Para alinhar ícone e texto */
+  display: flex;
   align-items: center;
-  background-color: #fdd835; /* Cor de fundo dos botões */
-  color: #333; /* Cor do texto dos links */
+  background-color: #fdd835;
+  color: #333;
   padding: 12px 20px;
   text-decoration: none;
-  border-radius: 5px; /* Bordas arredondadas */
-  margin: 0 15px; /* Espaçamento lateral */
-  transition: background-color 0.3s ease; /* Transição suave ao hover */
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Sombra nos botões */
+  border-radius: 5px;
+  margin: 0 15px;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
 
 .sidebar-nav a:hover {
-  background-color: #fef3ce; /* Cor de fundo ao passar o mouse */
+  background-color: #fef3ce;
 }
 
 .sidebar-nav a.active {
-  background-color: #ffc107; /* Cor de fundo do item ativo */
+  background-color: #ffc107;
   font-weight: bold;
 }
 
 .sidebar-nav span {
-  margin-right: 10px; /* Espaçamento entre o ícone e o texto */
+  margin-right: 10px;
   font-size: 1.2em;
-}  
+}
 
-.sidebar-footer { 
+.sidebar-footer {
   border-top: 3px solid rgba(0, 0, 0, 0.1);
   padding: 20px 0;
 }
 
-.sidebar-footer-div{
-  display: flex; /* Para alinhar ícone e texto */
+.sidebar-footer-div {
+  display: flex;
   align-items: center;
-  background-color: #fdd835; /* Cor de fundo dos botões */
-  color: #333; /* Cor do texto dos links */
+  background-color: #fdd835;
+  color: #333;
   padding: 12px 20px;
   text-decoration: none;
-  border-radius: 5px; /* Bordas arredondadas */
-  margin: 0 15px; /* Espaçamento lateral */
-  transition: background-color 0.3s ease; /* Transição suave ao hover */
+  border-radius: 5px;
+  margin: 0 15px;
+  transition: background-color 0.3s ease;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 }
+
 .sidebar-footer-div a.active {
-  background-color: #ffc107; /* Cor de fundo do item ativo */
+  background-color: #ffc107;
   font-weight: bold;
 }
+
 .sidebar-footer-div:hover {
-  background-color: #fef3ce; /* Cor de fundo ao passar o mouse */
+  background-color: #fef3ce;
 }
 
-
-
+.headerDiv {
+  background-color: #e8e8e8;
+  height: 100px;
+  color: #333;
+  font-size: 2.0em;
+  font-weight: bold;
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0px;
+  left: 250px;
+  right: 0;
+  margin: 0px;
+  padding: 0px;
+}
