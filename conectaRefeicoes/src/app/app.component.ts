@@ -3,10 +3,11 @@ import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { OrderCardComponent } from './order-card/order-card.component';
 import { RequisicaoService } from './services/requisicao.service';
+import { FormComponentComponent } from './form-component/form-component.component'
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, OrderCardComponent],
+  imports: [RouterOutlet, NavbarComponent, OrderCardComponent, FormComponentComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
