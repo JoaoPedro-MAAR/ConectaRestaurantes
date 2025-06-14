@@ -1,0 +1,38 @@
+<table class="List_order_table">
+    <thead class="table_header">
+        <tr>
+        <th style="width: 25%;">Obra</th>
+        <th style="width: 25%;">Gestor</th>
+        <th style="width: 25%;">Quantidade de refeições</th>
+        <th style="width: 25%;">Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (order of paginatedOrders; track order){
+        <tr>
+        <td>{{ order.obra }}</td>
+        <td>{{ order.gestor }}</td>
+        <td>{{ order.qtd_Marmitas }}</td>
+        <td> Ações </td>
+        </tr>
+        }
+
+
+    </tbody>
+    <tfoot style="width: 100%;">
+        <tr>
+        <td colspan="4" style="text-align: center; " >
+            <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+            <span>Página {{currentPage}}</span>
+            <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= orders.length">Próxima</button>
+        </td>
+        </tr>
+    </tfoot>
+</table>
+
+
+
+
+
+
+
