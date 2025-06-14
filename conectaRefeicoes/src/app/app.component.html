@@ -10,7 +10,7 @@
             <create-pedido-form />
             <h1 style="text-align: center;">Ultimos pedidos</h1>
             <div class="order-list">
-                @for (card of List_of_card_order; track card) {
+                @for (card of List_of_card_order.slice(-3); track card) {
                     <app-order-card 
                     [obra]="card.obra" 
                     [gestor]="card.gestor" 
