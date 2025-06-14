@@ -1,20 +1,211 @@
 {
-  "restaurant_orders": [
-    {
-      "obra": "Edifica Engenharia",
-      "gestor": "João Silva",
-      "qtdRefeicoes": "15"
-    },
-    {
-      "obra": "Nova Era Construtora",
-      "gestor": "Maria Oliveira",
-      "qtdRefeicoes": "20"
-    },
-    {
-      "obra": "DPP Construções",
-      "gestor": "Bruno Sósete",
-      "qtdRefeicoes": "22"
-    }
-  ]
-}
-
+  "restaurant_orders": [{
+    "id": 1,
+    "obra": "Restaurante Sabor Caseiro",
+    "gestor": "João Silva",
+    "qtd_Marmitas": 15,
+    "pedidos": [
+      { "id": 1, "matricula": 101, "pedido": "Vegetariana" },
+      { "id": 2, "matricula": 102, "pedido": "Tradicional" }
+    ]
+  },
+  {
+    "id": 2,
+    "obra": "Delícias da Vó",
+    "gestor": "Maria Souza",
+    "qtd_Marmitas": 8,
+    "pedidos": [
+      { "id": 3, "matricula": 103, "pedido": "Vegana" }
+    ]
+  },
+  {
+    "id": 3,
+    "obra": "Comida Express",
+    "gestor": "Carlos Pereira",
+    "qtd_Marmitas": 20,
+    "pedidos": [
+      { "id": 4, "matricula": 104, "pedido": "Tradicional" },
+      { "id": 5, "matricula": 105, "pedido": "Vegetariana" }
+    ]
+  },
+  {
+    "id": 4,
+    "obra": "Bistrô do Chef",
+    "gestor": "Ana Lima",
+    "qtd_Marmitas": 12,
+    "pedidos": [
+      { "id": 6, "matricula": 106, "pedido": "Sem glúten" }
+    ]
+  },
+  {
+    "id": 5,
+    "obra": "Sabor & Arte",
+    "gestor": "Pedro Santos",
+    "qtd_Marmitas": 18,
+    "pedidos": [
+      { "id": 7, "matricula": 107, "pedido": "Tradicional" }
+    ]
+  },
+  {
+    "id": 6,
+    "obra": "Cantina da Praça",
+    "gestor": "Fernanda Alves",
+    "qtd_Marmitas": 10,
+    "pedidos": [
+      { "id": 8, "matricula": 108, "pedido": "Vegetariana" }
+    ]
+  },
+  {
+    "id": 7,
+    "obra": "Tempero Bom",
+    "gestor": "Lucas Rocha",
+    "qtd_Marmitas": 22,
+    "pedidos": [
+      { "id": 9, "matricula": 109, "pedido": "Vegana" }
+    ]
+  },
+  {
+    "id": 8,
+    "obra": "Prato Feito",
+    "gestor": "Juliana Costa",
+    "qtd_Marmitas": 9,
+    "pedidos": [
+      { "id": 10, "matricula": 110, "pedido": "Tradicional" }
+    ]
+  },
+  {
+    "id": 9,
+    "obra": "Refeição Rápida",
+    "gestor": "Marcos Souza",
+    "qtd_Marmitas": 16,
+    "pedidos": [
+      { "id": 11, "matricula": 111, "pedido": "Sem lactose" }
+    ]
+  },
+  {
+    "id": 10,
+    "obra": "Sabores do Sul",
+    "gestor": "Patrícia Dias",
+    "qtd_Marmitas": 14,
+    "pedidos": [
+      { "id": 12, "matricula": 112, "pedido": "Tradicional" }
+    ]
+  },
+  {
+    "id": 11,
+    "obra": "Comida Mineira",
+    "gestor": "Rafael Gomes",
+    "qtd_Marmitas": 11,
+    "pedidos": [
+      { "id": 13, "matricula": 113, "pedido": "Vegetariana" }
+    ]
+  },
+  {
+    "id": 12,
+    "obra": "Almoço Feliz",
+    "gestor": "Camila Martins",
+    "qtd_Marmitas": 13,
+    "pedidos": [
+      { "id": 14, "matricula": 114, "pedido": "Vegana" }
+    ]
+  },
+  {
+    "id": 13,
+    "obra": "Sabor da Terra",
+    "gestor": "Bruno Oliveira",
+    "qtd_Marmitas": 17,
+    "pedidos": [
+      { "id": 15, "matricula": 115, "pedido": "Tradicional" }
+    ]
+  },
+  {
+    "id": 14,
+    "obra": "Bom Paladar",
+    "gestor": "Renata Lima",
+    "qtd_Marmitas": 19,
+    "pedidos": [
+      { "id": 16, "matricula": 116, "pedido": "Sem glúten" }
+    ]
+  },
+  {
+    "id": 15,
+    "obra": "Caseirinho",
+    "gestor": "Eduardo Silva",
+    "qtd_Marmitas": 7,
+    "pedidos": [
+      { "id": 17, "matricula": 117, "pedido": "Vegetariana" }
+    ]
+  },
+  {
+    "id": 16,
+    "obra": "Delícias do Chef",
+    "gestor": "Isabela Souza",
+    "qtd_Marmitas": 21,
+    "pedidos": [
+      { "id": 18, "matricula": 118, "pedido": "Tradicional" }
+    ]
+  },
+  {
+    "id": 17,
+    "obra": "Comida de Mãe",
+    "gestor": "Thiago Pereira",
+    "qtd_Marmitas": 12,
+    "pedidos": [
+      { "id": 19, "matricula": 119, "pedido": "Vegana" }
+    ]
+  },
+  {
+    "id": 18,
+    "obra": "Sabor da Casa",
+    "gestor": "Larissa Alves",
+    "qtd_Marmitas": 15,
+    "pedidos": [
+      { "id": 20, "matricula": 120, "pedido": "Sem lactose" }
+    ]
+  },
+  {
+    "id": 19,
+    "obra": "Refeição Caseira",
+    "gestor": "Gabriel Costa",
+    "qtd_Marmitas": 10,
+    "pedidos": [
+      { "id": 21, "matricula": 121, "pedido": "Tradicional" }
+    ]
+  },
+  {
+    "id": 20,
+    "obra": "Prato Cheio",
+    "gestor": "Amanda Rocha",
+    "qtd_Marmitas": 18,
+    "pedidos": [
+      { "id": 22, "matricula": 122, "pedido": "Vegetariana" }
+    ]
+  },
+  {
+    "id": 21,
+    "obra": "Sabor Mineiro",
+    "gestor": "Vinícius Dias",
+    "qtd_Marmitas": 16,
+    "pedidos": [
+      { "id": 23, "matricula": 123, "pedido": "Vegana" }
+    ]
+  },
+  {
+    "id": 22,
+    "obra": "Comida Boa",
+    "gestor": "Beatriz Santos",
+    "qtd_Marmitas": 14,
+    "pedidos": [
+      { "id": 24, "matricula": 124, "pedido": "Sem glúten" }
+    ]
+  },
+  {
+    "id": 23,
+    "obra": "Almoço & Cia",
+    "gestor": "Rodrigo Lima",
+    "qtd_Marmitas": 20,
+    "pedidos": [
+      { "id": 25, "matricula": 125, "pedido": "Tradicional" }
+    ]
+  }
+]}

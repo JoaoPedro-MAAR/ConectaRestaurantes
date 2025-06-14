@@ -1,0 +1,63 @@
+
+table {
+  border-collapse: separate;
+  border-spacing: 9px; 
+  width: 100%;
+}
+
+th, td {
+  padding: 12px 16px; 
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+
+tfoot td {
+  background-color: #f9f9f9;
+  padding: 16px 0;
+  border-top: 2px solid #e0e0e0;
+}
+
+tfoot button {
+  background-color: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  margin: 0 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
+}
+
+tfoot button:disabled {
+  background-color: #bdbdbd;
+  cursor: not-allowed;
+}
+
+tfoot span {
+  font-size: 1.1em;
+  margin: 0 12px;
+  font-weight: 500;
+}
+
+
+
+.Cabecalho{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center ;
+  align-content: center;
+
+}
+
+
+.botoes {
+  display: flex;
+  flex-direction: row;
+}
