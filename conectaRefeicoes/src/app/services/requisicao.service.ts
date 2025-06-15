@@ -14,6 +14,7 @@ export class RequisicaoService {
   private http = inject(HttpClient);
   private ordersSubject = new BehaviorSubject<Solicitation[]>([])
   orders$ = this.ordersSubject.asObservable()
+  private currentPage: number = 1;
 
 
 
@@ -28,7 +29,7 @@ export class RequisicaoService {
     this.http.post<FormPedido>(this.apiUrl, order).subscribe({
       next: () => {
         console.log('Order posted successfully');
-        this.fetchAll().subscribe(); 
+        this.fetchPaginated(this.currentPage).subscribe(); 
       },
       error: (error) => {
         console.error('Error posting order:', error);
@@ -76,6 +77,7 @@ export class RequisicaoService {
 
 
 fetchPaginated(page: number): Observable<PaginatedResponse<Solicitation>> {
+  this.currentPage = page;
   return this.http.get<PaginatedResponse<Solicitation>>(
     `${this.apiUrl}?_page=${page}`
   ).pipe(
