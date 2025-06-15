@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import {Solicitation} from "./../../types"
 import { RequisicaoService } from '../services/requisicao.service';
 
@@ -11,30 +11,38 @@ import { RequisicaoService } from '../services/requisicao.service';
 })
 export class ListOrderComponent {
     title = 'Listagem';
-    orders: Solicitation[] = []
+    orders = signal<Solicitation[]>([]);
     constructor(private requisicaoService: RequisicaoService) {
-      this.requisicaoService.getAll().subscribe((dados: Solicitation[]) => {
-        this.orders = dados;
+      this.loadOrders();
+
+      this.requisicaoService.getOrdersChanged().subscribe(() => {
+        this.loadOrders();
       });
     }  
 
-  currentPage = 1;
-  itemsPerPage = 10;
+    currentPage = 1;
+    itemsPerPage = 10;
 
-  get paginatedOrders() {
-    const start = (this.currentPage - 1) * this.itemsPerPage;
-    return this.orders.slice(start, start + this.itemsPerPage);
-  }
-
-  nextPage() {
-    if (this.currentPage * this.itemsPerPage < this.orders.length) {
-      this.currentPage++;
+    loadOrders() {
+      this.requisicaoService.getAll().subscribe((dados: Solicitation[]) => {
+        this.orders.set(dados);
+      });
     }
-  }
 
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
+    get paginatedOrders() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      return this.orders().slice(start, start + this.itemsPerPage);
     }
-  }
+
+    nextPage() {
+      if (this.currentPage * this.itemsPerPage < this.orders().length) {
+        this.currentPage++;
+      }
+    }
+
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    }
 }

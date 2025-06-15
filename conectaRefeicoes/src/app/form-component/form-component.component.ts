@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
+import { RequisicaoService } from '../services/requisicao.service';
+import { FormPedido } from '../model/pedido.interface';
 
 
 @Component({
@@ -12,14 +14,20 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
 export class FormComponentComponent {
 
   private refeicaoFormBuilder = inject(FormBuilder)
+  private requisicaoService = inject(RequisicaoService)
   
   refeicaoForm = this.refeicaoFormBuilder.group({
       obra: [""],
       gestor: [""],
-      qtdRefeicoes: [0]
+      qtd_Marmitas: [0]
   })
 
-  handleSubmit():void {
+  handleSubmit() {
     console.log(this.refeicaoForm.value);
+
+    const pedido = this.refeicaoForm.value;
+
+    this.requisicaoService.postOrder(pedido as FormPedido);
+
   }
 };

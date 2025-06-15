@@ -43,7 +43,7 @@
         <td colspan="4" style="text-align: center; " >
             <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
             <span>Página {{currentPage}}</span>
-            <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= orders.length">Próxima</button>
+            <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= orders().length">Próxima</button>
         </td>
         </tr>
     </tfoot>
