@@ -1,0 +1,51 @@
+.Modal-Filter {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.12);
+  padding: 32px 24px;
+  max-width: 340px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.Modal-Filter form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.Modal-Filter input[type="text"],
+.Modal-Filter input[type="number"] {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  font-size: 1em;
+  background: #f7fafd;
+  transition: border 0.2s;
+}
+
+.Modal-Filter input[type="text"]:focus,
+.Modal-Filter input[type="number"]:focus {
+  border-color: #1976d2;
+  outline: none;
+}
+
+.Modal-Filter input[type="submit"] {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  padding: 10px 0;
+  border-radius: 5px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  width: 100%;
+}
+
+.Modal-Filter input[type="submit"]:hover {
+  background: #125ca1;
+}

@@ -5,10 +5,12 @@ import { OrderCardComponent } from './order-card/order-card.component';
 import { RequisicaoService } from './services/requisicao.service';
 import { FormComponentComponent } from './form-component/form-component.component'
 import {ListOrderComponent} from './list-order/list-order.component'
+import {FilterModalComponent} from './filter-modal/filter-modal.component'
+
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, OrderCardComponent, FormComponentComponent, ListOrderComponent],
+  imports: [RouterOutlet, NavbarComponent, OrderCardComponent, FormComponentComponent, ListOrderComponent, FilterModalComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
