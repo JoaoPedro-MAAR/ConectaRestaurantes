@@ -23,6 +23,11 @@ import {FilterModalComponent} from './filter-modal/filter-modal.component'
     });
   }  
 
+  ola() {
+    console.log("Ola mundo")
+    
+  }
+
 /* List_of_card_order = [
   {
     obra: 'Restaurante Sabor Caseiro',
