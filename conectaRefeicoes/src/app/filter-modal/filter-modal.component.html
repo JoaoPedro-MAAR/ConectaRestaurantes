@@ -1,22 +1,43 @@
-<div class="Modal-Filter">
-    <form [formGroup]="FilterForm" (ngSubmit)="handleFilter()"></form>
-        <div> 
-            <input type="text" id="obra" placeholder="Nome da obra"
-             formControlName="obra">
+
+
+
+@if (isOpen()) {
+    <div class="Modal-Overlay" (click)="requestClose()"></div>
+    <div class="Modal-Filter">
+        <button class="btn-close" (click)="requestClose()">X</button>
+        <form [formGroup]="FilterForm" (ngSubmit)="handleFilter()">
+        <div class="form-group">
+            <label for="obra">Nome da obra</label>
+            <input type="text" id="obra" placeholder="Digite o nome da obra" formControlName="obra">
         </div>
-        <div> 
-            <input type="text" id="gestor" placeholder="Nome do gestor"
-             formControlName="gestor">
+        <div class="form-group">
+            <label for="gestor">Nome do gestor</label>
+            <input type="text" id="gestor" placeholder="Digite o nome do gestor" formControlName="gestor">
         </div>
-        <div> 
-            <input type="number" id="maiorQue" placeholder="Numero de marmitas maior que:"
-             formControlName="maiorQue">
+        <div class="form-group">
+            <label for="status">Status do pedido:</label>
+            <select id="status" formControlName="status">
+            <option [value]="null">-- Todos --</option>
+            <option value="Recebido">Recebido</option>
+            <option value="Cancelado">Cancelado</option>
+            <option value="Em preparo">Em preparo</option>
+            <option value="Enviado">Enviado</option>
+            <option value="Finalizado">Finalizado</option>
+            </select>
         </div>
-        <div> 
-            <input type="number" id="menorQue" placeholder="Numero de marmitas menor que:"
-             formControlName="menorQue">
+        <div class="form-group">
+            <label for="maiorQue">Nº de marmitas (maior que)</label>
+            <input type="number" id="maiorQue" placeholder="Ex: 10" formControlName="maiorQue">
         </div>
-        <div>
-            <input type="submit"> Filtrar 
+        <div class="form-group">
+            <label for="menorQue">Nº de marmitas (menor que)</label>
+            <input type="number" id="menorQue" placeholder="Ex: 50" formControlName="menorQue">
         </div>
-</div>
+        <div class="form-actions">
+            <button type="button" class="btn btn-secondary" (click)="handleLimpar()">Limpar</button>
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+        </form>
+    </div>
+
+}
