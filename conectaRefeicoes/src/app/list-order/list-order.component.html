@@ -1,55 +1,57 @@
 <div class="Modal_filtro">
-    
+    <!-- Filtro aqui -->
 </div>
-
-
-
-
 
 <div class="Cabecalho">
-    <h1>Listagem de solicitações </h1>
-    
-    <div class="botoes">    
-        <button> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/></svg> </button>
-<button> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 20q-.425 0-.712-.288T10 19v-6L4.2 5.6q-.375-.5-.112-1.05T5 4h14q.65 0 .913.55T19.8 5.6L14 13v6q0 .425-.288.713T13 20z"/></svg> </button>    </div>
-    
+    <h1>Listagem de solicitações</h1>
+    <div class="botoes">
+        <button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/>
+            </svg>
+        </button>
+        <button>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M11 20q-.425 0-.712-.288T10 19v-6L4.2 5.6q-.375-.5-.112-1.05T5 4h14q.65 0 .913.55T19.8 5.6L14 13v6q0 .425-.288.713T13 20z"/>
+            </svg>
+        </button>
+    </div>
 </div>
-
-
 
 <table class="List_order_table">
     <thead class="table_header">
         <tr>
-        <th style="width: 25%;">Obra</th>
-        <th style="width: 25%;">Gestor</th>
-        <th style="width: 25%;">Quantidade de refeições</th>
-        <th style="width: 25%;">Ações</th>
+            <th style="width: 20%;">Obra</th>
+            <th style="width: 20%;">Gestor</th>
+            <th style="width: 20%;">Quantidade de refeições</th>
+            <th style="width: 20%;">Estado</th>
+            <th style="width: 20%;">Ações</th>
         </tr>
     </thead>
     <tbody>
-        @for (order of paginatedOrders; track order){
-        <tr>
-        <td>{{ order.obra }}</td>
-        <td>{{ order.gestor }}</td>
-        <td>{{ order.qtd_Marmitas }}</td>
-        <td> Ações </td>
-        </tr>
-        }
 
 
+            @for (order of orders$.source.value; track order.id) {
+                <tr>
+                    <td>{{ order.obra }}</td>
+                    <td>{{ order.gestor }}</td>
+                    <td>{{ order.qtd_Marmitas }}</td>
+                    <td>{{ order.status }}</td>
+                    <td>Ações</td>
+                </tr>
+            }
+        
     </tbody>
     <tfoot style="width: 100%;">
         <tr>
-        <td colspan="4" style="text-align: center; " >
-            <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
-            <span>Página {{currentPage}}</span>
-            <button (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= orders.length">Próxima</button>
-        </td>
+            <td colspan="5" style="text-align: center;">
+                <button (click)="prevPage()">Anterior</button>
+                <span>Página</span>
+                <button (click)="nextPage()">Próxima</button>
+            </td>
         </tr>
     </tfoot>
 </table>
-
-
 
 
 

@@ -1,1 +1,22 @@
-<p>filter-modal works!</p>
+<div class="Modal-Filter">
+    <form [formGroup]="FilterForm" (ngSubmit)="handleFilter()"></form>
+        <div> 
+            <input type="text" id="obra" placeholder="Nome da obra"
+             formControlName="obra">
+        </div>
+        <div> 
+            <input type="text" id="gestor" placeholder="Nome do gestor"
+             formControlName="gestor">
+        </div>
+        <div> 
+            <input type="number" id="maiorQue" placeholder="Numero de marmitas maior que:"
+             formControlName="maiorQue">
+        </div>
+        <div> 
+            <input type="number" id="menorQue" placeholder="Numero de marmitas menor que:"
+             formControlName="menorQue">
+        </div>
+        <div>
+            <input type="submit"> Filtrar 
+        </div>
+</div>

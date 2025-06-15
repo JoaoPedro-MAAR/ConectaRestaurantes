@@ -19,4 +19,15 @@ interface Solicitation {
 }
 
 
-export type { Pedido, Solicitation }
+interface PaginatedResponse<T>{
+    first: number;
+    prev: number | null;
+    next: number | null;
+    last: number | null;
+    pages: number;
+    items: number;
+    data: T[]
+}
+
+
+export type { Pedido, Solicitation, StatusSolicitation , PaginatedResponse}

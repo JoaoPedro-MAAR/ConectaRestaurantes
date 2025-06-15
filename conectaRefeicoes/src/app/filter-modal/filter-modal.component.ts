@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
 
 @Component({
@@ -9,6 +9,20 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
 })
 export class FilterModalComponent {
 
+private FilterFormBuilder = inject(FormBuilder)
 
-  
+FilterForm = this.FilterFormBuilder.group({
+  obra: [""],
+  gestor: [""],
+  maiorQue: [0],
+  menorQue: [100],
+  status:[""]
+})
+  handleFilter(): void{
+    console.log(this.FilterForm.value)
+  }
+  handleLimpar():void{
+    console.log(this.FilterForm.value)
+  }
+
 }
