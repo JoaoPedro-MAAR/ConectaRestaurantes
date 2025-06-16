@@ -18,7 +18,7 @@ interface Solicitation {
     gestor: string;
     status: StatusSolicitation; 
     qtd_Marmitas: number;
-    pedidos: Pedido[];
+    pedidos?: Pedido[];
 }
 
 
