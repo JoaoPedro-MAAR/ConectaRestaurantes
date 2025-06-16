@@ -1,5 +1,8 @@
 
-type StatusSolicitation = "Recebido" | "Cancelado" | "Em preparo" | "Enviado" | "Finalizado"
+type StatusSolicitation = (
+    "Recebido" | "Cancelado" |
+     "Em preparo" | "Enviado" | 
+     "Finalizado")
 
 
 

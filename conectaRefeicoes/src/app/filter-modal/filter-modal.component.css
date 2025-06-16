@@ -1,51 +1,90 @@
+/* Estilo para o modal de filtro */
 .Modal-Filter {
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 16px rgba(0,0,0,0.12);
-  padding: 32px 24px;
-  max-width: 340px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: fadeIn 0.3s ease;
 }
 
-.Modal-Filter form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
+/* Overlay escuro por trás do modal */
 
-.Modal-Filter input[type="text"],
-.Modal-Filter input[type="number"] {
-  width: 100%;
-  padding: 10px 14px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  font-size: 1em;
-  background: #f7fafd;
-  transition: border 0.2s;
-}
 
-.Modal-Filter input[type="text"]:focus,
-.Modal-Filter input[type="number"]:focus {
-  border-color: #1976d2;
-  outline: none;
-}
-
-.Modal-Filter input[type="submit"] {
-  background: #1976d2;
-  color: #fff;
+/* Botão de fechar */
+.btn-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
   border: none;
-  padding: 10px 0;
-  border-radius: 5px;
-  font-size: 1em;
-  font-weight: 600;
+  font-size: 18px;
   cursor: pointer;
-  transition: background 0.2s;
-  width: 100%;
+  padding: 5px 10px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
 }
 
-.Modal-Filter input[type="submit"]:hover {
-  background: #125ca1;
+
+/* Estilo para os grupos de formulário */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #ffd500;
+  color: white;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+
+.Modal-Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+  animation: fadeInBg 0.3s ease;
 }

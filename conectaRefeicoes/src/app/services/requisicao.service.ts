@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormPedido } from '../model/pedido.interface';
 import { map, tap } from 'rxjs/operators';
@@ -51,33 +51,51 @@ export class RequisicaoService {
     );
   }
 
-  fetchWithFilter(
-        filtros: {obra?: string; gestor?: string; 
-        maiorQue? :number, menorQue?:number,
-        estado?:StatusSolicitation}){
-          let parametros_url = []
-          if (filtros.obra){
-            parametros_url.push(`obra_like=${filtros.obra}`)
-          }
-          if (filtros.gestor){
-            parametros_url.push(`gestor_like=${filtros.gestor}`)
-          }
-          if (filtros.estado){
-            parametros_url.push(`status=${filtros.estado}`)
-          } 
-          const url_com_params = `${this.apiUrl}?${parametros_url.join('&')}`        
-          return this.http.get<Solicitation[]>(url_com_params).pipe(
-              map(orders => orders.filter(o =>
-                (filtros.maiorQue == null || o.qtd_Marmitas > filtros.maiorQue) &&
-                (filtros.menorQue == null || o.qtd_Marmitas < filtros.menorQue)
-              )),
-              tap(filteredOrders => this.ordersSubject.next(filteredOrders))
-            );
-        }
+fetchWithFilterPaginated(
+  filtros: {
+    obra?: string;
+    gestor?: string;
+    maiorQue?: number;
+    menorQue?: number;
+    estado?: StatusSolicitation;
+  }
+): Observable<PaginatedResponse<Solicitation>> {
+
+  let params = new HttpParams().set('_page', '1');
+  if (filtros.obra) {
+    params = params.append('obra_like', filtros.obra);
+  }
+  if (filtros.gestor) {
+    params = params.append('gestor_like', filtros.gestor);
+  }
+  if (filtros.estado) {
+    params = params.append('status', filtros.estado);
+  }
+
+  return this.http.get<PaginatedResponse<Solicitation>>(this.apiUrl, { params }).pipe(
+
+    map(response => {
+
+      const filteredData = response.data.filter(o =>
+        (filtros.maiorQue == null || o.qtd_Marmitas > filtros.maiorQue) &&
+        (filtros.menorQue == null || o.qtd_Marmitas < filtros.menorQue)
+      );
+      return {
+        ...response,
+        data: filteredData 
+      };
+    }),
+   
+    tap(responseWithFilteredData => {
+
+        this.ordersSubject.next(responseWithFilteredData.data);
+    })
+  );
+}
 
 
 fetchPaginated(page: number): Observable<PaginatedResponse<Solicitation>> {
-  this.currentPage = page;
+  this.currentPage = page; 
   return this.http.get<PaginatedResponse<Solicitation>>(
     `${this.apiUrl}?_page=${page}`
   ).pipe(
