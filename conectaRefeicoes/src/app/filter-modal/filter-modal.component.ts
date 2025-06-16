@@ -10,7 +10,6 @@ import { StatusSolicitation } from '../../types';
 export class FilterModalComponent {
   private formBuilder = inject(FormBuilder);
 
-
   isOpen = input.required<boolean>();
 
   @Output() closeModal = new EventEmitter<void>();

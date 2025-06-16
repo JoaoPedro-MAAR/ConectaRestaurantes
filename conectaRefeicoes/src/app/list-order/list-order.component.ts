@@ -13,7 +13,9 @@ import {FilterModalComponent } from '../filter-modal/filter-modal.component'
   standalone: true,
 })
 export class ListOrderComponent {
-    title = 'Listagem';
+
+      title = 'Listagem';
+
       total_pages!: number;
       total_itens!: number;
       current_page: number;

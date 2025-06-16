@@ -1,6 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { FormPedido } from '../model/pedido.interface';
+
 import { map, tap } from 'rxjs/operators';
 import { Solicitation, StatusSolicitation, PaginatedResponse } from '../../types';
 
@@ -13,6 +15,8 @@ export class RequisicaoService {
   private http = inject(HttpClient);
   private ordersSubject = new BehaviorSubject<Solicitation[]>([])
   orders$ = this.ordersSubject.asObservable()
+  private currentPage: number = 1;
+
 
 
 
@@ -21,6 +25,26 @@ export class RequisicaoService {
 
   getAll(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
+  }
+
+  postOrder(order: FormPedido) {
+    this.http.post<FormPedido>(this.apiUrl, order).subscribe({
+      next: () => {
+        console.log('Order posted successfully');
+        this.fetchPaginated(this.currentPage).subscribe(); 
+      },
+      error: (error) => {
+        console.error('Error posting order:', error);
+      }
+    });
+  }
+
+  getOrderById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  }
+
+  getOrdersChanged(): Observable<Solicitation[]> {
+    return this.ordersSubject.asObservable();
   }
 
   fetchAll(): Observable<Solicitation[]> {
@@ -73,6 +97,8 @@ fetchWithFilterPaginated(
 
 
 fetchPaginated(page: number): Observable<PaginatedResponse<Solicitation>> {
+
+  this.currentPage = page; 
   return this.http.get<PaginatedResponse<Solicitation>>(
     `${this.apiUrl}?_page=${page}`
   ).pipe(
