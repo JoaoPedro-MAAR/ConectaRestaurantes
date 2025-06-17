@@ -80,19 +80,6 @@ fetchWithFilterPaginated(
     params = params.append('qtd_Marmitas_lte', filtros.menorQue.toString());
   }
   return this.http.get<PaginatedResponse<Solicitation>>(this.apiUrl, { params }).pipe(
-
-    map(response => {
-      console.log(response)
-      const filteredData = response.data.filter(o =>
-        (filtros.maiorQue == null || o.qtd_Marmitas > filtros.maiorQue) &&
-        (filtros.menorQue == null || o.qtd_Marmitas < filtros.menorQue)
-      );
-      return {
-        ...response,
-        data: filteredData 
-      };
-    }),
-   
     tap(responseWithFilteredData => {
 
         this.ordersSubject.next(responseWithFilteredData.data);
