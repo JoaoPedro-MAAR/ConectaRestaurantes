@@ -31,21 +31,19 @@ export class ListOrderComponent {
       this.total_itens=response.items
       this.total_pages = response.pages
       });
-      console.log(this.orders$) 
 
     }
 
     nextPage(){
       if (this.current_page != this.total_pages){       
       this.current_page++
-      if(this.currentFilters){
-            this.currentFilters['_page']= this.current_page
-            this.requisicaoService.fetchWithFilterPaginated(this.currentFilters).subscribe();
-            delete this.currentFilters['_page']
-      }
-      else{
-        this.requisicaoService.fetchPaginated(this.current_page).subscribe();
-      }
+        if(this.currentFilters){
+            let pre_url = this.currentFilterToURLString(this.currentFilters)
+            this.requisicaoService.fetchPaginatedwithURL(pre_url,this.current_page).subscribe()
+        }
+        else{
+          this.requisicaoService.fetchPaginated(this.current_page).subscribe()
+        }
       
 
     }
@@ -54,16 +52,21 @@ export class ListOrderComponent {
       if (this.current_page != 1){   
         this.current_page--  
         if(this.currentFilters){
-            this.currentFilters['_page']= this.current_page
-            this.requisicaoService.fetchWithFilterPaginated(this.currentFilters).subscribe();
-            delete this.currentFilters['_page']
+            let pre_url = this.currentFilterToURLString(this.currentFilters)
+            this.requisicaoService.fetchPaginatedwithURL(pre_url,this.current_page).subscribe()
         }
         else{
-          this.requisicaoService.fetchPaginated(this.current_page).subscribe();
+          this.requisicaoService.fetchPaginated(this.current_page).subscribe()
         }
       
 
     }
+    }
+
+    private currentFilterToURLString(filters:any){
+      return Object.entries(filters)
+        .map(([key, value]) => `${key}=${value}`)
+        .join('&');
     }
 
     getCurrentOrders(){
@@ -77,10 +80,12 @@ export class ListOrderComponent {
     handleFilterApplied(filters: any): void {
     this.current_page = 1
     this.currentFilters = filters
-    this.currentFilters[`_page`] = this.current_page
-    this.requisicaoService.fetchWithFilterPaginated(this.currentFilters).subscribe(); 
+    this.requisicaoService.fetchWithFilterPaginated(this.currentFilters).subscribe(response => { 
+      this.total_itens=response.items
+      this.total_pages = response.pages
+      }); 
     this.isFilterOpen.set(false); 
-    delete this.currentFilters['_page']
+
 
   }
   }    

@@ -60,15 +60,10 @@ fetchWithFilterPaginated(
     maiorQue?: number;
     menorQue?: number;
     estado?: StatusSolicitation;
-    page?:number;
   }
 ): Observable<PaginatedResponse<Solicitation>> {
-  let params = new HttpParams()
-  if (filtros.page == null) {
-    params = params.append("_page", "1");
-  } else {
-    params = params.append("_page", filtros.page.toString());
-  }
+  let params = new HttpParams().set('_page', '1');
+
   if (filtros.obra) {
     params = params.append('obra_like', filtros.obra);
   }
@@ -78,11 +73,10 @@ fetchWithFilterPaginated(
   if (filtros.estado) {
     params = params.append('status', filtros.estado);
   }
-
   return this.http.get<PaginatedResponse<Solicitation>>(this.apiUrl, { params }).pipe(
 
     map(response => {
-
+      console.log(response)
       const filteredData = response.data.filter(o =>
         (filtros.maiorQue == null || o.qtd_Marmitas > filtros.maiorQue) &&
         (filtros.menorQue == null || o.qtd_Marmitas < filtros.menorQue)
@@ -111,6 +105,17 @@ fetchPaginated(page: number): Observable<PaginatedResponse<Solicitation>> {
   );
 }
 
+
+fetchPaginatedwithURL(url: string, page: number): Observable<PaginatedResponse<Solicitation>> {
+
+  this.currentPage = page; 
+  return this.http.get<PaginatedResponse<Solicitation>>(
+    `${this.apiUrl}?_page=${page}&${url}`
+  ).pipe(
+    tap(item => this.ordersSubject.next(item.data))
+  );
+}
+
 getAllOrdenado(orderBy: string, order: 'asc' | 'desc'): Observable<Solicitation[]> {
   return this.http.get<Solicitation[]>(
     `${this.apiUrl}?_sort=${orderBy}&_order=${order}`
@@ -118,20 +123,7 @@ getAllOrdenado(orderBy: string, order: 'asc' | 'desc'): Observable<Solicitation[
 }
 
 
-getAllWithFilter(filter: { obra?: string; gestor?: string; maiorQue?: number; menorQue?: number, status?: StatusSolicitation }): Observable<Solicitation[]> {
-  return this.http.get<Solicitation[]>(this.apiUrl).pipe(
-    map(solicitations =>
-      solicitations.filter(solicitacao => {
-        const matchObra = !filter.obra || solicitacao.obra.toLowerCase().includes(filter.obra.toLowerCase());
-        const matchGestor = !filter.gestor || solicitacao.gestor.toLowerCase().includes(filter.gestor.toLowerCase());
-        const matchMaior = filter.maiorQue == null || solicitacao.qtd_Marmitas > filter.maiorQue;
-        const matchMenor = filter.menorQue == null || solicitacao.qtd_Marmitas < filter.menorQue;
-        const matchStatus = !filter.status || solicitacao.status === filter.status;
-        return matchObra && matchGestor && matchMaior && matchMenor && matchStatus;
-      })
-    )
-  );
-}
+
   
 
 }
