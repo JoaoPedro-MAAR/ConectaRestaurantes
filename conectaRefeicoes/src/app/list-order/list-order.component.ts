@@ -15,7 +15,7 @@ import {FilterModalComponent } from '../filter-modal/filter-modal.component'
 export class ListOrderComponent {
 
       title = 'Listagem';
-
+      params: string[] = [];
       total_pages!: number;
       total_itens!: number;
       current_page: number;
@@ -38,14 +38,30 @@ export class ListOrderComponent {
     nextPage(){
       if (this.current_page != this.total_pages){       
       this.current_page++
-      this.requisicaoService.fetchPaginated(this.current_page).subscribe();
+      if(this.currentFilters){
+            this.currentFilters['_page']= this.current_page
+            this.requisicaoService.fetchWithFilterPaginated(this.currentFilters).subscribe();
+            delete this.currentFilters['_page']
+      }
+      else{
+        this.requisicaoService.fetchPaginated(this.current_page).subscribe();
+      }
+      
 
     }
     }
     prevPage(){
-      if (this.current_page != 1){      
-      this.current_page--
-      this.requisicaoService.fetchPaginated(this.current_page).subscribe();
+      if (this.current_page != 1){   
+        this.current_page--  
+        if(this.currentFilters){
+            this.currentFilters['_page']= this.current_page
+            this.requisicaoService.fetchWithFilterPaginated(this.currentFilters).subscribe();
+            delete this.currentFilters['_page']
+        }
+        else{
+          this.requisicaoService.fetchPaginated(this.current_page).subscribe();
+        }
+      
 
     }
     }
@@ -59,10 +75,12 @@ export class ListOrderComponent {
     }
 
     handleFilterApplied(filters: any): void {
-    console.log('Pai recebeu os filtros:', filters);
-    this.current_page = 1; // Sempre volta para a página 1 ao aplicar um novo filtro
-    this.currentFilters = filters; // Armazena os novos filtros
-    this.requisicaoService.fetchWithFilterPaginated(this.currentFilters).subscribe(); // Busca os dados com base nos novos filtros
-    this.isFilterOpen.set(false); // Fecha o modal
+    this.current_page = 1
+    this.currentFilters = filters
+    this.currentFilters[`_page`] = this.current_page
+    this.requisicaoService.fetchWithFilterPaginated(this.currentFilters).subscribe(); 
+    this.isFilterOpen.set(false); 
+    delete this.currentFilters['_page']
+
   }
-  }
+  }    

@@ -60,10 +60,15 @@ fetchWithFilterPaginated(
     maiorQue?: number;
     menorQue?: number;
     estado?: StatusSolicitation;
+    page?:number;
   }
 ): Observable<PaginatedResponse<Solicitation>> {
-
-  let params = new HttpParams().set('_page', '1');
+  let params = new HttpParams()
+  if (filtros.page == null) {
+    params = params.append("_page", "1");
+  } else {
+    params = params.append("_page", filtros.page.toString());
+  }
   if (filtros.obra) {
     params = params.append('obra_like', filtros.obra);
   }

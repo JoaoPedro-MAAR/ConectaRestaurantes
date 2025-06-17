@@ -32,17 +32,17 @@ export class FilterModalComponent {
   };
 
  handleFilter(): void {
-    // Apenas emite os valores do formulário. O pai decide o que fazer.
+
     this.filterApplied.emit(this.FilterForm.value);
   }
 
   handleLimpar(): void {
     this.FilterForm.reset(this.initialForm);
-    // Emite os valores limpos para o pai atualizar a lista.
+
     this.filterApplied.emit(this.initialForm);
   }
 
-  // Ao clicar no 'X', avisa o pai que quer fechar.
+ 
   requestClose(): void {
     this.closeModal.emit();
   }
