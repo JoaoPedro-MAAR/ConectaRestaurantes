@@ -19,14 +19,15 @@ export class FormComponentComponent {
   refeicaoForm = this.refeicaoFormBuilder.group({
       obra: [""],
       gestor: [""],
-      qtd_Marmitas: [0]
+      qtd_Marmitas: [0],
+      status:["Recebido"]
   })
 
+
   handleSubmit() {
-    console.log(this.refeicaoForm.value);
+
 
     const pedido = this.refeicaoForm.value;
-
     this.requisicaoService.postOrder(pedido as FormPedido);
 
   }

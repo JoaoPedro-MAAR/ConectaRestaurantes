@@ -28,6 +28,7 @@ export class RequisicaoService {
   }
 
   postOrder(order: FormPedido) {
+    console.log(order)
     this.http.post<FormPedido>(this.apiUrl, order).subscribe({
       next: () => {
         console.log('Order posted successfully');
@@ -55,6 +56,7 @@ export class RequisicaoService {
 
 fetchWithFilterPaginated(
   filtros: {
+    id?:string;
     obra?: string;
     gestor?: string;
     maiorQue?: number;
@@ -64,6 +66,10 @@ fetchWithFilterPaginated(
 ): Observable<PaginatedResponse<Solicitation>> {
   let params = new HttpParams().set('_page', '1');
 
+
+  if (filtros.id){
+    params = params.append('id', filtros.id);
+  }
   if (filtros.obra) {
     params = params.append('obra_like', filtros.obra);
   }

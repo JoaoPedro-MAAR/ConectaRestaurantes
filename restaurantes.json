@@ -1,211 +1,425 @@
 {
-  "restaurant_orders": [{
-    "id": 1,
-    "obra": "Restaurante Sabor Caseiro",
-    "gestor": "João Silva",
-    "qtd_Marmitas": 15,
+  "restaurant_orders": [
+  {
+    "id": "01",
+    "obra": "Projeto Sol Nascente",
+    "gestor": "André Costa",
+    "qtd_Marmitas": 25,
     "pedidos": [
-      { "id": 1, "matricula": 101, "pedido": "Vegetariana" },
-      { "id": 2, "matricula": 102, "pedido": "Tradicional" }
-    ]
+      {
+        "id": 101,
+        "matricula": 201,
+        "pedido": "Opção vegetariana"
+      }
+    ],
+    "status": "Recebido"
   },
   {
-    "id": 2,
-    "obra": "Delícias da Vó",
-    "gestor": "Maria Souza",
-    "qtd_Marmitas": 8,
-    "pedidos": [
-      { "id": 3, "matricula": 103, "pedido": "Vegana" }
-    ]
-  },
-  {
-    "id": 3,
-    "obra": "Comida Express",
-    "gestor": "Carlos Pereira",
-    "qtd_Marmitas": 20,
-    "pedidos": [
-      { "id": 4, "matricula": 104, "pedido": "Tradicional" },
-      { "id": 5, "matricula": 105, "pedido": "Vegetariana" }
-    ]
-  },
-  {
-    "id": 4,
-    "obra": "Bistrô do Chef",
-    "gestor": "Ana Lima",
-    "qtd_Marmitas": 12,
-    "pedidos": [
-      { "id": 6, "matricula": 106, "pedido": "Sem glúten" }
-    ]
-  },
-  {
-    "id": 5,
-    "obra": "Sabor & Arte",
-    "gestor": "Pedro Santos",
+    "id": "02",
+    "obra": "Construção do Futuro",
+    "gestor": "Carla Oliveira",
     "qtd_Marmitas": 18,
     "pedidos": [
-      { "id": 7, "matricula": 107, "pedido": "Tradicional" }
-    ]
+      {
+        "id": 102,
+        "matricula": 202,
+        "pedido": "Sem lactose"
+      }
+    ],
+    "status": "Em preparo"
   },
   {
-    "id": 6,
-    "obra": "Cantina da Praça",
-    "gestor": "Fernanda Alves",
-    "qtd_Marmitas": 10,
+    "id": "03",
+    "obra": "Reforma Urbana",
+    "gestor": "Diogo Fernandes",
+    "qtd_Marmitas": 30,
     "pedidos": [
-      { "id": 8, "matricula": 108, "pedido": "Vegetariana" }
-    ]
+      {
+        "id": 103,
+        "matricula": 203,
+        "pedido": "Dieta balanceada"
+      }
+    ],
+    "status": "Enviado"
   },
   {
-    "id": 7,
-    "obra": "Tempero Bom",
-    "gestor": "Lucas Rocha",
-    "qtd_Marmitas": 22,
-    "pedidos": [
-      { "id": 9, "matricula": 109, "pedido": "Vegana" }
-    ]
-  },
-  {
-    "id": 8,
-    "obra": "Prato Feito",
-    "gestor": "Juliana Costa",
-    "qtd_Marmitas": 9,
-    "pedidos": [
-      { "id": 10, "matricula": 110, "pedido": "Tradicional" }
-    ]
-  },
-  {
-    "id": 9,
-    "obra": "Refeição Rápida",
-    "gestor": "Marcos Souza",
-    "qtd_Marmitas": 16,
-    "pedidos": [
-      { "id": 11, "matricula": 111, "pedido": "Sem lactose" }
-    ]
-  },
-  {
-    "id": 10,
-    "obra": "Sabores do Sul",
-    "gestor": "Patrícia Dias",
-    "qtd_Marmitas": 14,
-    "pedidos": [
-      { "id": 12, "matricula": 112, "pedido": "Tradicional" }
-    ]
-  },
-  {
-    "id": 11,
-    "obra": "Comida Mineira",
-    "gestor": "Rafael Gomes",
-    "qtd_Marmitas": 11,
-    "pedidos": [
-      { "id": 13, "matricula": 113, "pedido": "Vegetariana" }
-    ]
-  },
-  {
-    "id": 12,
-    "obra": "Almoço Feliz",
-    "gestor": "Camila Martins",
-    "qtd_Marmitas": 13,
-    "pedidos": [
-      { "id": 14, "matricula": 114, "pedido": "Vegana" }
-    ]
-  },
-  {
-    "id": 13,
-    "obra": "Sabor da Terra",
-    "gestor": "Bruno Oliveira",
-    "qtd_Marmitas": 17,
-    "pedidos": [
-      { "id": 15, "matricula": 115, "pedido": "Tradicional" }
-    ]
-  },
-  {
-    "id": 14,
-    "obra": "Bom Paladar",
-    "gestor": "Renata Lima",
-    "qtd_Marmitas": 19,
-    "pedidos": [
-      { "id": 16, "matricula": 116, "pedido": "Sem glúten" }
-    ]
-  },
-  {
-    "id": 15,
-    "obra": "Caseirinho",
-    "gestor": "Eduardo Silva",
-    "qtd_Marmitas": 7,
-    "pedidos": [
-      { "id": 17, "matricula": 117, "pedido": "Vegetariana" }
-    ]
-  },
-  {
-    "id": 16,
-    "obra": "Delícias do Chef",
-    "gestor": "Isabela Souza",
-    "qtd_Marmitas": 21,
-    "pedidos": [
-      { "id": 18, "matricula": 118, "pedido": "Tradicional" }
-    ]
-  },
-  {
-    "id": 17,
-    "obra": "Comida de Mãe",
-    "gestor": "Thiago Pereira",
+    "id": "04",
+    "obra": "Espaço Verde",
+    "gestor": "Elisa Rodrigues",
     "qtd_Marmitas": 12,
     "pedidos": [
-      { "id": 19, "matricula": 119, "pedido": "Vegana" }
-    ]
+      {
+        "id": 104,
+        "matricula": 204,
+        "pedido": "Comida orgânica"
+      }
+    ],
+    "status": "Finalizado"
   },
   {
-    "id": 18,
-    "obra": "Sabor da Casa",
-    "gestor": "Larissa Alves",
-    "qtd_Marmitas": 15,
-    "pedidos": [
-      { "id": 20, "matricula": 120, "pedido": "Sem lactose" }
-    ]
-  },
-  {
-    "id": 19,
-    "obra": "Refeição Caseira",
-    "gestor": "Gabriel Costa",
-    "qtd_Marmitas": 10,
-    "pedidos": [
-      { "id": 21, "matricula": 121, "pedido": "Tradicional" }
-    ]
-  },
-  {
-    "id": 20,
-    "obra": "Prato Cheio",
-    "gestor": "Amanda Rocha",
-    "qtd_Marmitas": 18,
-    "pedidos": [
-      { "id": 22, "matricula": 122, "pedido": "Vegetariana" }
-    ]
-  },
-  {
-    "id": 21,
-    "obra": "Sabor Mineiro",
-    "gestor": "Vinícius Dias",
-    "qtd_Marmitas": 16,
-    "pedidos": [
-      { "id": 23, "matricula": 123, "pedido": "Vegana" }
-    ]
-  },
-  {
-    "id": 22,
+    "id": "05",
     "obra": "Comida Boa",
     "gestor": "Beatriz Santos",
     "qtd_Marmitas": 14,
     "pedidos": [
-      { "id": 24, "matricula": 124, "pedido": "Sem glúten" }
-    ]
+      {
+        "id": 24,
+        "matricula": 124,
+        "pedido": "Sem glúten"
+      }
+    ],
+    "status": "Recebido"
   },
   {
-    "id": 23,
-    "obra": "Almoço & Cia",
-    "gestor": "Rodrigo Lima",
+    "id": "06",
+    "obra": "Ponte da Esperança",
+    "gestor": "Fernando Lima",
+    "qtd_Marmitas": 22,
+    "pedidos": [
+      {
+        "id": 105,
+        "matricula": 205,
+        "pedido": "Opção sem sal"
+      }
+    ],
+    "status": "Em preparo"
+  },
+  {
+    "id": "07",
+    "obra": "Terminal Moderno",
+    "gestor": "Giovana Pereira",
+    "qtd_Marmitas": 16,
+    "pedidos": [
+      {
+        "id": 106,
+        "matricula": 206,
+        "pedido": "Refeição light"
+      }
+    ],
+    "status": "Cancelado"
+  },
+  {
+    "id": "08",
+    "obra": "Edifício Central",
+    "gestor": "Helena Souza",
+    "qtd_Marmitas": 28,
+    "pedidos": [
+      {
+        "id": 107,
+        "matricula": 207,
+        "pedido": "Vegano completo"
+      }
+    ],
+    "status": "Enviado"
+  },
+  {
+    "id": "09",
+    "obra": "Parque da Cidade",
+    "gestor": "Igor Santos",
+    "qtd_Marmitas": 10,
+    "pedidos": [
+      {
+        "id": 108,
+        "matricula": 208,
+        "pedido": "Sopa do dia"
+      }
+    ],
+    "status": "Finalizado"
+  },
+  {
+    "id": "10",
+    "obra": "Centro Comercial",
+    "gestor": "Juliana Almeida",
     "qtd_Marmitas": 20,
     "pedidos": [
-      { "id": 25, "matricula": 125, "pedido": "Tradicional" }
-    ]
+      {
+        "id": 109,
+        "matricula": 209,
+        "pedido": "Almoço executivo"
+      }
+    ],
+    "status": "Recebido"
+  },
+  {
+    "id": "11",
+    "obra": "Rodovia Nova",
+    "gestor": "Kleber Rocha",
+    "qtd_Marmitas": 35,
+    "pedidos": [
+      {
+        "id": 110,
+        "matricula": 210,
+        "pedido": "Opção proteica"
+      }
+    ],
+    "status": "Em preparo"
+  },
+  {
+    "id": "12",
+    "obra": "Complexo Residencial",
+    "gestor": "Larissa Gomes",
+    "qtd_Marmitas": 23,
+    "pedidos": [
+      {
+        "id": 111,
+        "matricula": 211,
+        "pedido": "Sem pimenta"
+      }
+    ],
+    "status": "Enviado"
+  },
+  {
+    "id": "13",
+    "obra": "Biblioteca Municipal",
+    "gestor": "Marcelo Neves",
+    "qtd_Marmitas": 15,
+    "pedidos": [
+      {
+        "id": 112,
+        "matricula": 212,
+        "pedido": "Fitness meal"
+      }
+    ],
+    "status": "Finalizado"
+  },
+  {
+    "id": "14",
+    "obra": "Hospital do Futuro",
+    "gestor": "Natalia Barbosa",
+    "qtd_Marmitas": 27,
+    "pedidos": [
+      {
+        "id": 113,
+        "matricula": 213,
+        "pedido": "Comida de conforto"
+      }
+    ],
+    "status": "Recebido"
+  },
+  {
+    "id": "15",
+    "obra": "Ginásio Esportivo",
+    "gestor": "Otávio Martins",
+    "qtd_Marmitas": 19,
+    "pedidos": [
+      {
+        "id": 114,
+        "matricula": 214,
+        "pedido": "Refeição para atletas"
+      }
+    ],
+    "status": "Em preparo"
+  },
+  {
+    "id": "16",
+    "obra": "Escola Modelo",
+    "gestor": "Patrícia Costa",
+    "qtd_Marmitas": 21,
+    "pedidos": [
+      {
+        "id": 115,
+        "matricula": 215,
+        "pedido": "Menu kids"
+      }
+    ],
+    "status": "Cancelado"
+  },
+  {
+    "id": "17",
+    "obra": "Centro Cultural",
+    "gestor": "Quiteria Dantas",
+    "qtd_Marmitas": 17,
+    "pedidos": [
+      {
+        "id": 116,
+        "matricula": 216,
+        "pedido": "Comida internacional"
+      }
+    ],
+    "status": "Enviado"
+  },
+  {
+    "id": "18",
+    "obra": "Praça Central",
+    "gestor": "Ricardo Santos",
+    "qtd_Marmitas": 13,
+    "pedidos": [
+      {
+        "id": 117,
+        "matricula": 217,
+        "pedido": "Snack saudável"
+      }
+    ],
+    "status": "Finalizado"
+  },
+  {
+    "id": "19",
+    "obra": "Shopping Urbano",
+    "gestor": "Silvia Mendes",
+    "qtd_Marmitas": 26,
+    "pedidos": [
+      {
+        "id": 118,
+        "matricula": 218,
+        "pedido": "Fast food saudável"
+      }
+    ],
+    "status": "Recebido"
+  },
+  {
+    "id": "20",
+    "obra": "Museu Moderno",
+    "gestor": "Thiago Ribeiro",
+    "qtd_Marmitas": 11,
+    "pedidos": [
+      {
+        "id": 119,
+        "matricula": 219,
+        "pedido": "Refeição gourmet"
+      }
+    ],
+    "status": "Em preparo"
+  },
+  {
+    "id": "21",
+    "obra": "Polo Industrial",
+    "gestor": "Úrsula Teixeira",
+    "qtd_Marmitas": 29,
+    "pedidos": [
+      {
+        "id": 120,
+        "matricula": 220,
+        "pedido": "Culinária regional"
+      }
+    ],
+    "status": "Enviado"
+  },
+  {
+    "id": "22",
+    "obra": "Aqueduto Histórico",
+    "gestor": "Vanessa Pires",
+    "qtd_Marmitas": 9,
+    "pedidos": [
+      {
+        "id": 121,
+        "matricula": 221,
+        "pedido": "Prato do dia"
+      }
+    ],
+    "status": "Finalizado"
+  },
+  {
+    "id": "23",
+    "obra": "Mercado Municipal",
+    "gestor": "Wagner Castro",
+    "qtd_Marmitas": 24,
+    "pedidos": [
+      {
+        "id": 122,
+        "matricula": 222,
+        "pedido": "Sem cebola"
+      }
+    ],
+    "status": "Recebido"
+  },
+  {
+    "id": "24",
+    "obra": "Reserva Ecológica",
+    "gestor": "Xênia Cruz",
+    "qtd_Marmitas": 7,
+    "pedidos": [
+      {
+        "id": 123,
+        "matricula": 223,
+        "pedido": "Opção crua"
+      }
+    ],
+    "status": "Em preparo"
+  },
+  {
+    "id": "25",
+    "obra": "Galeria de Arte",
+    "gestor": "Yasmin Lima",
+    "qtd_Marmitas": 18,
+    "pedidos": [
+      {
+        "id": 124,
+        "matricula": 224,
+        "pedido": "Comida típica"
+      }
+    ],
+    "status": "Cancelado"
+  },
+  {
+    "id": "26",
+    "obra": "Centro Tecnológico",
+    "gestor": "Zeca Rodrigues",
+    "qtd_Marmitas": 32,
+    "pedidos": [
+      {
+        "id": 125,
+        "matricula": 225,
+        "pedido": "Menu degustação"
+      }
+    ],
+    "status": "Enviado"
+  },
+  {
+    "id": "27",
+    "obra": "Bairro Planejado",
+    "gestor": "Aline Ferreira",
+    "qtd_Marmitas": 20,
+    "pedidos": [
+      {
+        "id": 126,
+        "matricula": 226,
+        "pedido": "Receita da vovó"
+      }
+    ],
+    "status": "Finalizado"
+  },
+  {
+    "id": "28",
+    "obra": "Fazenda Modelo",
+    "gestor": "Bruno Medeiros",
+    "qtd_Marmitas": 15,
+    "pedidos": [
+      {
+        "id": 127,
+        "matricula": 227,
+        "pedido": "Sem carne"
+      }
+    ],
+    "status": "Recebido"
+  },
+  {
+    "id": "29",
+    "obra": "Porto Fluvial",
+    "gestor": "Cintia Alves",
+    "qtd_Marmitas": 28,
+    "pedidos": [
+      {
+        "id": 128,
+        "matricula": 228,
+        "pedido": "Frutos do mar"
+      }
+    ],
+    "status": "Em preparo"
+  },
+  {
+    "id": "30",
+    "obra": "Usina de Energia",
+    "gestor": "Daniela Guimarães",
+    "qtd_Marmitas": 30,
+    "pedidos": [
+      {
+        "id": 129,
+        "matricula": 229,
+        "pedido": "Opção sem açúcar"
+      }
+    ],
+    "status": "Enviado"
   }
-]}
+
+  ]
+}

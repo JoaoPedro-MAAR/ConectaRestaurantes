@@ -3,6 +3,7 @@ table {
   border-collapse: separate;
   border-spacing: 9px; 
   width: 100%;
+  min-height: 500%;
 }
 
 th, td {

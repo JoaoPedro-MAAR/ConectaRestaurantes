@@ -16,6 +16,7 @@ export class FilterModalComponent {
   @Output() filterApplied = new EventEmitter<any>();
 
   FilterForm = this.formBuilder.group({
+    id: [""],
     obra: [""],
     gestor: [""],
     maiorQue: [null],
@@ -24,6 +25,7 @@ export class FilterModalComponent {
   });
 
   private initialForm = {
+    id:"",
     obra: "",
     gestor: "",
     maiorQue: null,

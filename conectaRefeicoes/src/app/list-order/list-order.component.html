@@ -26,11 +26,12 @@
 <table class="List_order_table">
     <thead class="table_header">
         <tr>
-            <th style="width: 20%;">Obra</th>
-            <th style="width: 20%;">Gestor</th>
-            <th style="width: 20%;">Quantidade de refeições</th>
-            <th style="width: 20%;">Estado</th>
-            <th style="width: 20%;">Ações</th>
+            <th style="width: 10%;"> ID</th>
+            <th style="width: 19%;">Obra</th>
+            <th style="width: 19%;">Gestor</th>
+            <th style="width: 14%;">Quantidade de refeições</th>
+            <th style="width: 16%;">Estado</th>
+            <th style="width: 10%;">Ações</th>
         </tr>
     </thead>
     <tbody>
@@ -38,6 +39,7 @@
 
             @for (order of orders$.source.value; track order.id) {
                 <tr>
+                    <td>{{order.id}}</td>
                     <td>{{ order.obra }}</td>
                     <td>{{ order.gestor }}</td>
                     <td>{{ order.qtd_Marmitas }}</td>
@@ -49,7 +51,7 @@
     </tbody>
     <tfoot style="width: 100%;">
         <tr>
-            <td colspan="5" style="text-align: center;">
+            <td colspan="6" style="text-align: center;">
                 <button (click)="prevPage()">Anterior</button>
                 <span>Página {{ this.current_page }} de {{this.total_pages}} </span>
                 <button (click)="nextPage()">Próxima</button>
