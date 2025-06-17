@@ -73,6 +73,12 @@ fetchWithFilterPaginated(
   if (filtros.estado) {
     params = params.append('status', filtros.estado);
   }
+  if (filtros.maiorQue != null) {
+    params = params.append('qtd_Marmitas_gte', filtros.maiorQue.toString());
+  }
+  if (filtros.menorQue != null) {
+    params = params.append('qtd_Marmitas_lte', filtros.menorQue.toString());
+  }
   return this.http.get<PaginatedResponse<Solicitation>>(this.apiUrl, { params }).pipe(
 
     map(response => {
