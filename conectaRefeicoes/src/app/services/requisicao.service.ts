@@ -61,13 +61,11 @@ fetchWithFilterPaginated(
     gestor?: string;
     maiorQue?: number;
     menorQue?: number;
-    estado?: StatusSolicitation;
+    status?: StatusSolicitation;
   },
   page:number=1
 ): Observable<PaginatedResponse<Solicitation>> {
   let params = new HttpParams().set('_page', page);
-
-
   if (filtros.id){
     params = params.append('id', filtros.id);
   }
@@ -77,8 +75,8 @@ fetchWithFilterPaginated(
   if (filtros.gestor) {
     params = params.append('gestor_like', filtros.gestor);
   }
-  if (filtros.estado) {
-    params = params.append('status', filtros.estado);
+  if (filtros.status) {
+    params = params.append('status', filtros.status);
   }
   if (filtros.maiorQue != null) {
     params = params.append('qtd_Marmitas_gte', filtros.maiorQue.toString());

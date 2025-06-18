@@ -38,7 +38,6 @@ export class ListOrderComponent {
       if (this.current_page != this.total_pages){       
       this.current_page++
         if(this.currentFilters){
-            // this.requisicaoService.fetchPaginatedwithURL(pre_url,this.current_page).subscribe()
             this.requisicaoService.fetchWithFilterPaginated(this.currentFilters,this.current_page).subscribe()
         }
         else{
