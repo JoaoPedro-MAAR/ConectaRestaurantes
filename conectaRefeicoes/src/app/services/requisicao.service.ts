@@ -62,9 +62,10 @@ fetchWithFilterPaginated(
     maiorQue?: number;
     menorQue?: number;
     estado?: StatusSolicitation;
-  }
+  },
+  page:number=1
 ): Observable<PaginatedResponse<Solicitation>> {
-  let params = new HttpParams().set('_page', '1');
+  let params = new HttpParams().set('_page', page);
 
 
   if (filtros.id){
