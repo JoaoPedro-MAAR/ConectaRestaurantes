@@ -1,0 +1,18 @@
+
+.order-list{
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+.Page_title{
+  font-size: 50px;
+  
+}
+
+.Presentation{
+  border-bottom: solid black;
+  margin-bottom: 50px;
+  
+}

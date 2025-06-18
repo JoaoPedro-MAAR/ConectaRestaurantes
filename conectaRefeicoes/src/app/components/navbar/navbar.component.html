@@ -1,4 +1,4 @@
-<div class="sidebar-container">
+<div class="sidebar-container bota-font">
   <div class="sidebar-header">
     Conecta
     <br>
@@ -7,32 +7,32 @@
   <nav class="sidebar-nav">
     <ul>
       <li>
-        <a routerLink="/home" routerLinkActive="active">
+        <a [routerLink]="['']" routerLinkActive="active">
           <span class="fas fa-home"></span> Home
         </a>
       </li>
       <li>
-        <a routerLink="/pedidos" routerLinkActive="active">
+        <a [routerLink]="['/list']" routerLinkActive="active">
           <span class="fa-regular fa-clipboard"></span> Gerenciar cardápio
         </a>
       </li>
       <li>
-        <a routerLink="/adicionar" routerLinkActive="active">
+        <a [routerLink]="['/list']" routerLinkActive="active">
           <span class="fa-solid fa-utensils"></span> Gerenciar pedidos
         </a>
       </li>
       <li>
-        <a routerLink="/adicionar" routerLinkActive="active">
+        <a [routerLink]="['/list']" routerLinkActive="active">
           <span class="fa-solid fa-file-export"></span> Exportar dados
         </a>
       </li>
       <li>
-        <a routerLink="/sobre" routerLinkActive="active">
+        <a [routerLink]="['/sobre']" routerLinkActive="active">
           <span class="fa-solid fa-chart-simple"></span> Relatório
         </a>
       </li>
       <li>
-        <a routerLink="/sobre" routerLinkActive="active">
+        <a routerLink="['/sobre']" routerLinkActive="active">
           <span class="fa-regular fa-user"></span> Autenticação e atendimento presencial
         </a>
     </ul>
@@ -46,6 +46,6 @@
   </div>
 </div>
 
-<div class="headerDiv">
-  <p>Landing page</p>
+<div class="headerDiv bota-font">
+  <p style="margin-left: 20px;">Landing page</p>
 </div>

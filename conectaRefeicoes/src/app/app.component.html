@@ -1,32 +1,8 @@
 <app-navbar></app-navbar>
 
-<div class="conteudo">
+<div class="conteudo bota-font">
     <main>
-        <create-pedido-form />
-        <!-- <div class="Presentation">
-            <h1 class="Page_title">Seja bem-vindo ao Conecta Restaurantes</h1>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit error nulla soluta itaque labore totam illo dicta vero facilis, repudiandae asperiores, exercitationem eaque assumenda voluptate tenetur nesciunt. Laboriosam, vel commodi?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore et quidem officia iusto provident deleniti voluptate, voluptatibus repudiandae laudantium saepe veritatis! Autem consequuntur suscipit nemo excepturi amet ut placeat aliquid. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Officia nihil sequi, quisquam aperiam sed laborum consequatur ratione saepe ad est? Pariatur, aperiam quidem? Animi impedit et alias, vitae nesciunt tempore.</p>
-        </div>
-        <div>
-            <h1 style="text-align: center;">Ultimos pedidos</h1>
-            <div class="order-list">
-                @for (card of List_of_card_order.slice(-3); track card) {
-                    <app-order-card 
-                    [obra]="card.obra" 
-                    [gestor]="card.gestor" 
-                    [qtdRefeicoes]="card.qtdRefeicoes">
-                    </app-order-card>
-                }
-            </div>
-        </div> -->
-
-        <app-list-order></app-list-order>
-
-        <!-- <app-filter-modal
-        [isOpen]="false"
-        [function_filter]="ola()"></app-filter-modal> -->
-
+        <router-outlet></router-outlet>
 </main>
 
 </div>
-<router-outlet></router-outlet>
