@@ -10,7 +10,7 @@ import {FilterModalComponent} from './filter-modal/filter-modal.component'
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavbarComponent, OrderCardComponent, FormComponentComponent, ListOrderComponent, FilterModalComponent],
+  imports: [RouterOutlet, NavbarComponent, OrderCardComponent, FormComponentComponent, ListOrderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

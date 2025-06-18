@@ -7,7 +7,7 @@ import {FilterModalComponent } from '../filter-modal/filter-modal.component'
 
 @Component({
   selector: 'app-list-order',
-  imports: [AsyncPipe,FilterModalComponent ],
+  imports: [FilterModalComponent ],
   templateUrl: './list-order.component.html',
   styleUrl: './list-order.component.css',
   standalone: true,
