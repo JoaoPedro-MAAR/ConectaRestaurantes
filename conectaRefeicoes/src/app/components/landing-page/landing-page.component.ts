@@ -12,7 +12,7 @@ export class LandingPageComponent {
     List_of_card_order: any[] = [];
     constructor(private requisicaoService: RequisicaoService) {
       this.requisicaoService.getAll().subscribe((dados) => {
-        this.List_of_card_order = dados;
+        this.List_of_card_order = dados.content;
       });
     }  
   

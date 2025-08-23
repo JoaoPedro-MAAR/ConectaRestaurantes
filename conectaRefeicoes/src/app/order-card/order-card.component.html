@@ -2,5 +2,9 @@
             <h3>Construtora: {{ obra() }}</h3>
             <p>Solicitante: {{ gestor() }}</p>
             <p>Numero de Marmitas: {{ qtdRefeicoes()}}</p>
-            <p class="buttons-container-from-order-card-container" > <button class="imprimir-button">Imprimir</button> <button class="state-button">Estado</button> <button class="check-button">Verificar</button></p>
+            <p class="buttons-container-from-order-card-container" > 
+                <button class="imprimir-button">Imprimir</button> 
+                <button class="state-button">Estado</button> 
+                <button [routerLink]="['/order', id()]" class="check-button">Verificar</button>
+            </p>
 </div>
