@@ -15,4 +15,7 @@
     <div> 
         <button type="submit" class="submit-btn"> Cadastrar </button> 
     </div>
+    @if (enviado()) {
+        <div class="success-message">Pedido enviado com sucesso!</div>
+    } 
 </form>
