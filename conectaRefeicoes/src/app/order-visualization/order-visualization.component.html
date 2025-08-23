@@ -1,0 +1,33 @@
+@if (order$ | async; as order) {
+  <div class="order-details-card">
+    <h2>Detalhes do Pedido #{{ order.id }}</h2>
+    
+    <div class="details-grid">
+      <div class="detail-item">
+        <span class="label">Obra:</span>
+        <span class="value">{{ order.obra }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="label">Gestor:</span>
+        <span class="value">{{ order.gestor }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="label">Quantidade de Marmitas:</span>
+        <span class="value">{{ order.qtd_Marmitas }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="label">Status:</span>
+        <span class="value status-badge">
+          {{ order.status }}
+        </span>
+      </div>
+    </div>
+
+    <button class="back-button" routerLink="/orders">Voltar para a Lista</button>
+  </div>
+} @else {
+  <p>Carregando detalhes do pedido...</p>
+}

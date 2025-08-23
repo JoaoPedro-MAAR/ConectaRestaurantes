@@ -26,11 +26,12 @@
 <table class="List_order_table">
     <thead class="table_header">
         <tr>
-            <th style="width: 10%;"> ID</th>
-            <th style="width: 19%;">Obra</th>
-            <th style="width: 19%;">Gestor</th>
-            <th style="width: 14%;">Quantidade de refeições</th>
-            <th style="width: 16%;">Estado</th>
+            <th style="width: 10%;text-align:center"> ID</th>
+            <th style="width: 19%;text-align:center">Obra</th>
+            <th style="width: 19%;text-align:center">Gestor</th>
+            <th style="width: 14%;text-align:center">Quantidade de refeições</th>
+            <th style="width: 16%;text-align:center">Estado</th>
+            <th style="width: 10%; text-align:center"> Ações </th>
         </tr>
     </thead>
     <tbody>
@@ -43,15 +44,28 @@
                     <td>{{ order.gestor }}</td>
                     <td>{{ order.qtd_Marmitas }}</td>
                     <td>{{ order.status }}</td>
+                    <td style="text-align: center;">
+                        <button [routerLink]="['/order', order.id]" class="action-button view-button" >
+                            <i class="fas fa-eye text-primary"></i> 
+
+                        </button>
+                        <button (click)="deleteOrder(order.id)" class="action-button delete-button">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </td>
                 </tr>
-            }
+            }@empty {
+    <tr>
+        <td colspan="6">Nenhum pedido encontrado.</td>
+    </tr>
+}
         
     </tbody>
     <tfoot style="width: 100%;">
         <tr>
             <td colspan="6" style="text-align: center;">
                 <button (click)="prevPage()">Anterior</button>
-                <span>Página {{ this.current_page }} de {{this.total_pages}} </span>
+                <span>Página {{ this.current_page + 1 }} de {{this.total_pages}} </span>
                 <button (click)="nextPage()">Próxima</button>
             </td>
         </tr>

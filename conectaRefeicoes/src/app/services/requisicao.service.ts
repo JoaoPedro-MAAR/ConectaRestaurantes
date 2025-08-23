@@ -11,20 +11,26 @@ import { Solicitation, StatusSolicitation, PaginatedResponse } from '../../types
 })
 
 export class RequisicaoService {
-  private apiUrl = 'http://localhost:3000/restaurant_orders';
+  private apiUrl = 'http://localhost:8081/order';
   private http = inject(HttpClient);
   private ordersSubject = new BehaviorSubject<Solicitation[]>([])
   orders$ = this.ordersSubject.asObservable()
   private currentPage: number = 1;
+  
 
 
 
 
   constructor() { }
 
+  delete(id:number){
+    console.log("Estou sendo chamado parte 3")
+    return this.http.delete<void>(`${this.apiUrl}/${id}`)  
+  }
+
 
   getAll(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+    return this.http.get<any>(`${this.apiUrl}/all`);
   }
 
   postOrder(order: FormPedido) {
@@ -49,7 +55,7 @@ export class RequisicaoService {
   }
 
   fetchAll(): Observable<Solicitation[]> {
-    return this.http.get<Solicitation[]>(this.apiUrl).pipe(
+    return this.http.get<Solicitation[]>(`${this.apiUrl}/all`).pipe(
       tap( orders => this.ordersSubject.next(orders))
     );
   }
@@ -63,9 +69,9 @@ fetchWithFilterPaginated(
     menorQue?: number;
     status?: StatusSolicitation;
   },
-  page:number=1
+  page:number=0
 ): Observable<PaginatedResponse<Solicitation>> {
-  let params = new HttpParams().set('_page', page);
+  let params = new HttpParams().set('page', page);
   if (filtros.id){
     params = params.append('id', filtros.id);
   }
@@ -76,7 +82,7 @@ fetchWithFilterPaginated(
     params = params.append('gestor_like', filtros.gestor);
   }
   if (filtros.status) {
-    params = params.append('status', filtros.status);
+    params = params.append('status', filtros.status.toUpperCase());
   }
   if (filtros.maiorQue != null) {
     params = params.append('qtd_Marmitas_gte', filtros.maiorQue.toString());
@@ -84,10 +90,10 @@ fetchWithFilterPaginated(
   if (filtros.menorQue != null) {
     params = params.append('qtd_Marmitas_lte', filtros.menorQue.toString());
   }
-  return this.http.get<PaginatedResponse<Solicitation>>(this.apiUrl, { params }).pipe(
+  return this.http.get<PaginatedResponse<Solicitation>>(`${this.apiUrl}/all`, { params }).pipe(
     tap(responseWithFilteredData => {
 
-        this.ordersSubject.next(responseWithFilteredData.data);
+        this.ordersSubject.next(responseWithFilteredData.content);
     })
   );
 }
@@ -97,9 +103,9 @@ fetchPaginated(page: number): Observable<PaginatedResponse<Solicitation>> {
 
   this.currentPage = page; 
   return this.http.get<PaginatedResponse<Solicitation>>(
-    `${this.apiUrl}?_page=${page}`
+    `${this.apiUrl}/all?page=${page}`
   ).pipe(
-    tap(item => this.ordersSubject.next(item.data))
+    tap(item => this.ordersSubject.next(item.content))
   );
 }
 
@@ -108,9 +114,9 @@ fetchPaginatedwithURL(url: string, page: number): Observable<PaginatedResponse<S
 
   this.currentPage = page; 
   return this.http.get<PaginatedResponse<Solicitation>>(
-    `${this.apiUrl}?_page=${page}&${url}`
+    `${this.apiUrl}?page=${page}&${url}`
   ).pipe(
-    tap(item => this.ordersSubject.next(item.data))
+    tap(item => this.ordersSubject.next(item.content))
   );
 }
 
@@ -118,6 +124,11 @@ getAllOrdenado(orderBy: string, order: 'asc' | 'desc'): Observable<Solicitation[
   return this.http.get<Solicitation[]>(
     `${this.apiUrl}?_sort=${orderBy}&_order=${order}`
   );
+}
+
+
+getByid(id:number){
+  return this.http.get<Solicitation>(`${this.apiUrl}/${id}`)
 }
 
 

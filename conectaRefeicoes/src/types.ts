@@ -27,9 +27,9 @@ interface PaginatedResponse<T>{
     prev: number | null;
     next: number | null;
     last: number | null;
-    pages: number;
+    totalPages: number;
     items: number;
-    data: T[]
+    content: T[]
 }
 
 

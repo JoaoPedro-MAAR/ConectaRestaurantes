@@ -5,12 +5,16 @@ import { ListOrderComponent } from './list-order/list-order.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
 import { RegisterListPageComponent } from './components/register-list-page/register-list-page.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { OrderVisualizationComponent } from './order-visualization/order-visualization.component';
 
 export const routes: Routes = [
     {path: '', component: LandingPageComponent },
     {path:'register', component:FormComponentComponent },
     {path: 'orders', component:ListOrderComponent },
     {path:'list', component:RegisterListPageComponent},
-    {path:'**', component: NotFoundPageComponent}
+    { path: 'order/:id', component: OrderVisualizationComponent }, 
+    {path:'**', component: NotFoundPageComponent},
+
+
     
 ];

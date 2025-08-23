@@ -4,10 +4,11 @@ import { RequisicaoService } from '../services/requisicao.service';
 import { first, map, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import {FilterModalComponent } from '../filter-modal/filter-modal.component'
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-list-order',
-  imports: [FilterModalComponent ],
+  imports: [FilterModalComponent,RouterLink ],
   templateUrl: './list-order.component.html',
   styleUrl: './list-order.component.css',
   standalone: true,
@@ -25,17 +26,17 @@ export class ListOrderComponent {
       private currentFilters: any = {};
 
       constructor(private requisicaoService: RequisicaoService) {
-      this.current_page = 1
+      this.current_page = 0
       this.orders$ = this.requisicaoService.orders$
       this.requisicaoService.fetchPaginated(this.current_page).subscribe(response => { 
       this.total_itens=response.items
-      this.total_pages = response.pages
+      this.total_pages = response.totalPages
       });
 
     }
 
     nextPage(){
-      if (this.current_page != this.total_pages){       
+      if (this.current_page != this.total_pages -1 ){       
       this.current_page++
         if(this.currentFilters){
             this.requisicaoService.fetchWithFilterPaginated(this.currentFilters,this.current_page).subscribe()
@@ -48,7 +49,7 @@ export class ListOrderComponent {
     }
     }
     prevPage(){
-      if (this.current_page != 1){   
+      if (this.current_page != 0){   
         this.current_page--  
         if(this.currentFilters){
             this.requisicaoService.fetchWithFilterPaginated(this.currentFilters,this.current_page).subscribe()
@@ -61,11 +62,6 @@ export class ListOrderComponent {
     }
     }
 
-    private currentFilterToURLString(filters:any){
-      return Object.entries(filters)
-        .map(([key, value]) => `${key}=${value}`)
-        .join('&');
-    }
 
     getCurrentOrders(){
       return (this.orders$)
@@ -76,14 +72,32 @@ export class ListOrderComponent {
     }
 
     handleFilterApplied(filters: any): void {
-    this.current_page = 1
+    this.current_page = 0
     this.currentFilters = filters
     this.requisicaoService.fetchWithFilterPaginated(this.currentFilters).subscribe(response => { 
       this.total_itens=response.items
-      this.total_pages = response.pages
+      this.total_pages = response.totalPages
       }); 
     this.isFilterOpen.set(false); 
 
 
   }
+
+deleteOrder(id: number): void {
+        this.requisicaoService.delete(id).subscribe(() => {
+            console.log(`Pedido com ID ${id} deletado com sucesso!`);
+            
+            this.recarregarDados();
+
+})
+alert(`Pedido com ID ${id} foi deletado com sucesso!`);
+}
+
+private recarregarDados(): void {
+    if (Object.keys(this.currentFilters).length > 0) {
+        this.requisicaoService.fetchWithFilterPaginated(this.currentFilters, this.current_page).subscribe();
+    } else {
+        this.requisicaoService.fetchPaginated(this.current_page).subscribe();
+    }
+}
   }    
