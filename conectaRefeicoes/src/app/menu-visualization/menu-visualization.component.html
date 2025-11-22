@@ -1,0 +1,47 @@
+<div class="form-wrapper">
+  <form [formGroup]="menuForm">
+    <h1> Criação de Cardápio </h1>
+    <input id="id" formControlName="id" type="hidden">
+    
+    <div class="form-group">
+      <label for="nome">Nome do Cardapio:</label>
+      <input id="nome" formControlName="nome" type="text" placeholder="Ex: Frango Grelhado">
+      <label for="description">Descrição do Cardapio:</label>
+      <input id="description" formControlName="description" type="text" placeholder="Ex: Cardapio de sexta feira">
+    </div>
+
+    <div class="form-group position-relative">
+      <label>Ingredientes:</label>
+      
+      <input 
+        #inputSearch
+        type="text" 
+        placeholder="Digite para buscar (ex: Arroz)..." 
+        (input)="onSearch($event)"
+        (blur)="showDropdown = false" 
+        autocomplete="off"
+      >
+
+      <div class="tag-container">
+        <div *ngFor="let item of menuForm.controls.items.value; let i = index" class="tag">
+          <span>{{ item.name }}</span>
+          <span class="remove-btn" (click)="removeItem(i)">&times;</span>
+        </div>
+      </div>
+
+      <ul *ngIf="showDropdown && filteredItems.length > 0" class="dropdown-list">
+        <li 
+          *ngFor="let option of filteredItems" 
+          (mousedown)="selectItem(option, inputSearch)"
+        >
+          {{ option.name }}
+        </li>
+      </ul>
+    </div>
+
+    <div class="button-group">
+      <input type="submit" value="Salvar" (click)="saveMenu()"> 
+      <input type="button" value="Limpar" (click)="clearForm()"> 
+    </div>
+  </form>
+</div>
