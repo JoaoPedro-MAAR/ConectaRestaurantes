@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { BaseService, baseUrl } from '../InterfaceService';
 import { Menu } from './model';
+import { Observable, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,6 +24,19 @@ export class MenuService implements BaseService<Menu> {
 
   update(id: number, object: Menu) {
     return this.http.put<Menu>(`${this.apiUrl}/${id}`, object);
+  }
+
+  getPaginated(page: number = 0, size: number = 10): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    return this.http.get<any>(this.apiUrl, { params }).pipe(
+      tap(response => {
+        const lista = response.content
+        this.menuSubject.next(lista);
+      })
+    );
   }
 
   extractData(res: any): Menu[] | null {

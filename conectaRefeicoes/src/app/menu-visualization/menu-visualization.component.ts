@@ -6,6 +6,7 @@ import { MenuService } from '../services/menu/menu.service';
 import { ItemService } from '../services/itens/itens.service';
 import { Item } from '../services/itens/model';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-visualization',
@@ -18,6 +19,7 @@ export class MenuVisualizationComponent implements OnInit {
   private itemService = inject(ItemService);
   private route = inject(ActivatedRoute); 
   private originalMenuState: any = null;
+  private router = inject(Router)
 
   menuId: number | null = null;
   isEditMode: boolean = false; 
@@ -121,6 +123,7 @@ export class MenuVisualizationComponent implements OnInit {
         error: (err) => alert('Erro ao criar.')
       });
     }
+    this.router.navigate(['/menu'])
   }
 
 clearForm(): void {

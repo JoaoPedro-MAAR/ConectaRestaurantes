@@ -15,8 +15,9 @@ export const routes: Routes = [
     {path: 'orders', component:ListOrderComponent },
     {path:'list', component:RegisterListPageComponent},
     { path: 'order/:id', component: OrderVisualizationComponent }, 
-    {path: `menu`, component: MenuVisualizationComponent},
+    {path: `menu`, component: MenuListPageComponent},
     {path : "menu/:id", component: MenuVisualizationComponent},
+    {path: 'menu/new', component: MenuVisualizationComponent},
     {path:'**', component: NotFoundPageComponent},
 
 

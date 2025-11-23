@@ -1,1 +1,88 @@
-<p>menu-list-page works!</p>
+<div class="list-container">
+  
+  <div class="header-actions">
+    <h2>{{ title }}</h2>
+    <a routerLink="/menus/new" class="btn-primary">
+      + Novo Cardápio
+    </a>
+  </div>
+
+  <div class="content-wrapper" *ngIf="menus$ | async as menus">
+
+    <table class="styled-table" *ngIf="menus.length > 0; else emptyState">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th class="col-actions">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let menu of menus">
+          <td>#{{ menu.id }}</td>
+          <td><strong>    {{ 
+      menu.nome.length > 50 
+      ? (menu.nome | slice:0:50) + '...' 
+      : menu.nome 
+    }}</strong></td>
+          <td><span title="{{ menu.descricao }}">
+    {{ 
+      menu.descricao.length > 50 
+      ? (menu.descricao | slice:0:50) + '...' 
+      : menu.descricao 
+    }}
+  </span></td>
+          <td class="col-actions">
+            <button class="btn-icon publish" title="Disponibilizar Cardápio">
+                <span class="material-symbols-outlined">
+                    publish
+                </span>           
+            </button>
+            <button [routerLink]="['/menu', menu.id]" class="btn-icon edit" title="Editar">
+            <span class="material-symbols-outlined">
+                edit
+            </span>
+            </button>
+            
+            <button (click)="deleteMenu(menu.id)" class="btn-icon delete" title="Excluir">
+            <span class="material-symbols-outlined">
+                delete
+            </span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <ng-template #emptyState>
+      <div class="empty-box">
+        <p>Nenhum cardápio encontrado.</p>
+        <small>Clique em "Novo Cardápio" para começar.</small>
+      </div>
+    </ng-template>
+
+  </div>
+
+  <div class="pagination-controls" *ngIf="total_itens > 0">
+    <button 
+      (click)="prevPage()" 
+      [disabled]="current_page === 0"
+      class="btn-page">
+      Anterior
+    </button>
+
+    <span class="page-info">
+      Página <strong>{{ current_page + 1 }}</strong> de <strong>{{ total_pages }}</strong> 
+      <span class="total-badge">(Total: {{ total_itens }})</span>
+    </span>
+
+    <button 
+      (click)="nextPage()" 
+      [disabled]="current_page >= total_pages - 1"
+      class="btn-page">
+      Próxima
+    </button>
+  </div>
+
+</div>

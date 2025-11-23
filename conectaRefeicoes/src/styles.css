@@ -9,3 +9,21 @@
     line-height: 1.6;
     color: #333;
 }
+
+
+.material-symbols-outlined-delete {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
+.material-symbols-outlined-publish {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
+
