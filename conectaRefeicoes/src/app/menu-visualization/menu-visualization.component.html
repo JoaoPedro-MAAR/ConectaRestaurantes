@@ -24,7 +24,7 @@
 
       <div class="tag-container">
         <div *ngFor="let item of menuForm.controls.items.value; let i = index" class="tag">
-          <span>{{ item.name }}</span>
+          <span>{{ item.nome }}</span>
           <span class="remove-btn" (click)="removeItem(i)">&times;</span>
         </div>
       </div>
@@ -34,7 +34,7 @@
           *ngFor="let option of filteredItems" 
           (mousedown)="selectItem(option, inputSearch)"
         >
-          {{ option.name }}
+          {{ option.nome }}
         </li>
       </ul>
     </div>

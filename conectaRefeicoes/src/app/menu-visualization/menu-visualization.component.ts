@@ -1,12 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {FormControl, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { MenuService } from '../services/menu/menu.service';
+import { ItemService } from '../services/itens/itens.service';
+import { Item } from '../services/itens/model';
+import { Observable } from 'rxjs';
 
-export interface Item{
-  id: string;
-  name: string;
-}
 
 
 @Component({
@@ -18,6 +17,7 @@ export interface Item{
 export class MenuVisualizationComponent {
   
     private menuService: MenuService = inject(MenuService);
+    private itemService = inject(ItemService);
 
     menuForm = new FormGroup({
       id : new FormControl(''),
@@ -26,14 +26,19 @@ export class MenuVisualizationComponent {
       items : new FormControl(<Item[]>([])),
     });
 
-    allItems : Item[] = [
-      {id: '1', name: 'Item 1'},
-      {id: '2', name: 'Item 2'},
-      {id: '3', name: 'Item 3'},
-    ];
 
+    allItems$!: Observable<Item[]>;    
     filteredItems: Item[] = [];
     showDropdown: boolean = false;
+
+    constructor() {
+      console.log("Iniciando Menu Visualization Component")
+      this.allItems$ = this.itemService.items$
+      this.itemService.getPaginated().subscribe()
+      
+      console.log(this.allItems$)
+
+    }
 
     onSearch(event: Event): void {
       const value = (event.target as HTMLInputElement).value.toLowerCase()
@@ -44,12 +49,17 @@ export class MenuVisualizationComponent {
 
       const currentIds = (this.menuForm.controls.items.value || []).map(x => x.id)
 
-      this.filteredItems = this.allItems.filter(
-        item => item.name.toLowerCase().includes(value) && 
+      
+this.allItems$.subscribe(items => {
+    console.log(items)
+    this.filteredItems = items.filter(item => 
+        item.nome.toLowerCase().includes(value.toLowerCase()) && 
         !currentIds.includes(item.id)
-      )
-
-      this.showDropdown = true
+    );
+    console.log(this.filteredItems)
+    this.showDropdown = true;
+    }
+)
     }
 
 
@@ -75,7 +85,7 @@ export class MenuVisualizationComponent {
       const menuData = {
         nome: this.menuForm.value.nome || '',
         descricao: this.menuForm.value.description || '',
-        ItensID: (this.menuForm.value.items || []).map(item => Number(item.id))
+        itensIds: (this.menuForm.value.items || []).map(item => Number(item.id))
     }
       this.menuService.create(menuData);
   }

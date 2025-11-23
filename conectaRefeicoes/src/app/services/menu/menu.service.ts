@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { BaseService, baseUrl } from '../InterfaceService';
-import { Menu } from './objects';
+import { Menu } from './model';
 @Injectable({
   providedIn: 'root',
 })
@@ -30,6 +30,10 @@ export class MenuService implements BaseService<Menu> {
   }
   findAll(){
       return this.http.get<Menu>(`${this.apiUrl}`) 
+  }
+
+  extractData(res: any): Menu[] | null {
+    return null
   }
 
 
