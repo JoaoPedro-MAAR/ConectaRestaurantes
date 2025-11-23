@@ -1,8 +1,16 @@
 <div class="form-wrapper">
   <form [formGroup]="menuForm">
-    <h1> Criação de Cardápio </h1>
-    <input id="id" formControlName="id" type="hidden">
-    
+    <h1> {{ isEditMode ? 'Edição' : 'Criação' }} de Cardápio </h1>
+<div class="form-group" *ngIf="isEditMode">
+      <label for="id">Código (ID):</label>
+      <input 
+        id="id" 
+        formControlName="id" 
+        type="text" 
+        readonly 
+        class="input-disabled"
+      >
+    </div>    
     <div class="form-group">
       <label for="nome">Nome do Cardapio:</label>
       <input id="nome" formControlName="nome" type="text" placeholder="Ex: Frango Grelhado">

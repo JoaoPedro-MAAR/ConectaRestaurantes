@@ -13,23 +13,16 @@ export class MenuService implements BaseService<Menu> {
   findByid(id: number) {
     return this.http.get<Menu>(`${this.apiUrl}/${id}`);
   }
-  create(object: Menu): boolean {
+  create(object: Menu) {
     console.log(object)
-    this.http.post<Menu>(this.apiUrl, object).subscribe({
-      next: () => {
-        console.log('Order posted successfully');
-        // this.fetchPaginated(this.currentPage).subscribe(); 
-        return true
-      },
-      error: (error) => {
-        console.error('Error posting order:', error);
-        return false
-      }
-    });  
-    return true
+    return this.http.post<Menu>(this.apiUrl, object)
   }
   findAll(){
       return this.http.get<Menu>(`${this.apiUrl}`) 
+  }
+
+  update(id: number, object: Menu) {
+    return this.http.put<Menu>(`${this.apiUrl}/${id}`, object);
   }
 
   extractData(res: any): Menu[] | null {

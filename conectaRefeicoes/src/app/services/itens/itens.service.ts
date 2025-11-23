@@ -15,21 +15,14 @@ export class ItemService implements BaseService<Item> {
   findByid(id: number) {
     return this.http.get<Item>(`${this.apiUrl}/${id}`);
   }
-  create(object: Item): boolean {
+  create(object: Item) {
     console.log(object)
-    this.http.post<Item>(this.apiUrl, object).subscribe({
-      next: () => {
-        console.log('Order posted successfully');
-        // this.fetchPaginated(this.currentPage).subscribe(); 
-        return true
-      },
-      error: (error) => {
-        console.error('Error posting order:', error);
-        return false
-      }
-    });  
-    return true
+    return this.http.post<Item>(this.apiUrl, object)
   }
+  update(id: number, object: Item) {
+    return this.http.put<Item>(`${this.apiUrl}/${id}`, object);
+  }
+
   findAll(){
       return this.http.get<Item>(`${this.apiUrl}`) 
   }
