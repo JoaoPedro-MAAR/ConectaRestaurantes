@@ -6,6 +6,8 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { RegisterListPageComponent } from './components/register-list-page/register-list-page.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { OrderVisualizationComponent } from './order-visualization/order-visualization.component';
+import { MenuListPageComponent } from './menu-list-page/menu-list-page.component';
+import { MenuVisualizationComponent } from './menu-visualization/menu-visualization.component';
 
 export const routes: Routes = [
     {path: '', component: LandingPageComponent },
@@ -13,6 +15,9 @@ export const routes: Routes = [
     {path: 'orders', component:ListOrderComponent },
     {path:'list', component:RegisterListPageComponent},
     { path: 'order/:id', component: OrderVisualizationComponent }, 
+    {path: `menu`, component: MenuListPageComponent},
+    {path : "menu/:id", component: MenuVisualizationComponent},
+    {path: 'menu/new', component: MenuVisualizationComponent},
     {path:'**', component: NotFoundPageComponent},
 
 

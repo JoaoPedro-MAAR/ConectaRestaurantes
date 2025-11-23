@@ -1,0 +1,69 @@
+<div class="form-wrapper">
+  <form [formGroup]="menuForm">
+    <h1> {{ isEditMode ? 'Edição' : 'Criação' }} de Cardápio </h1>
+<div class="form-group" *ngIf="isEditMode">
+      <label for="id">Código (ID):</label>
+      <input 
+        id="id" 
+        formControlName="id" 
+        type="text" 
+        readonly 
+        class="input-disabled"
+      >
+    </div>    
+    <div class="form-group">
+      <label for="nome">Nome do Cardapio: <span class="text-danger">*</span></label>
+      
+      <input 
+        id="nome" 
+        formControlName="nome" 
+        type="text" 
+        placeholder="Ex: Frango Grelhado"
+        [class.invalid-border]="menuForm.get('nome')?.invalid && menuForm.get('nome')?.touched"
+      >
+      
+      <small 
+        class="error-message" 
+        *ngIf="menuForm.get('nome')?.invalid && (menuForm.get('nome')?.dirty || menuForm.get('nome')?.touched)">
+        O nome do cardápio é obrigatório.
+      </small>
+
+      <label for="description">Descrição do Cardapio:</label>
+      <input id="description" formControlName="description" type="text" placeholder="Ex: Cardapio de sexta feira">
+    </div>
+
+    <div class="form-group position-relative">
+      <label>Ingredientes:</label>
+      
+      <input 
+        #inputSearch
+        type="text" 
+        placeholder="Digite para buscar (ex: Arroz)..." 
+        (input)="onSearch($event)"
+        (blur)="showDropdown = false" 
+        autocomplete="off"
+      >
+
+      <div class="tag-container">
+        <div *ngFor="let item of menuForm.controls.items.value; let i = index" class="tag">
+          <span>{{ item.nome }}</span>
+          <span class="remove-btn" (click)="removeItem(i)">&times;</span>
+        </div>
+      </div>
+
+      <ul *ngIf="showDropdown && filteredItems.length > 0" class="dropdown-list">
+        <li 
+          *ngFor="let option of filteredItems" 
+          (mousedown)="selectItem(option, inputSearch)"
+        >
+          {{ option.nome }}
+        </li>
+      </ul>
+    </div>
+    <div class="button-group">
+      <input type="button" value="Voltar" (click)="goBack()">
+      <input type="submit" value="Salvar" (click)="saveMenu()"> 
+      <input type="button" value="Limpar" (click)="clearForm()"> 
+    </div>
+  </form>
+</div>

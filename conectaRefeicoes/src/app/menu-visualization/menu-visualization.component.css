@@ -1,0 +1,282 @@
+/* 1. O Container que finge ser o input */
+.tag-container {
+  display: flex; /* <--- A MÁGICA ESTÁ AQUI (coloca um ao lado do outro) */
+  flex-wrap: wrap; /* Quebra linha se encher */
+  align-items: center; /* Centraliza verticalmente */
+  gap: 8px; /* Espaço entre as tags */
+  
+  /* Borda e fundo para parecer um input real */
+  border: 1px solid #ced4da; /* Cor padrão de borda do Bootstrap */
+  border-radius: 5px;
+  padding: 5px 10px;
+  background-color: #fff;
+  min-height: 38px;
+  width: 97%; /* Garante que ocupe a largura disponível */
+}
+
+/* 2. O visual da "Etiqueta" (Chip) cinza */
+.tag {
+  background-color: #e9ecef; /* Cinza claro */
+  border: 1px solid #dee2e6;
+  border-radius: 16px; /* Arredondado */
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #495057;
+}
+
+/* 3. O botão de remover (X) */
+.remove-btn {
+  margin-left: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #adb5bd;
+}
+
+.remove-btn:hover {
+  color: #dc3545; /* Vermelho ao passar o mouse */
+}
+
+/* 4. O Input de digitação (transparente) */
+.tag-container input {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  padding: 5px;
+  background: transparent;
+  min-width: 150px;
+}
+
+
+/* 1. O Container da Lista (O cartão flutuante) */
+.dropdown-list {
+  /* Resetando o estilo padrão feio */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  
+  /* Posicionamento para flutuar em cima do conteúdo */
+  position: absolute;
+  top: 105%; /* Um pouquinho abaixo do input */
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Garante que fique no topo */
+  
+  /* A Beleza (Sombra e Bordas) */
+  background-color: white;
+  border: 1px solid #e2e8f0; /* Cinza bem suave */
+  border-radius: 8px; /* Cantos arredondados modernos */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* Sombra suave estilo Tailwind */
+  
+  /* Scroll */
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* 2. Os Itens da Lista */
+.dropdown-list li {
+  padding: 10px 16px; /* Espaçamento interno confortável */
+  cursor: pointer;
+  border-bottom: 1px solid #f1f5f9; /* Linha divisória sutil */
+  color: #475569; /* Cinza escuro (não preto puro) fica mais elegante */
+  font-size: 0.95rem;
+  transition: all 0.2s ease; /* Animação suave */
+}
+
+/* Remove a borda do último item para ficar bonito */
+.dropdown-list li:last-child {
+  border-bottom: none;
+}
+
+/* 3. O Efeito ao passar o mouse (Hover) */
+.dropdown-list li:hover {
+  background-color: #f8fafc; /* Cinza muito claro */
+  color: #0f172a; /* Texto fica mais escuro */
+  padding-left: 20px; /* Pequeno movimento para a direita dá sensação de interatividade */
+}
+
+
+/* Container principal (Card) */
+form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Labels */
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #374151;
+}
+
+/* Inputs de texto */
+input[type="text"] {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color 0.2s;
+  box-sizing: border-box; /* Garante que o padding não estoure a largura */
+}
+
+input[type="text"]:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Área dos Ingredientes */
+.tag-container {
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Estilo dos Chips (Tags) */
+.tag {
+  background-color: #e0f2fe; /* Azul claro */
+  color: #0369a1; /* Azul escuro */
+  padding: 6px 12px;
+  border-radius: 999px; /* Pílula */
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Botão de remover (X) na tag */
+.remove-btn {
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1.1rem;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.2s;
+}
+
+.remove-btn:hover {
+  opacity: 1;
+  color: #ef4444; /* Vermelho ao passar o mouse */
+}
+
+/* Dropdown de Sugestões */
+.dropdown-list {
+  position: absolute;
+  top: 100%; /* Fica logo abaixo do container */
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 0 0;
+  z-index: 50; /* Garante que fique por cima de tudo */
+  max-height: 200px;
+  overflow-y: auto; /* Scroll se a lista for grande */
+}
+
+.dropdown-list li {
+  padding: 10px 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #f3f4f6;
+  color: #4b5563;
+}
+
+.dropdown-list li:last-child {
+  border-bottom: none;
+}
+
+.dropdown-list li:hover {
+  background-color: #f9fafb;
+  color: #3b82f6;
+}
+
+/* Botões de Ação */
+input[type="submit"], 
+input[type="button"] {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-right: 10px;
+}
+
+input[type="submit"] {
+  background-color: #f0bf55;
+  color: white;
+}
+input[type="submit"]:hover {
+  background-color: #f7b731;
+}
+
+input[type="button"] {
+  background-color: #9ca3af;
+  color: white;
+}
+input[type="button"]:hover {
+  background-color: #6b7280;
+}
+
+/* Animação suave para as tags aparecendo */
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative; /* Importante para o dropdown se posicionar aqui */
+}
+
+.position-relative {
+  position: relative;
+}
+
+.button-group {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end; /* Botões alinhados à direita */
+}
+
+.input-disabled {
+  background-color: #e9ecef; /* Cinza claro */
+  color: #6c757d;            /* Texto mais escuro */
+  cursor: not-allowed;       /* Ícone de proibido ao passar o mouse */
+  border: 1px solid #ced4da;
+  opacity: 1;
+}
+
+.error-message {
+  color: #dc3545; /* Vermelho */
+  font-size: 0.8rem;
+  margin-top: -5px; /* Puxa um pouco pra perto do input */
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* Asterisco de obrigatório */
+.text-danger {
+  color: #dc3545;
+}
+
+/* Borda vermelha no input */
+.invalid-border {
+  border: 1px solid #dc3545 !important;
+  background-color: #fff8f8;
+}

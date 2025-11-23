@@ -12,6 +12,14 @@
         </a>
       </li>
       <li>
+        <a [routerLink]="['/menu']" routerLinkActive="active">
+          <span class="material-symbols-outlined">
+            menu_book_2
+          </span> 
+          Cardápios
+        </a>
+      </li>
+      <li>
         <a [routerLink]="['/orders']" routerLinkActive="active">
           <span class="fa-regular fa-clipboard"></span> Listagem        </a>
       </li>
@@ -34,6 +42,8 @@
         <a routerLink="['/sobre']" routerLinkActive="active">
           <span class="fa-regular fa-user"></span> Autenticação e atendimento presencial
         </a>
+      </li>
+
     </ul>
   </nav>
   <div class="sidebar-footer">
