@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router'; 
 import { MenuService } from '../services/menu/menu.service';
 import { ItemService } from '../services/itens/itens.service';
@@ -26,7 +26,7 @@ export class MenuVisualizationComponent implements OnInit {
 
   menuForm = new FormGroup({
     id: new FormControl(''),
-    nome: new FormControl(''),
+    nome: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     items: new FormControl(<Item[]>([])),
   });
@@ -103,6 +103,10 @@ export class MenuVisualizationComponent implements OnInit {
   }
 
   saveMenu(): void {
+    if (this.menuForm.invalid) {
+      this.menuForm.markAllAsTouched();
+      return;
+    }
     const menuData = {
       nome: this.menuForm.value.nome || '',
       descricao: this.menuForm.value.description || '',

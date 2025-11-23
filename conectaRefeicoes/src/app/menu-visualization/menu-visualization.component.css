@@ -218,11 +218,11 @@ input[type="button"] {
 }
 
 input[type="submit"] {
-  background-color: #2563eb;
+  background-color: #f0bf55;
   color: white;
 }
 input[type="submit"]:hover {
-  background-color: #1d4ed8;
+  background-color: #f7b731;
 }
 
 input[type="button"] {
@@ -260,4 +260,23 @@ input[type="button"]:hover {
   cursor: not-allowed;       /* Ícone de proibido ao passar o mouse */
   border: 1px solid #ced4da;
   opacity: 1;
+}
+
+.error-message {
+  color: #dc3545; /* Vermelho */
+  font-size: 0.8rem;
+  margin-top: -5px; /* Puxa um pouco pra perto do input */
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* Asterisco de obrigatório */
+.text-danger {
+  color: #dc3545;
+}
+
+/* Borda vermelha no input */
+.invalid-border {
+  border: 1px solid #dc3545 !important;
+  background-color: #fff8f8;
 }
