@@ -2,9 +2,13 @@
   
   <div class="header-actions">
     <h2>{{ title }}</h2>
-    <a routerLink="/menus/new" class="btn-primary">
+    <a routerLink="/menu/new" class="btn-primary">
       + Novo Cardápio
     </a>
+  </div>
+  <div class="active-menu">
+    <h3>Cardápio Ativo</h3>
+
   </div>
 
   <div class="content-wrapper" *ngIf="menus$ | async as menus">
@@ -19,39 +23,59 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let menu of menus">
-          <td>#{{ menu.id }}</td>
-          <td><strong>    {{ 
-      menu.nome.length > 50 
-      ? (menu.nome | slice:0:50) + '...' 
-      : menu.nome 
-    }}</strong></td>
-          <td><span title="{{ menu.descricao }}">
-    {{ 
-      menu.descricao.length > 50 
-      ? (menu.descricao | slice:0:50) + '...' 
-      : menu.descricao 
-    }}
-  </span></td>
-          <td class="col-actions">
-            <button class="btn-icon publish" title="Disponibilizar Cardápio">
-                <span class="material-symbols-outlined">
-                    publish
-                </span>           
-            </button>
-            <button [routerLink]="['/menu', menu.id]" class="btn-icon edit" title="Editar">
-            <span class="material-symbols-outlined">
-                edit
-            </span>
-            </button>
-            
-            <button (click)="deleteMenu(menu.id)" class="btn-icon delete" title="Excluir">
-            <span class="material-symbols-outlined">
-                delete
-            </span>
-            </button>
-          </td>
+        <tr class="active-menu" *ngIf="activeMenu">
+            <td> # {{ activeMenu.id}}</td>
+            <td> 
+                <strong> 
+                    {{ activeMenu.nome.length > 50 ? (activeMenu.nome | slice:0:50) + '...' : activeMenu.nome }}
+                </strong>
+                <span class="badge-ativo">ATIVO</span> </td>
+            <td>
+                <span title="{{ activeMenu.descricao }}">
+                    {{ activeMenu.descricao.length > 50 ? (activeMenu.descricao | slice:0:50) + '...' : activeMenu.descricao }}
+                </span>
+            </td> 
+            <td class="col-actions">
+                <button (click)="onUnpublish()"class="btn-icon publish" title="Desativar Cardápio (Já está ativo)">
+                    <span class="material-symbols-outlined" style="color: green;">
+                        unpublished 
+                    </span>          
+                </button>
+                <button [routerLink]="['/menu', activeMenu.id]" class="btn-icon edit" title="Editar">
+                    <span class="material-symbols-outlined">edit</span>
+                </button>
+                <button (click)="deleteMenu(activeMenu.id)" class="btn-icon delete" title="Excluir">
+                    <span class="material-symbols-outlined">delete</span>
+                </button>
+            </td>
         </tr>
+
+        <ng-container *ngFor="let menu of menus">
+            <tr *ngIf="menu.id !== activeMenu?.id">
+                <td># {{ menu.id }}</td>
+                <td>
+                    <strong> 
+                        {{ menu.nome.length > 50 ? (menu.nome | slice:0:50) + '...' : menu.nome }}
+                    </strong>
+                </td>
+                <td>
+                    <span title="{{ menu.descricao }}">
+                        {{ menu.descricao.length > 50 ? (menu.descricao | slice:0:50) + '...' : menu.descricao }}
+                    </span>
+                </td>
+                <td class="col-actions">
+                    <button (click)="onPublish(menu)"class="btn-icon publish" title="Tornar Ativo">
+                        <span class="material-symbols-outlined">publish</span>          
+                    </button>
+                    <button [routerLink]="['/menu', menu.id]" class="btn-icon edit" title="Editar">
+                        <span class="material-symbols-outlined">edit</span>
+                    </button>
+                    <button (click)="deleteMenu(menu.id)" class="btn-icon delete" title="Excluir">
+                        <span class="material-symbols-outlined">delete</span>
+                    </button>
+                </td>
+            </tr>
+        </ng-container>
       </tbody>
     </table>
 

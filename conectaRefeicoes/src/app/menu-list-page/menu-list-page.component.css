@@ -11,37 +11,49 @@
   margin-bottom: 20px;
 }
 
+/* --- MUDANÇA 1: Botão Principal --- */
+/* Cinza Escuro com texto Amarelo para combinar com a Sidebar sem brigar */
 .btn-primary {
-  background-color: #007bff;
-  color: white;
+  background-color: #f7b731; 
+  color: white;            
   padding: 10px 20px;
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
+  border: 1px solid #343a40;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #f0bf55;    /* Fica preto ao passar o mouse */
+  border-color: #000;
+  transform: translateY(-2px); /* Efeito sutil de levantar */
 }
 
 .styled-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra mais suave */
 }
 
 .styled-table th, .styled-table td {
   padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #eee; /* Borda mais suave */
   vertical-align: middle;
 }
 
+/* Cabeçalho da Tabela */
 .styled-table th {
   background-color: #f8f9fa;
   color: #333;
   font-weight: bold;
+  border-bottom: 2px solid #ffc107; /* Detalhe amarelo na base do cabeçalho */
 }
 
 .styled-table tr:hover {
-  background-color: #f1f1f1;
+  background-color: #fffdf5; /* Um amarelo muito, muito suave no hover */
 }
 
 .col-actions {            
@@ -55,19 +67,26 @@
   border: none;
   font-size: 1.2rem;
   cursor: pointer;
-  
   display: inline-block;   
   vertical-align: middle;  
   margin: 0 5px;          
-  
   transition: transform 0.2s;
+  color: #6c757d; /* Cor base cinza para ícones inativos */
 }
+
 .btn-icon:hover {
   transform: scale(1.2);
 }
 
-.btn-icon.delete { color: #dc3545; }
-.btn-icon.edit { color: #ffc107; }
+/* Cores dos Ícones */
+.btn-icon.delete:hover { color: #dc3545; } /* Vermelho (Padrão erro) */
+
+/* Ícone de editar agora fica Laranja Escuro no hover (Amarelo puro é ruim de ler) */
+.btn-icon.edit:hover { color: #e65100; } 
+
+/* Ícone de publicar fica Verde (Sucesso) ou Dourado, mantive verde para semântica */
+.btn-icon.publish:hover { color: #28a745; }
+
 
 .pagination-controls {
   display: flex;
@@ -80,6 +99,15 @@
 .btn-page {
   padding: 8px 16px;
   cursor: pointer;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+}
+
+.btn-page:hover:not(:disabled) {
+  background-color: #ffc107; /* Amarelo ao passar o mouse na paginação */
+  border-color: #ffc107;
+  color: #000;
 }
 
 .btn-page:disabled {
@@ -91,8 +119,36 @@
 .empty-box {
   text-align: center;
   padding: 40px;
-  background-color: #f9f9f9;
-  border: 2px dashed #ccc;
+  background-color: #fff9c4; /* Fundo amarelado suave */
+  border: 2px dashed #ffc107; /* Borda tracejada amarela */
   border-radius: 8px;
-  color: #666;
+  color: #8d6e63;
+}
+
+/* --- MUDANÇA 2: Linha Ativa (Tema Solar) --- */
+tr.active-menu {
+  background-color: #fff8e1; /* Creme (Amarelo muito claro) */
+  border: 2px solid #ffc107; /* Borda Amarelo Ouro */
+  position: relative;        
+}
+
+/* Texto da linha ativa */
+tr.active-menu td {
+  color: #3e2723; /* Marrom café (contrasta bem com amarelo) */
+  font-weight: 500;
+  border-top: 2px solid #ffc107; 
+  border-bottom: 2px solid #ffc107; 
+}
+
+/* --- MUDANÇA 3: Badge (Selo) --- */
+.badge-ativo {
+    background-color: #ffc107; /* Amarelo da Sidebar */
+    color: #000;               /* Texto Preto */
+    font-size: 0.7rem;
+    padding: 4px 8px;          /* Um pouco mais gordinho */
+    border-radius: 4px;
+    margin-left: 8px;
+    vertical-align: middle;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }

@@ -43,12 +43,40 @@ export class MenuService implements BaseService<Menu> {
     return null
   }
 
+  getActiveMenu(): Observable<Menu> {
+    return this.http.get<Menu>(`${this.apiUrl}/active`);
+  }
+
+  activateMenu(id: number): Observable<Menu>{
+    return this.http.put<Menu>(`${this.apiUrl}/active/${id}`, null)
+  }
+
+  deactivateManu():Observable<Menu>{
+    return this.http.put<Menu>(`${this.apiUrl}/deactivate`, null)
+
+  }
 
 
   private apiUrl = `${baseUrl}/menu`;
   private http = inject(HttpClient);
   private menuSubject = new BehaviorSubject<any[]>([]);
   menu$ = this.menuSubject.asObservable();
+  private activeMenuSubject = new BehaviorSubject<Menu | null>(null);
+  activeMenu$ = this.activeMenuSubject.asObservable();
+
+  constructor() {
+    this.loadActiveMenu();
+  }
+
+  private loadActiveMenu() {
+    this.http.get<Menu>(`${this.apiUrl}/active`).subscribe({
+      next: (menu) => this.activeMenuSubject.next(menu),
+      error: (err) => {
+        console.error('Erro ao carregar o cardápio ativo:', err);
+        this.activeMenuSubject.next(null);
+      }
+    });
+  }
 
   
 

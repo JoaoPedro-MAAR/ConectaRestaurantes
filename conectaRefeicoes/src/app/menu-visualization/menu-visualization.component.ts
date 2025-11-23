@@ -46,8 +46,8 @@ export class MenuVisualizationComponent implements OnInit {
 
 
     const idParam = this.route.snapshot.paramMap.get('id');
-
-    if (idParam) {
+    
+    if (idParam && !Number.isNaN(Number(idParam))) {
       this.menuId = Number(idParam);
       this.isEditMode = true;
       this.loadMenuData(this.menuId);
@@ -123,6 +123,10 @@ export class MenuVisualizationComponent implements OnInit {
         error: (err) => alert('Erro ao criar.')
       });
     }
+    this.router.navigate(['/menu'])
+  }
+
+  goBack(){
     this.router.navigate(['/menu'])
   }
 
