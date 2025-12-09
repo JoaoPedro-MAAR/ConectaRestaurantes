@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import {Solicitation} from "./../../types"
+import {Solicitation} from "../../types"
 import { RequisicaoService } from '../services/requisicao.service';
 import { first, map, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
