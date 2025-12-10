@@ -1,5 +1,6 @@
 import { Observable } from "rxjs"
 import { PaginatedResponse } from "../../types";
+import { environment } from "../../environments/environment";
 
 export interface BaseService<T>{
     delete(id: number): Observable<T>;
@@ -11,4 +12,4 @@ export interface BaseService<T>{
     extractData(res: any): T[] | null;
 }
 
-export const baseUrl = "http://localhost:8081/conecta-restaurante"
+export const baseUrl = environment.apiUrl;
