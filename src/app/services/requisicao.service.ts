@@ -11,7 +11,7 @@ import { Solicitation, StatusSolicitation, PaginatedResponse } from '../../types
 })
 
 export class RequisicaoService {
-  private apiUrl = 'http://localhost:8081/order';
+  private apiUrl = 'http://localhost:8081/conecta-restaurante/order';
   private http = inject(HttpClient);
   private ordersSubject = new BehaviorSubject<Solicitation[]>([])
   orders$ = this.ordersSubject.asObservable()
