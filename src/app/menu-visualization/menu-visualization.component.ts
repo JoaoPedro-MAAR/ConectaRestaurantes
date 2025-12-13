@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormArray, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router'; 
 import { MenuService } from '../services/menu/menu.service';
 import { ItemService } from '../services/itens/itens.service';
 import { Item } from '../services/itens/model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Menu, CategoriaMenu } from '../services/menu/model';
 
 @Component({
   selector: 'app-menu-visualization',
@@ -15,6 +16,7 @@ import { Router } from '@angular/router';
   styleUrl: './menu-visualization.component.css'
 })
 export class MenuVisualizationComponent implements OnInit { 
+  private fb = inject(FormBuilder);
   private menuService = inject(MenuService);
   private itemService = inject(ItemService);
   private route = inject(ActivatedRoute); 
@@ -24,16 +26,17 @@ export class MenuVisualizationComponent implements OnInit {
   menuId: number | null = null;
   isEditMode: boolean = false; 
 
-  menuForm = new FormGroup({
-    id: new FormControl(''),
-    nome: new FormControl('', [Validators.required]),
-    description: new FormControl(''),
-    items: new FormControl(<Item[]>([])),
+  menuForm = this.fb.group({
+    id: [''],
+    nome: ['', Validators.required],
+    description: [''],
+    categorias: this.fb.array([]) 
   });
 
   allItems$!: Observable<Item[]>;
   filteredItems: Item[] = [];
   showDropdown: boolean = false;
+  activeSearchCategoryIndex: number | null = null;
 
   constructor() {
   }
@@ -51,83 +54,145 @@ export class MenuVisualizationComponent implements OnInit {
       this.menuId = Number(idParam);
       this.isEditMode = true;
       this.loadMenuData(this.menuId);
+    } else {
+      this.addCategory();
     }
   }
 
+  get categorias(): FormArray {
+    return this.menuForm.get('categorias') as FormArray;
+  }
+
+  createCategoryGroup(data?: any): FormGroup {
+    return this.fb.group({
+      nome: [data?.nome || '', Validators.required],
+      limiteMaximoEscolhas: [data?.limiteMaximoEscolhas || 1, [Validators.required, Validators.min(1)]],
+      itens: [data?.itens || []] 
+    });
+  } 
+
+  addCategory(): void {
+    this.categorias.push(this.createCategoryGroup());
+  }
+
+  removeCategory(index: number): void {
+    this.categorias.removeAt(index);
+  }
+
+  
+
   loadMenuData(id: number) {
     this.menuService.findByid(id).subscribe({
-      next: (menu: any) => {
-    const formData = {
-              id: menu.id,
-              nome: menu.nome,
-              description: menu.descricao, 
-              items: menu.itens || []
-            };
-            this.originalMenuState = formData; 
-            this.menuForm.patchValue(formData);
-          },
+      next: (menu: Menu) => {
+        // Preenche dados básicos
+        this.menuForm.patchValue({
+            id: menu.id?.toString(),
+            nome: menu.nome,
+            description: menu.descricao
+        });
+
+        // Preenche o FormArray de categorias
+        this.categorias.clear();
+        if (menu.categorias && menu.categorias.length > 0) {
+            menu.categorias.forEach(cat => {
+                this.categorias.push(this.createCategoryGroup({
+                    nome: cat.nome,
+                    limiteMaximoEscolhas: cat.limiteMaximoEscolhas,
+                    itens: (cat as any).itens || [] 
+                }));
+            });
+        }
+      },
       error: (err) => alert('Erro ao carregar menu para edição')
     });
   }
 
-  onSearch(event: Event): void {
+  onSearch(event: Event, categoryIndex: number): void {
     const value = (event.target as HTMLInputElement).value.toLowerCase();
+    this.activeSearchCategoryIndex = categoryIndex;
+
     if (!value) {
-      this.showDropdown = false;
+      this.filteredItems = [];
       return;
     }
 
-    const currentIds = (this.menuForm.controls.items.value || []).map(x => x.id);
+    const currentCategoryItems = this.categorias.at(categoryIndex).get('itens')?.value || [];
+    const currentIds = currentCategoryItems.map((x: Item) => x.id);
 
     this.allItems$.subscribe(items => {
       this.filteredItems = items.filter(item =>
-        item.nome.toLowerCase().includes(value.toLowerCase()) &&
+        item.nome.toLowerCase().includes(value) &&
         !currentIds.includes(item.id)
       );
-      this.showDropdown = true;
     });
   }
 
-  selectItem(item: Item, inputRef: HTMLInputElement): void {
-    const currentItems = this.menuForm.controls.items.value || [];
-    this.menuForm.controls.items.setValue([...currentItems, item]);
+  selectItem(item: Item, categoryIndex: number, inputRef: HTMLInputElement): void {
+    const categoryGroup = this.categorias.at(categoryIndex);
+    const currentItems = categoryGroup.get('itens')?.value || [];
+    
+    categoryGroup.patchValue({
+      itens: [...currentItems, item]
+    });
+
     inputRef.value = '';
-    this.showDropdown = false;
     this.filteredItems = [];
+    this.activeSearchCategoryIndex = null;
   }
 
-  removeItem(index: number): void {
-    const currentItems = this.menuForm.controls.items.value || [];
-    const newItems = currentItems.filter((_, i) => i !== index);
-    this.menuForm.controls.items.setValue(newItems);
+  removeItemFromCategory(categoryIndex: number, itemIndex: number): void {
+    const categoryGroup = this.categorias.at(categoryIndex);
+    const currentItems = categoryGroup.get('itens')?.value || [];
+    
+    const newItems = currentItems.filter((_: any, i: number) => i !== itemIndex);
+    
+    categoryGroup.patchValue({ itens: newItems });
+  }
+
+  onBlur(): void {
+    setTimeout(() => {
+      this.activeSearchCategoryIndex = null;
+    }, 200);
   }
 
   saveMenu(): void {
     if (this.menuForm.invalid) {
       this.menuForm.markAllAsTouched();
+      alert('Preencha todos os campos obrigatórios (Nome do cardápio e Nomes das categorias)');
       return;
     }
-    const menuData = {
-      nome: this.menuForm.value.nome || '',
-      descricao: this.menuForm.value.description || '',
-      itensIds: (this.menuForm.value.items || []).map(item => Number(item.id))
+
+    const formVal = this.menuForm.value;
+
+    // MONTAGEM DO JSON COMPLEXO
+    const menuData: Menu = {
+      nome: formVal.nome || '',
+      descricao: formVal.description || '',
+      ativo: null, // Será tratado no backend
+      // Mapeia as categorias do formulário para o formato da API
+      categorias: (formVal.categorias || []).map((cat: any) => ({
+          nome: cat.nome,
+          limiteMaximoEscolhas: cat.limiteMaximoEscolhas,
+          // Extrai apenas os IDs dos itens selecionados
+          itensIds: (cat.itens || []).map((item: Item) => Number(item.id))
+      }))
     };
 
     if (this.isEditMode && this.menuId) {
-      this.menuService.update(this.menuId, menuData).subscribe({
-        next: () => alert('Menu atualizado com sucesso!'),
-        error: (err) => alert('Erro ao atualizar.')
-      });
+      alert("Atenção: A edição completa de categorias ainda está em desenvolvimento no servidor.");
+      // this.menuService.update(...) // Descomentar quando backend suportar update complexo
     } else {
       this.menuService.create(menuData).subscribe({
         next: () => {
           alert('Menu criado com sucesso!');
-          this.clearForm();
+          this.router.navigate(['/menu']);
         },
-        error: (err) => alert('Erro ao criar.')
+        error: (err) => {
+          console.error(err);
+          alert('Erro ao criar menu. Verifique o console.');
+        }
       });
     }
-    this.router.navigate(['/menu'])
   }
 
   goBack(){
@@ -135,13 +200,9 @@ export class MenuVisualizationComponent implements OnInit {
   }
 
 clearForm(): void {
-    if (this.isEditMode && this.originalMenuState) {
-      this.menuForm.reset(this.originalMenuState);
-    } else {
-      this.menuForm.reset();
-      
-      this.menuForm.controls.items.setValue([]); 
-    }
+    this.menuForm.reset();
+    this.categorias.clear();
+    this.addCategory(); // Reinicia com uma
   }
   
 }

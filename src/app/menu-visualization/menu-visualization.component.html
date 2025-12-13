@@ -1,69 +1,111 @@
 <div class="form-wrapper">
   <form [formGroup]="menuForm">
-    <h1> {{ isEditMode ? 'Edição' : 'Criação' }} de Cardápio </h1>
-<div class="form-group" *ngIf="isEditMode">
-      <label for="id">Código (ID):</label>
-      <input 
-        id="id" 
-        formControlName="id" 
-        type="text" 
-        readonly 
-        class="input-disabled"
-      >
-    </div>    
-    <div class="form-group">
-      <label for="nome">Nome do Cardapio: <span class="text-danger">*</span></label>
-      
-      <input 
-        id="nome" 
-        formControlName="nome" 
-        type="text" 
-        placeholder="Ex: Frango Grelhado"
-        [class.invalid-border]="menuForm.get('nome')?.invalid && menuForm.get('nome')?.touched"
-      >
-      
-      <small 
-        class="error-message" 
-        *ngIf="menuForm.get('nome')?.invalid && (menuForm.get('nome')?.dirty || menuForm.get('nome')?.touched)">
-        O nome do cardápio é obrigatório.
-      </small>
-
-      <label for="description">Descrição do Cardapio:</label>
-      <input id="description" formControlName="description" type="text" placeholder="Ex: Cardapio de sexta feira">
+    
+    <div class="header-form">
+        <h1>{{ isEditMode ? 'Edição' : 'Criação' }} de Cardápio</h1>
+        <div *ngIf="isEditMode" class="badge-id">ID: {{ menuId }}</div>
     </div>
 
-    <div class="form-group position-relative">
-      <label>Ingredientes:</label>
-      
-      <input 
-        #inputSearch
-        type="text" 
-        placeholder="Digite para buscar (ex: Arroz)..." 
-        (input)="onSearch($event)"
-        (blur)="showDropdown = false" 
-        autocomplete="off"
-      >
-
-      <div class="tag-container">
-        <div *ngFor="let item of menuForm.controls.items.value; let i = index" class="tag">
-          <span>{{ item.nome }}</span>
-          <span class="remove-btn" (click)="removeItem(i)">&times;</span>
-        </div>
-      </div>
-
-      <ul *ngIf="showDropdown && filteredItems.length > 0" class="dropdown-list">
-        <li 
-          *ngFor="let option of filteredItems" 
-          (mousedown)="selectItem(option, inputSearch)"
+    <div class="card-section">
+        <h3>Dados Gerais</h3>
+        
+        <div class="form-group">
+        <label for="nome">Nome do Cardápio: <span class="text-danger">*</span></label>
+        <input 
+            id="nome" 
+            formControlName="nome" 
+            type="text" 
+            placeholder="Ex: Almoço de Domingo"
+            [class.invalid-border]="menuForm.get('nome')?.invalid && menuForm.get('nome')?.touched"
         >
-          {{ option.nome }}
-        </li>
-      </ul>
+        <small class="error-message" *ngIf="menuForm.get('nome')?.invalid && menuForm.get('nome')?.touched">
+            Nome obrigatório.
+        </small>
+        </div>
+
+        <div class="form-group">
+        <label for="description">Descrição:</label>
+        <input id="description" formControlName="description" type="text" placeholder="Ex: Disponível das 11h às 14h">
+        </div>
     </div>
-    <div class="button-group">
-      <input type="button" value="Voltar" (click)="goBack()">
-      <input type="submit" value="Salvar" (click)="saveMenu()"> 
-      <input type="button" value="Limpar" (click)="clearForm()"> 
+
+    <hr class="divider">
+
+    <div class="categories-area">
+        <div class="flex-between">
+            <h3>Categorias do Cardápio</h3>
+            <button type="button" class="btn-secondary" (click)="addCategory()">
+                + Adicionar Categoria
+            </button>
+        </div>
+
+        <div formArrayName="categorias">
+            <div *ngFor="let cat of categorias.controls; let i = index" [formGroupName]="i" class="category-card">
+                
+                <div class="category-header">
+                    <span class="cat-number">#{{ i + 1 }}</span>
+                    <button type="button" class="btn-icon-remove" (click)="removeCategory(i)" title="Remover Categoria">
+                        &times;
+                    </button>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-8">
+                        <label>Título da Categoria <span class="text-danger">*</span></label>
+                        <input type="text" formControlName="nome" placeholder="Ex: Prato Principal, Bebidas...">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>Limite de Escolhas</label>
+                        <input type="number" formControlName="limiteMaximoEscolhas" min="1">
+                    </div>
+                </div>
+
+                <div class="form-group position-relative">
+                    <label>Itens desta Categoria:</label>
+                    
+                    <input 
+                        #inputSearch
+                        type="text" 
+                        placeholder="Buscar item para adicionar..." 
+                        (input)="onSearch($event, i)"
+                        (blur)="onBlur()"
+                        autocomplete="off"
+                    >
+
+                    <div class="tag-container">
+                        <div *ngFor="let item of cat.get('itens')?.value; let itemIndex = index" class="tag">
+                            <span>{{ item.nome }}</span>
+                            <span class="remove-btn" (click)="removeItemFromCategory(i, itemIndex)">&times;</span>
+                        </div>
+                        <div *ngIf="cat.get('itens')?.value?.length === 0" class="empty-tags">
+                            Nenhum item adicionado nesta categoria ainda.
+                        </div>
+                    </div>
+
+                    <ul *ngIf="activeSearchCategoryIndex === i && filteredItems.length > 0" class="dropdown-list">
+                        <li 
+                            *ngFor="let option of filteredItems" 
+                            (mousedown)="selectItem(option, i, inputSearch)"
+                        >
+                            {{ option.nome }} <small>({{ option.categoria }})</small>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        
+        <div *ngIf="categorias.controls.length === 0" class="empty-state-cat">
+            Nenhuma categoria criada. Clique em "+ Adicionar Categoria".
+        </div>
+
     </div>
+
+    <div class="button-group sticky-footer">
+      <button type="button" class="btn-back" (click)="goBack()">Voltar</button>
+      <button type="button" class="btn-clear" (click)="clearForm()">Limpar</button>
+      <button type="submit" class="btn-save" (click)="saveMenu()">Salvar Cardápio</button> 
+    </div>
+
   </form>
 </div>
