@@ -106,7 +106,7 @@ onPublish(menuParaAtivar: any): void {
       );
 
       if (!confirmacao) return;
-    this.menuService.deactivateManu().subscribe({
+    this.menuService.deactivateMenu().subscribe({
       next: () => {
         alert(`Sucesso! O cardapio foi desativado`)
         this.loadMenus()

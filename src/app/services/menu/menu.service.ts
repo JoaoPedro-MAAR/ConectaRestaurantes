@@ -1,13 +1,27 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+// import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { BaseService, baseUrl } from '../InterfaceService';
 import { Menu } from './model';
-import { Observable, tap } from 'rxjs';
+import {BehaviorSubject, Observable, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class MenuService implements BaseService<Menu> {
+
+  private apiUrl = `${baseUrl}/menu`;
+  private http = inject(HttpClient);
+
+  private menuSubject = new BehaviorSubject<any[]>([]);
+  menu$ = this.menuSubject.asObservable();
+
+  private activeMenuSubject = new BehaviorSubject<Menu | null>(null);
+  activeMenu$ = this.activeMenuSubject.asObservable();
+
+  constructor() {
+    this.loadActiveMenu();
+  }
+
   delete(id: number) {
     return this.http.delete<Menu>(`${this.apiUrl}/${id}`);
   }
@@ -19,7 +33,7 @@ export class MenuService implements BaseService<Menu> {
     return this.http.post<Menu>(this.apiUrl, object)
   }
   findAll(){
-      return this.http.get<Menu>(`${this.apiUrl}`) 
+      return this.http.get<Menu[]>(`${this.apiUrl}`) 
   }
 
   update(id: number, object: Menu) {
@@ -51,21 +65,17 @@ export class MenuService implements BaseService<Menu> {
     return this.http.put<Menu>(`${this.apiUrl}/active/${id}`, null)
   }
 
-  deactivateManu():Observable<Menu>{
+  deactivateMenu():Observable<Menu>{
     return this.http.put<Menu>(`${this.apiUrl}/deactivate`, null)
 
   }
 
+  setStandardMenu(id: number, turno: string): Observable<Menu>{
+    return this.http.put<Menu>(`${this.apiUrl}/${id}/padrao?turno=${turno}`, null);
+  }
 
-  private apiUrl = `${baseUrl}/menu`;
-  private http = inject(HttpClient);
-  private menuSubject = new BehaviorSubject<any[]>([]);
-  menu$ = this.menuSubject.asObservable();
-  private activeMenuSubject = new BehaviorSubject<Menu | null>(null);
-  activeMenu$ = this.activeMenuSubject.asObservable();
-
-  constructor() {
-    this.loadActiveMenu();
+  removeStandardMenu(id: number): Observable<Menu>{
+    return this.http.delete<Menu>(`${this.apiUrl}/${id}/padrao`);
   }
 
   private loadActiveMenu() {

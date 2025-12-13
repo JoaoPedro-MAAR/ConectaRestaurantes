@@ -22,9 +22,9 @@ export class ItemService implements BaseService<Item> {
   update(id: number, object: Item) {
     return this.http.put<Item>(`${this.apiUrl}/${id}`, object);
   }
-
+ 
   findAll(){
-      return this.http.get<Item>(`${this.apiUrl}`) 
+      return this.http.get<Item[]>(`${this.apiUrl}`) 
   }
 
   extractData(res: any): Item[] | null {
