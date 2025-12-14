@@ -53,6 +53,37 @@ export class MenuService implements BaseService<Menu> {
     );
   }
 
+  getPaginatedWithFilter(
+    filters: {
+      nome?: string;
+      descricao?: string;
+      turnoPadrao?: string;
+    },
+    page: number = 0,
+    size: number = 10
+  ): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', size.toString());
+
+    if (filters.nome) {
+      params = params.set('nome', filters.nome);
+    }
+    if (filters.descricao) {
+      params = params.set('descricao', filters.descricao);
+    }
+    if (filters.turnoPadrao) {
+      params = params.set('turnoPadrao', filters.turnoPadrao);
+    }
+
+    return this.http.get<any>(this.apiUrl, { params }).pipe(
+      tap(response => {
+        const lista = response.content;
+        this.menuSubject.next(lista);
+      })
+    );
+  }
+
   extractData(res: any): Menu[] | null {
     return null
   }
