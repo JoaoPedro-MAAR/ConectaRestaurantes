@@ -1,0 +1,99 @@
+<div class="registro-container">
+    <div class="card-registro">
+        <h2>Registro de Refeição</h2>
+        <p class="subtitle">Informe os dados para registrar o consumo.</p>
+
+        <form [formGroup]="form" (ngSubmit)="confirmarRegistro()">
+            
+            <div class="form-group">
+                <label for="turno">Turno da Refeição <span class="required">*</span></label>
+                <select id="turno" formControlName="turno" [class.error-border]="form.get('turno')?.invalid && form.get('turno')?.touched">
+                    <option value="" disabled selected>Selecione...</option>
+                    <option value="CAFE_DA_MANHA">Café da Manhã</option>
+                    <option value="ALMOCO">Almoço</option>
+                    <option value="JANTAR">Jantar</option>
+                </select>
+                <small *ngIf="form.get('turno')?.invalid && form.get('turno')?.touched" class="error-msg">
+                    Selecione um turno.
+                </small>
+            </div>
+
+            <div class="form-group">
+                <label for="cpf">CPF do Funcionário <span class="required">*</span></label>
+                <div class="input-with-action">
+                    <input 
+                        id="cpf" 
+                        type="text" 
+                        formControlName="cpf" 
+                        placeholder="Apenas números..."
+                        maxlength="11"
+                        (blur)="buscarFuncionario()"
+                        (keydown.enter)="$event.preventDefault(); buscarFuncionario()"
+                        [class.error-border]="form.get('cpf')?.invalid && form.get('cpf')?.touched"
+                    >
+                    <button type="button" class="btn-search" (click)="buscarFuncionario()" title="Pesquisar">
+                        <span class="material-symbols-outlined">search</span>
+                    </button>
+                </div>
+                <small *ngIf="form.get('cpf')?.invalid && form.get('cpf')?.touched" class="error-msg">
+                    CPF obrigatório.
+                </small>
+            </div>
+
+            <div class="readonly-group" *ngIf="form.get('nomeFuncionario')?.value">
+                <div class="form-group">
+                    <label>Nome do Funcionário:</label>
+                    <input type="text" formControlName="nomeFuncionario" class="input-readonly">
+                </div>
+                <div class="form-group">
+                    <label>Empresa Vinculada:</label>
+                    <input type="text" formControlName="nomeEmpresa" class="input-readonly">
+                </div>
+            </div>
+
+            <div *ngIf="errorMessage" class="alert alert-error">
+                <span class="material-symbols-outlined">error</span> {{ errorMessage }}
+            </div>
+            <div *ngIf="successMessage" class="alert alert-success">
+                <span class="material-symbols-outlined">check_circle</span> {{ successMessage }}
+            </div>
+
+            <button type="submit" class="btn-registrar" [disabled]="form.invalid || isLoading || !form.get('nomeFuncionario')?.value">
+                {{ isLoading ? 'Registrando...' : 'Registrão Refeição Presencial' }}
+            </button>
+
+        </form>
+    </div>
+
+    <div class="historico-container">
+        <h3>Últimos Registros</h3>
+        
+        <table class="styled-table" *ngIf="ultimosRegistros.length > 0; else emptyState">
+            <thead>
+                <tr>
+                    <th>Hora</th>
+                    <th>Funcionário</th>
+                    <th>Empresa</th>
+                    <th>Turno</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let reg of ultimosRegistros">
+                    <td>{{ reg.dataHora | date:'HH:mm' }}</td> <td>{{ reg.nomeFuncionario }}</td>
+                    <td>{{ reg.nome }}</td> <td>
+                        <span class="badge-turno" [class.manha]="reg.turno === 'CAFE_DA_MANHA'" 
+                              [class.almoco]="reg.turno === 'ALMOCO'" 
+                              [class.jantar]="reg.turno === 'JANTAR'">
+                            {{ reg.turno === 'CAFE_DA_MANHA' ? 'Café' : (reg.turno === 'ALMOCO' ? 'Almoço' : 'Jantar') }}
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ng-template #emptyState>
+            <p class="text-muted">Nenhum registro hoje.</p>
+        </ng-template>
+    </div>
+    
+</div>
