@@ -196,4 +196,11 @@ export class MenuListPageComponent implements OnInit {
     this.loadMenus();
     this.isFilterOpen.set(false); 
   }
+  
+  clearFilters(): void {
+    this.current_page = 0;
+    this.currentFilters = {};
+    this.loadMenus();
+    this.isFilterOpen.set(false); 
+  }
 }
