@@ -6,9 +6,9 @@
       + Novo Cardápio
     </a>
   </div>
+
   <div class="active-menu">
     <h3>Cardápio Ativo</h3>
-
   </div>
 
   <div class="content-wrapper" *ngIf="menus$ | async as menus">
@@ -19,7 +19,7 @@
           <th>ID</th>
           <th>Nome</th>
           <th>Descrição</th>
-          <th class="col-actions">Ações</th>
+          <th>Padrão</th> <th class="col-actions">Ações</th>
         </tr>
       </thead>
       <tbody>
@@ -29,18 +29,26 @@
                 <strong> 
                     {{ activeMenu.nome.length > 50 ? (activeMenu.nome | slice:0:50) + '...' : activeMenu.nome }}
                 </strong>
-                <span class="badge-ativo">ATIVO</span> </td>
+                <span class="badge-ativo">ATIVO</span> 
+            </td>
             <td>
                 <span title="{{ activeMenu.descricao }}">
                     {{ activeMenu.descricao.length > 50 ? (activeMenu.descricao | slice:0:50) + '...' : activeMenu.descricao }}
                 </span>
             </td> 
+            <td>
+                <span *ngIf="activeMenu.turnoPadrao" class="badge-turno">{{ formatTurno(activeMenu.turnoPadrao) }}</span>
+                <span *ngIf="!activeMenu.turnoPadrao" class="text-muted">-</span>
+            </td>
             <td class="col-actions">
-                <button (click)="onUnpublish()"class="btn-icon publish" title="Desativar Cardápio (Já está ativo)">
-                    <span class="material-symbols-outlined" style="color: green;">
-                        unpublished 
-                    </span>          
+                <button (click)="onUnpublish()" class="btn-icon publish" title="Desativar Cardápio">
+                    <span class="material-symbols-outlined" style="color: green;">unpublished</span>          
                 </button>
+                
+                <button (click)="openStandardModal(activeMenu)" class="btn-icon star" title="Definir como Padrão">
+                    <span class="material-symbols-outlined">star</span>
+                </button>
+
                 <button [routerLink]="['/menu', activeMenu.id]" class="btn-icon edit" title="Editar">
                     <span class="material-symbols-outlined">edit</span>
                 </button>
@@ -63,10 +71,19 @@
                         {{ menu.descricao.length > 50 ? (menu.descricao | slice:0:50) + '...' : menu.descricao }}
                     </span>
                 </td>
+                <td>
+                    <span *ngIf="menu.turnoPadrao" class="badge-turno">{{ formatTurno(menu.turnoPadrao) }}</span>
+                    <span *ngIf="!menu.turnoPadrao" class="text-muted">-</span>
+                </td>
                 <td class="col-actions">
-                    <button (click)="onPublish(menu)"class="btn-icon publish" title="Tornar Ativo">
+                    <button (click)="onPublish(menu)" class="btn-icon publish" title="Tornar Ativo">
                         <span class="material-symbols-outlined">publish</span>          
                     </button>
+
+                    <button (click)="openStandardModal(menu)" class="btn-icon star" title="Definir como Padrão">
+                        <span class="material-symbols-outlined">star</span>
+                    </button>
+
                     <button [routerLink]="['/menu', menu.id]" class="btn-icon edit" title="Editar">
                         <span class="material-symbols-outlined">edit</span>
                     </button>
@@ -89,24 +106,43 @@
   </div>
 
   <div class="pagination-controls" *ngIf="total_itens > 0">
-    <button 
-      (click)="prevPage()" 
-      [disabled]="current_page === 0"
-      class="btn-page">
-      Anterior
-    </button>
-
+    <button (click)="prevPage()" [disabled]="current_page === 0" class="btn-page">Anterior</button>
     <span class="page-info">
       Página <strong>{{ current_page + 1 }}</strong> de <strong>{{ total_pages }}</strong> 
       <span class="total-badge">(Total: {{ total_itens }})</span>
     </span>
-
-    <button 
-      (click)="nextPage()" 
-      [disabled]="current_page >= total_pages - 1"
-      class="btn-page">
-      Próxima
-    </button>
+    <button (click)="nextPage()" [disabled]="current_page >= total_pages - 1" class="btn-page">Próxima</button>
   </div>
 
+</div>
+
+<div class="modal-backdrop" *ngIf="showStandardModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Definir Padrão</h3>
+            <span class="close-btn" (click)="closeStandardModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <p>Escolha o turno para tornar o cardápio <strong>"{{ selectedMenuForStandard?.nome }}"</strong> padrão:</p>
+            
+            <div class="turno-options">
+                <button class="btn-turno" (click)="confirmSetStandard('CAFE_DA_MANHA')">
+                    <span class="material-symbols-outlined">bakery_dining</span> Café da Manhã
+                </button>
+                <button class="btn-turno" (click)="confirmSetStandard('ALMOCO')">
+                    <span class="material-symbols-outlined">restaurant</span> Almoço
+                </button>
+                <button class="btn-turno" (click)="confirmSetStandard('JANTAR')">
+                    <span class="material-symbols-outlined">dinner_dining</span> Jantar
+                </button>
+            </div>
+
+            <div *ngIf="selectedMenuForStandard?.turnoPadrao" class="remove-area">
+                <hr>
+                <button class="btn-danger-outline" (click)="confirmRemoveStandard()">
+                    Remover dos Padrões
+                </button>
+            </div>
+        </div>
+    </div>
 </div>

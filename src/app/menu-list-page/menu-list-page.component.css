@@ -11,8 +11,6 @@
   margin-bottom: 20px;
 }
 
-/* --- MUDANÇA 1: Botão Principal --- */
-/* Cinza Escuro com texto Amarelo para combinar com a Sidebar sem brigar */
 .btn-primary {
   background-color: #f7b731; 
   color: white;            
@@ -25,39 +23,38 @@
 }
 
 .btn-primary:hover {
-  background-color: #f0bf55;    /* Fica preto ao passar o mouse */
+  background-color: #f0bf55;    
   border-color: #000;
-  transform: translateY(-2px); /* Efeito sutil de levantar */
+  transform: translateY(-2px); 
 }
 
 .styled-table {
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); /* Sombra mais suave */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .styled-table th, .styled-table td {
   padding: 12px 15px;
   text-align: left;
-  border-bottom: 1px solid #eee; /* Borda mais suave */
+  border-bottom: 1px solid #eee;
   vertical-align: middle;
 }
 
-/* Cabeçalho da Tabela */
 .styled-table th {
   background-color: #f8f9fa;
   color: #333;
   font-weight: bold;
-  border-bottom: 2px solid #ffc107; /* Detalhe amarelo na base do cabeçalho */
+  border-bottom: 2px solid #ffc107;
 }
 
 .styled-table tr:hover {
-  background-color: #fffdf5; /* Um amarelo muito, muito suave no hover */
+  background-color: #fffdf5;
 }
 
 .col-actions {            
-  min-width: 150px;       
+  min-width: 180px; /* Aumentei um pouco para caber os 4 botões */      
   white-space: nowrap;    
   height: 100%;
 }
@@ -69,24 +66,21 @@
   cursor: pointer;
   display: inline-block;   
   vertical-align: middle;  
-  margin: 0 5px;          
+  margin: 0 4px;          
   transition: transform 0.2s;
-  color: #6c757d; /* Cor base cinza para ícones inativos */
+  color: #6c757d; 
 }
 
 .btn-icon:hover {
   transform: scale(1.2);
 }
 
-/* Cores dos Ícones */
-.btn-icon.delete:hover { color: #dc3545; } /* Vermelho (Padrão erro) */
-
-/* Ícone de editar agora fica Laranja Escuro no hover (Amarelo puro é ruim de ler) */
+.btn-icon.delete:hover { color: #dc3545; }
 .btn-icon.edit:hover { color: #e65100; } 
-
-/* Ícone de publicar fica Verde (Sucesso) ou Dourado, mantive verde para semântica */
 .btn-icon.publish:hover { color: #28a745; }
 
+/* --- NOVO: Botão Estrela (Padrão) --- */
+.btn-icon.star:hover { color: #f1c40f; } /* Amarelo ouro */
 
 .pagination-controls {
   display: flex;
@@ -105,7 +99,7 @@
 }
 
 .btn-page:hover:not(:disabled) {
-  background-color: #ffc107; /* Amarelo ao passar o mouse na paginação */
+  background-color: #ffc107;
   border-color: #ffc107;
   color: #000;
 }
@@ -115,40 +109,99 @@
   cursor: not-allowed;
 }
 
-/* Empty State */
 .empty-box {
   text-align: center;
   padding: 40px;
-  background-color: #fff9c4; /* Fundo amarelado suave */
-  border: 2px dashed #ffc107; /* Borda tracejada amarela */
+  background-color: #fff9c4;
+  border: 2px dashed #ffc107;
   border-radius: 8px;
   color: #8d6e63;
 }
 
-/* --- MUDANÇA 2: Linha Ativa (Tema Solar) --- */
 tr.active-menu {
-  background-color: #fff8e1; /* Creme (Amarelo muito claro) */
-  border: 2px solid #ffc107; /* Borda Amarelo Ouro */
+  background-color: #fff8e1;
+  border: 2px solid #ffc107;
   position: relative;        
 }
 
-/* Texto da linha ativa */
 tr.active-menu td {
-  color: #3e2723; /* Marrom café (contrasta bem com amarelo) */
+  color: #3e2723;
   font-weight: 500;
   border-top: 2px solid #ffc107; 
   border-bottom: 2px solid #ffc107; 
 }
 
-/* --- MUDANÇA 3: Badge (Selo) --- */
 .badge-ativo {
-    background-color: #ffc107; /* Amarelo da Sidebar */
-    color: #000;               /* Texto Preto */
+    background-color: #ffc107;
+    color: #000;
     font-size: 0.7rem;
-    padding: 4px 8px;          /* Um pouco mais gordinho */
+    padding: 4px 8px;
     border-radius: 4px;
     margin-left: 8px;
     vertical-align: middle;
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
+/* --- NOVO: Badge do Turno --- */
+.badge-turno {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: 1px solid #dee2e6;
+}
+.text-muted { color: #ccc; font-size: 0.8rem; }
+
+/* --- NOVO: Estilos do Modal --- */
+.modal-backdrop {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    width: 90%; max-width: 450px;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    border-top: 5px solid #f7b731;
+}
+
+.modal-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px;
+}
+.modal-header h3 { margin: 0; color: #333; }
+
+.close-btn { font-size: 1.5rem; cursor: pointer; }
+
+.turno-options {
+    display: flex; flex-direction: column; gap: 10px;
+    margin-top: 15px;
+}
+
+.btn-turno {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    padding: 12px;
+    background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px;
+    cursor: pointer; font-size: 1rem;
+    transition: 0.2s;
+}
+.btn-turno:hover {
+    background: #f7b731; color: white; border-color: #f7b731;
+}
+
+.remove-area { margin-top: 15px; }
+.btn-danger-outline {
+    width: 100%; padding: 10px;
+    background: white; border: 1px solid #dc3545; color: #dc3545;
+    border-radius: 6px; cursor: pointer;
+}
+.btn-danger-outline:hover { background: #dc3545; color: white; }

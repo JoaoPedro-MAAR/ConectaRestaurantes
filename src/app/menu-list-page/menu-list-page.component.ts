@@ -1,18 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { AsyncPipe, CommonModule } from '@angular/common'; // Necessários para o HTML
+import { AsyncPipe, CommonModule } from '@angular/common'; 
 import { RouterLink } from '@angular/router';
 import { MenuService } from '../services/menu/menu.service';
 
 @Component({
   selector: 'app-menu-list',
   standalone: true,
-  imports: [CommonModule, AsyncPipe, RouterLink], // Removido FilterModal
+  imports: [CommonModule, AsyncPipe, RouterLink], 
   templateUrl: './menu-list-page.component.html',
   styleUrl: './menu-list-page.component.css',
 })
 export class MenuListPageComponent implements OnInit {
 
-  // Injeção de dependência
   private menuService = inject(MenuService);
 
   title = 'Listagem de Cardápios';
@@ -23,6 +22,10 @@ export class MenuListPageComponent implements OnInit {
   activeMenu$ = this.menuService.activeMenu$;
   activeMenu: any = null
   menus$ = this.menuService.menu$;
+
+  // Variáveis do Modal
+  showStandardModal: boolean = false;
+  selectedMenuForStandard: any = null;
 
   ngOnInit(): void {
     console.log("Init do List")
@@ -39,9 +42,7 @@ export class MenuListPageComponent implements OnInit {
     });
 
     this.menuService.getActiveMenu().subscribe({
-next: (menu) => {
-        console.log('CONFIRMAÇÃO: Cardápio Ativo vindo do Back:', menu); 
-        
+      next: (menu) => {
         if (!menu) {
             console.warn('Alerta: Nenhum cardápio ativo encontrado no banco.');
         }
@@ -49,11 +50,7 @@ next: (menu) => {
       },
       error: (err) => console.error('Erro ao buscar ativo:', err)
     });
-;
-    console.log("OI")
-    console.log(this.activeMenu$)
   }
-
 
   nextPage(): void {
     if (this.current_page < this.total_pages - 1) {
@@ -69,24 +66,18 @@ next: (menu) => {
     }
   }
 
-onPublish(menuParaAtivar: any): void {
-    
-
+  onPublish(menuParaAtivar: any): void {
     if (this.activeMenu && this.activeMenu.id === menuParaAtivar.id) {
       alert('Este cardápio já está ativo!');
       return;
     }
-
-  
     if (this.activeMenu) {
       const confirmacao = confirm(
         `ATENÇÃO: O cardápio "${this.activeMenu.nome}" está ativo atualmente.\n\n` +
         `Deseja desativá-lo e ativar o "${menuParaAtivar.nome}"?`
       );
-
       if (!confirmacao) return;
     }
-
 
     this.menuService.activateMenu(menuParaAtivar.id).subscribe({
       next: () => {
@@ -99,6 +90,7 @@ onPublish(menuParaAtivar: any): void {
       }
     });
   }
+
   onUnpublish(): void{
      const confirmacao = confirm(
         `ATENÇÃO: O cardápio "${this.activeMenu.nome}" está ativo atualmente.\n\n` +
@@ -118,16 +110,13 @@ onPublish(menuParaAtivar: any): void {
     })
   }
 
-
   deleteMenu(id: number): void {
     if (!confirm(`Tem certeza que deseja deletar o menu ID ${id}?`)) {
       return;
     }
-
     this.menuService.delete(id).subscribe({
       next: () => {
         alert(`Menu com ID ${id} foi deletado com sucesso!`);
-        
         this.loadMenus();
       },
       error: (err) => {
@@ -135,5 +124,52 @@ onPublish(menuParaAtivar: any): void {
         alert('Ocorreu um erro ao tentar deletar o menu.');
       }
     });
+  }
+
+
+  openStandardModal(menu: any): void {
+    this.selectedMenuForStandard = menu;
+    this.showStandardModal = true;
+  }
+
+  closeStandardModal(): void {
+    this.showStandardModal = false;
+    this.selectedMenuForStandard = null;
+  }
+
+  confirmSetStandard(turno: string): void {
+    if (!this.selectedMenuForStandard) return;
+
+    this.menuService.setStandardMenu(this.selectedMenuForStandard.id, turno).subscribe({
+        next: () => {
+            alert(`Cardápio definido como padrão para ${this.formatTurno(turno)}!`);
+            this.closeStandardModal();
+            this.loadMenus(); 
+        },
+        error: (err) => alert('Erro ao definir padrão.')
+    });
+  }
+
+  confirmRemoveStandard(): void {
+    if (!this.selectedMenuForStandard) return;
+    if(!confirm('Remover status de padrão deste cardápio?')) return;
+
+    this.menuService.removeStandardMenu(this.selectedMenuForStandard.id).subscribe({
+        next: () => {
+            alert('Removido dos padrões.');
+            this.closeStandardModal();
+            this.loadMenus();
+        },
+        error: (err) => alert('Erro ao remover padrão.')
+    });
+  }
+
+  formatTurno(turno: string): string {
+    switch(turno) {
+        case 'CAFE_DA_MANHA': return 'Café';
+        case 'ALMOCO': return 'Almoço';
+        case 'JANTAR': return 'Jantar';
+        default: return turno;
+    }
   }
 }
