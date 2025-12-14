@@ -8,16 +8,18 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 import { OrderVisualizationComponent } from './order-visualization/order-visualization.component';
 import { MenuListPageComponent } from './menu-list-page/menu-list-page.component';
 import { MenuVisualizationComponent } from './menu-visualization/menu-visualization.component';
+import { RegistroPresencialComponent } from './registro-presencial/registro-presencial.component';
 
 export const routes: Routes = [
     {path: '', component: LandingPageComponent },
     {path:'register', component:FormComponentComponent },
     {path: 'orders', component:ListOrderComponent },
     {path:'list', component:RegisterListPageComponent},
-    { path: 'order/:id', component: OrderVisualizationComponent }, 
+    {path: 'order/:id', component: OrderVisualizationComponent }, 
     {path: `menu`, component: MenuListPageComponent},
     {path : "menu/:id", component: MenuVisualizationComponent},
     {path: 'menu/new', component: MenuVisualizationComponent},
+    {path: 'registro-presencial', component: RegistroPresencialComponent },
     {path:'**', component: NotFoundPageComponent},
 
 
