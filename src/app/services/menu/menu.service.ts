@@ -55,7 +55,6 @@ export class MenuService implements BaseService<Menu> {
 
   getPaginatedWithFilter(
     filters: {
-      id?: string;
       nome?: string;
       descricao?: string;
       turnoPadrao?: string;
@@ -67,9 +66,6 @@ export class MenuService implements BaseService<Menu> {
       .set('page', page.toString())
       .set('size', size.toString());
 
-    if (filters.id) {
-      params = params.set('id', filters.id);
-    }
     if (filters.nome) {
       params = params.set('nome', filters.nome);
     }

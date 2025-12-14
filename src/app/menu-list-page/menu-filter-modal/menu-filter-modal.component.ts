@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 interface MenuFilters {
-  id?: string;
   nome?: string;
   descricao?: string;
   turnoPadrao?: 'CAFE_DA_MANHA' | 'ALMOCO' | 'JANTAR' | '';
@@ -21,7 +20,6 @@ export class MenuFilterModalComponent {
   @Output() filterApplied = new EventEmitter<MenuFilters>();
 
   filters: MenuFilters = {
-    id: '',
     nome: '',
     descricao: '',
     turnoPadrao: ''
@@ -30,9 +28,6 @@ export class MenuFilterModalComponent {
   applyFilters(): void {
     const activeFilters: MenuFilters = {};
     
-    if (this.filters.id?.trim()) {
-      activeFilters.id = this.filters.id.trim();
-    }
     if (this.filters.nome?.trim()) {
       activeFilters.nome = this.filters.nome.trim();
     }
@@ -49,7 +44,6 @@ export class MenuFilterModalComponent {
 
   clearFilters(): void {
     this.filters = {
-      id: '',
       nome: '',
       descricao: '',
       turnoPadrao: ''
