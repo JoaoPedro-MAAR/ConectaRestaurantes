@@ -1,1 +1,74 @@
-<p>menu-filter-modal works!</p>
+<div class="modal-overlay" *ngIf="isOpen" (click)="close()">
+  <div class="modal-container" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>Filtrar Cardápios</h3>
+      <button class="close-btn" (click)="close()" type="button">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <form (ngSubmit)="applyFilters()">
+        <div class="form-group">
+          <label for="filterId">ID</label>
+          <input
+            type="text"
+            id="filterId"
+            [(ngModel)]="filters.id"
+            name="id"
+            placeholder="Digite o ID do cardápio"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="filterNome">Nome</label>
+          <input
+            type="text"
+            id="filterNome"
+            [(ngModel)]="filters.nome"
+            name="nome"
+            placeholder="Digite o nome do cardápio"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="filterDescricao">Descrição</label>
+          <input
+            type="text"
+            id="filterDescricao"
+            [(ngModel)]="filters.descricao"
+            name="descricao"
+            placeholder="Digite a descrição"
+            class="form-control"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="filterTurno">Turno Padrão</label>
+          <select
+            id="filterTurno"
+            [(ngModel)]="filters.turnoPadrao"
+            name="turnoPadrao"
+            class="form-control"
+          >
+            <option value="">Todos</option>
+            <option value="CAFE_DA_MANHA">Café da Manhã</option>
+            <option value="ALMOCO">Almoço</option>
+            <option value="JANTAR">Jantar</option>
+          </select>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" (click)="clearFilters()">
+            Limpar Filtros
+          </button>
+          <button type="submit" class="btn-primary">
+            Aplicar Filtros
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

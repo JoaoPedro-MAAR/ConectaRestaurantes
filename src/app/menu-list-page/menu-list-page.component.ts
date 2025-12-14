@@ -1,12 +1,13 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common'; 
 import { RouterLink } from '@angular/router';
 import { MenuService } from '../services/menu/menu.service';
+import { MenuFilterModalComponent } from './menu-filter-modal/menu-filter-modal.component';
 
 @Component({
   selector: 'app-menu-list',
   standalone: true,
-  imports: [CommonModule, AsyncPipe, RouterLink], 
+  imports: [CommonModule, AsyncPipe, RouterLink, MenuFilterModalComponent], 
   templateUrl: './menu-list-page.component.html',
   styleUrl: './menu-list-page.component.css',
 })
@@ -22,6 +23,8 @@ export class MenuListPageComponent implements OnInit {
   activeMenu$ = this.menuService.activeMenu$;
   activeMenu: any = null
   menus$ = this.menuService.menu$;
+  isFilterOpen = signal(false);
+  currentFilters: any = {};
 
   // Variáveis do Modal
   showStandardModal: boolean = false;
@@ -33,7 +36,11 @@ export class MenuListPageComponent implements OnInit {
   }
 
   loadMenus(): void {
-    this.menuService.getPaginated(this.current_page).subscribe({
+    const request = Object.keys(this.currentFilters).length > 0 
+      ? this.menuService.getPaginatedWithFilter(this.currentFilters, this.current_page)
+      : this.menuService.getPaginated(this.current_page);
+
+    request.subscribe({
       next: (response: any) => {
         this.total_pages = response.totalPages;
         this.total_itens = response.totalElements || response.items;
@@ -171,5 +178,22 @@ export class MenuListPageComponent implements OnInit {
         case 'JANTAR': return 'Jantar';
         default: return turno;
     }
+  }
+
+  toggleFilterModal(): void {
+      this.isFilterOpen.set(!this.isFilterOpen());
+      console.log("Toggled Filter Modal. Now open:", this.isFilterOpen());
+    }
+
+  closeFilterModal(): void {
+    this.isFilterOpen.set(false);
+  }
+
+  handleFilterApplied(filters: any): void {
+    console.log('Filtros aplicados:', filters);
+    this.current_page = 0;
+    this.currentFilters = filters;
+    this.loadMenus();
+    this.isFilterOpen.set(false); 
   }
 }
