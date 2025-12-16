@@ -43,7 +43,16 @@
                     <td>{{ order.obra }}</td>
                     <td>{{ order.gestor }}</td>
                     <td>{{ order.qtd_Marmitas }}</td>
-                    <td>{{ order.status }}</td>
+                    <td style="text-align:center;">
+                        <select 
+                            [value]="order.status" 
+                            (change)="onStatusChange(order, $event)"
+                            style="padding: 5px; border-radius: 4px; border: 1px solid #ccc; min-width: 120px;">
+                            @for (status of allStatuses; track status) {
+                                <option [value]="status">{{ status }}</option>
+                            }
+                        </select>
+                    </td>
                     <td style="text-align: center;">
                         <button [routerLink]="['/order', order.id]" class="action-button view-button" >
                             <i class="fas fa-eye text-primary"></i> 

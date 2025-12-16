@@ -60,6 +60,17 @@ export class RequisicaoService {
     );
   }
 
+  updateOrderStatus(id: number | string, newStatus: StatusSolicitation): Observable<Solicitation> {
+    const payload = { status: newStatus };
+    
+    return this.http.patch<Solicitation>(`${this.apiUrl}/${id}`, payload).pipe(
+      tap(() => {
+        console.log(`Status do pedido ${id} atualizado para ${newStatus}. Recarregando dados.`);
+        this.fetchPaginated(this.currentPage).subscribe(); 
+      })
+    );
+  }
+
 fetchWithFilterPaginated(
   filtros: {
     id?:string;
