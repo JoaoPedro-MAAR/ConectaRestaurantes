@@ -35,17 +35,17 @@ export class ListOrderComponent {
    });
 
   }
-    onStatusChange(order: Solicitation, event: Event): void {
-        const newStatus = (event.target as HTMLSelectElement).value as StatusSolicitation;
+    onStatusChange(order: Solicitation, statusValue: string): void {
+        const newStatus = statusValue as StatusSolicitation;
 
         this.requisicaoService.updateOrderStatus(order.id, newStatus).subscribe({
             next: () => {
-                order.status = newStatus; 
+                order.status = newStatus;
             },
             error: (err) => {
                 console.error('Erro ao atualizar status:', err);
                 alert('Erro ao atualizar status. Por favor, tente novamente.');
-                this.recarregarDados();
+                this.recarregarDados(); 
             }
         });
     }
