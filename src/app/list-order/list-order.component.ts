@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import {Solicitation} from "../../types"
+import {Solicitation, StatusSolicitation} from "../../types"
 import { RequisicaoService } from '../services/requisicao.service';
 import { first, map, Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
@@ -7,32 +7,47 @@ import {FilterModalComponent } from '../filter-modal/filter-modal.component'
 import { RouterLink } from '@angular/router';
 
 @Component({
-  selector: 'app-list-order',
-  imports: [FilterModalComponent,RouterLink ],
-  templateUrl: './list-order.component.html',
-  styleUrl: './list-order.component.css',
-  standalone: true,
+ selector: 'app-list-order',
+ imports: [FilterModalComponent,RouterLink ],
+ templateUrl: './list-order.component.html',
+ styleUrl: './list-order.component.css',
+ standalone: true,
 })
 export class ListOrderComponent {
 
-      title = 'Listagem';
-      params: string[] = [];
-      total_pages!: number;
-      total_itens!: number;
-      current_page: number;
-      orders$: any;
+   title = 'Listagem';
+   params: string[] = [];
+   total_pages!: number;
+   total_itens!: number;
+   current_page: number;
+   orders$: any;
+   allStatuses: StatusSolicitation[] = ["Recebido", "Em preparo", "Enviado", "Finalizado", "Cancelado"]; 
+      
+   isFilterOpen = signal(false);
+   private currentFilters: any = {};
 
-      isFilterOpen = signal(false);
-      private currentFilters: any = {};
+   constructor(private requisicaoService: RequisicaoService) {
+   this.current_page = 0
+   this.orders$ = this.requisicaoService.orders$
+   this.requisicaoService.fetchPaginated(this.current_page).subscribe(response => { 
+   this.total_itens=response.items
+   this.total_pages = response.totalPages
+   });
 
-      constructor(private requisicaoService: RequisicaoService) {
-      this.current_page = 0
-      this.orders$ = this.requisicaoService.orders$
-      this.requisicaoService.fetchPaginated(this.current_page).subscribe(response => { 
-      this.total_itens=response.items
-      this.total_pages = response.totalPages
-      });
+  }
+    onStatusChange(order: Solicitation, event: Event): void {
+        const newStatus = (event.target as HTMLSelectElement).value as StatusSolicitation;
 
+        this.requisicaoService.updateOrderStatus(order.id, newStatus).subscribe({
+            next: () => {
+                order.status = newStatus; 
+            },
+            error: (err) => {
+                console.error('Erro ao atualizar status:', err);
+                alert('Erro ao atualizar status. Por favor, tente novamente.');
+                this.recarregarDados();
+            }
+        });
     }
 
     nextPage(){
