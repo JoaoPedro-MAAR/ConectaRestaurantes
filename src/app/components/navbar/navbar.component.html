@@ -1,60 +1,66 @@
-<div class="sidebar-container bota-font">
-  <div class="sidebar-header">
-    Conecta
-    <br>
-    Refeições
-  </div>
-  <nav class="sidebar-nav">
-    <ul>
-      <li>
-        <a [routerLink]="['']" routerLinkActive="active">
-          <span class="fas fa-home"></span> Home
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/menu']" routerLinkActive="active">
-          <span class="material-symbols-outlined">
-            menu_book_2
-          </span> 
-          Cardápios
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/orders']" routerLinkActive="active">
-          <span class="fa-regular fa-clipboard"></span> Listagem        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/register']" routerLinkActive="active">
-          <span class="fa-solid fa-utensils"></span> Adicionar pedidos
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/list']" routerLinkActive="active">
-          <span class="fa-regular fa-clipboard"></span> Gerenciar pedidos
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/sobre']" routerLinkActive="active">
-          <span class="fa-solid fa-chart-simple"></span> Relatório
-        </a>
-      </li>
-      <li>
-        <a [routerLink]="['/registro-presencial']" routerLinkActive="active">
-          <span class="fa-regular fa-user"></span> Registro presencial
-        </a>
-      </li>
+  <div class="sidebar-container bota-font">
+    <div class="sidebar-header">
+      Conecta
+      <br>
+      Refeições
+    </div>
+    <nav class="sidebar-nav">
+      <ul>
+        <li>
+          <a [routerLink]="['']" routerLinkActive="active">
+            <span class="fas fa-home"></span> Home
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/menu']" routerLinkActive="active">
+            <span class="material-symbols-outlined">
+              menu_book_2
+            </span> 
+            Cardápios
+          </a>
+        </li>
 
-    </ul>
-  </nav>
-  <div class="sidebar-footer">
-    <div class="sidebar-footer-div">
-       <a routerLink="/home" routerLinkActive="active">
-          <span class="fas fa-sign-out"></span> Encerrar
-      </a>
+        <li>
+          <a [routerLink]="['/itens']" routerLinkActive="active">
+            <span class="fas fa-carrot"></span> Gerenciar Itens
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/orders']" routerLinkActive="active">
+            <span class="fa-regular fa-clipboard"></span> Listagem        </a>
+        </li>
+        <li>
+          <a [routerLink]="['/register']" routerLinkActive="active">
+            <span class="fa-solid fa-utensils"></span> Adicionar pedidos
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/list']" routerLinkActive="active">
+            <span class="fa-regular fa-clipboard"></span> Gerenciar pedidos
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/sobre']" routerLinkActive="active">
+            <span class="fa-solid fa-chart-simple"></span> Relatório
+          </a>
+        </li>
+        <li>
+          <a [routerLink]="['/registro-presencial']" routerLinkActive="active">
+            <span class="fa-regular fa-user"></span> Registro presencial
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-div">
+        <a routerLink="/home" routerLinkActive="active">
+            <span class="fas fa-sign-out"></span> Encerrar
+        </a>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="headerDiv bota-font"> <!--
-  <p style="margin-left: 20px;">Landing page</p> -->
-</div>
+  <div class="headerDiv bota-font"> <!--
+    <p style="margin-left: 20px;">Landing page</p> -->
+  </div>
