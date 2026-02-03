@@ -13,6 +13,7 @@ import { ItemFormComponent } from './item-component/item-form.component';
 import { PratoFeitoFormComponent } from './prato-feito-component/prato-feito-form.component';
 import { PratoFeitoListComponent } from './prato-feito-component/prato-feito-list.component';
 import { SolicitacaoPedidosComponent } from './solicitacao-pedidos/solicitacao-pedidos.componet';
+import { RelatorioComponent } from './relatorio/relatorio.component';
 
 export const routes: Routes = [
     {path: '', component: LandingPageComponent },
@@ -30,6 +31,7 @@ export const routes: Routes = [
     { path: 'pratos-feitos', component: PratoFeitoListComponent },
     { path: 'pratos-feitos/novo', component: PratoFeitoFormComponent },
     { path: 'solicitacao/:id/pedidos', component: SolicitacaoPedidosComponent },
+    { path: 'relatorio', component: RelatorioComponent },
     {path:'**', component: NotFoundPageComponent},
 
 
