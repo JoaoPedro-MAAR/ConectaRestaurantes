@@ -1,16 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormArray, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router'; 
+import { ActivatedRoute, Router } from '@angular/router'; 
 import { MenuService } from '../services/menu/menu.service';
 import { ItemService } from '../services/itens/itens.service';
 import { Item } from '../services/itens/model';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { Menu, CategoriaMenu } from '../services/menu/model';
+import { Menu } from '../services/menu/model';
 
 @Component({
   selector: 'app-menu-visualization',
+  standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './menu-visualization.component.html',
   styleUrl: './menu-visualization.component.css'
@@ -20,8 +19,7 @@ export class MenuVisualizationComponent implements OnInit {
   private menuService = inject(MenuService);
   private itemService = inject(ItemService);
   private route = inject(ActivatedRoute); 
-  private originalMenuState: any = null;
-  private router = inject(Router)
+  private router = inject(Router);
 
   menuId: number | null = null;
   isEditMode: boolean = false; 
@@ -33,24 +31,24 @@ export class MenuVisualizationComponent implements OnInit {
     categorias: this.fb.array([]) 
   });
 
-  allItems$!: Observable<Item[]>;
+  allAvailableItems: Item[] = [];
+  
   filteredItems: Item[] = [];
-  showDropdown: boolean = false;
   activeSearchCategoryIndex: number | null = null;
-
-  constructor() {
-  }
 
   ngOnInit(): void {
     console.log("Iniciando Menu Component");
     
-    this.allItems$ = this.itemService.items$;
-    this.itemService.getPaginated().subscribe();
-
+    this.itemService.findAll().subscribe({
+      next: (items) => {
+        this.allAvailableItems = items;
+      },
+      error: (err) => console.error('Erro ao carregar itens:', err)
+    });
 
     const idParam = this.route.snapshot.paramMap.get('id');
     
-    if (idParam && !Number.isNaN(Number(idParam))) {
+    if (idParam && idParam !== 'new' && !Number.isNaN(Number(idParam))) {
       this.menuId = Number(idParam);
       this.isEditMode = true;
       this.loadMenuData(this.menuId);
@@ -67,9 +65,10 @@ export class MenuVisualizationComponent implements OnInit {
     return this.fb.group({
       nome: [data?.nome || '', Validators.required],
       limiteMaximoEscolhas: [data?.limiteMaximoEscolhas || 1, [Validators.required, Validators.min(1)]],
-      itens: [data?.itens || []] 
+      itens: [data?.itens || []],
+      isPratoFeitoSection: [false] 
     });
-  } 
+  }
 
   addCategory(): void {
     this.categorias.push(this.createCategoryGroup());
@@ -79,19 +78,15 @@ export class MenuVisualizationComponent implements OnInit {
     this.categorias.removeAt(index);
   }
 
-  
-
   loadMenuData(id: number) {
     this.menuService.findByid(id).subscribe({
       next: (menu: Menu) => {
-        // Preenche dados básicos
         this.menuForm.patchValue({
             id: menu.id?.toString(),
             nome: menu.nome,
             description: menu.descricao
         });
 
-        // Preenche o FormArray de categorias
         this.categorias.clear();
         if (menu.categorias && menu.categorias.length > 0) {
             menu.categorias.forEach(cat => {
@@ -107,23 +102,38 @@ export class MenuVisualizationComponent implements OnInit {
     });
   }
 
+  normalizeText(text: string): string {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, ""); 
+  }
+
   onSearch(event: Event, categoryIndex: number): void {
-    const value = (event.target as HTMLInputElement).value.toLowerCase();
+    const rawValue = (event.target as HTMLInputElement).value;
     this.activeSearchCategoryIndex = categoryIndex;
 
-    if (!value) {
+    const isPfSection = this.categorias.at(categoryIndex).get('isPratoFeitoSection')?.value === true;
+
+    if (!rawValue) {
       this.filteredItems = [];
       return;
     }
 
+    const searchTerm = this.normalizeText(rawValue);
     const currentCategoryItems = this.categorias.at(categoryIndex).get('itens')?.value || [];
     const currentIds = currentCategoryItems.map((x: Item) => x.id);
 
-    this.allItems$.subscribe(items => {
-      this.filteredItems = items.filter(item =>
-        item.nome.toLowerCase().includes(value) &&
-        !currentIds.includes(item.id)
-      );
+    this.filteredItems = this.allAvailableItems.filter(item => {
+        const tipoCorreto = isPfSection ? (item.isPratoFeito === true) : (!item.isPratoFeito);
+
+        if (!tipoCorreto) return false;
+
+        const nomeNormalizado = this.normalizeText(item.nome);
+        const matchesSearch = nomeNormalizado.includes(searchTerm);
+        const notAlreadySelected = !currentIds.includes(item.id);
+
+        return matchesSearch && notAlreadySelected;
     });
   }
 
@@ -162,25 +172,21 @@ export class MenuVisualizationComponent implements OnInit {
       return;
     }
 
-    const formVal = this.menuForm.value;
+    const formVal = this.menuForm.getRawValue(); 
 
-    // MONTAGEM DO JSON COMPLEXO
     const menuData: Menu = {
       nome: formVal.nome || '',
       descricao: formVal.description || '',
-      ativo: null, // Será tratado no backend
-      // Mapeia as categorias do formulário para o formato da API
+      ativo: null, 
       categorias: (formVal.categorias || []).map((cat: any) => ({
           nome: cat.nome,
           limiteMaximoEscolhas: cat.limiteMaximoEscolhas,
-          // Extrai apenas os IDs dos itens selecionados
           itensIds: (cat.itens || []).map((item: Item) => Number(item.id))
       }))
     };
 
     if (this.isEditMode && this.menuId) {
       alert("Atenção: A edição completa de categorias ainda está em desenvolvimento no servidor.");
-      // this.menuService.update(...) // Descomentar quando backend suportar update complexo
     } else {
       this.menuService.create(menuData).subscribe({
         next: () => {
@@ -199,10 +205,24 @@ export class MenuVisualizationComponent implements OnInit {
     this.router.navigate(['/menu'])
   }
 
-clearForm(): void {
+  clearForm(): void {
     this.menuForm.reset();
     this.categorias.clear();
-    this.addCategory(); // Reinicia com uma
+    this.addCategory(); 
   }
+
+  addPratosFeitosCategory(): void {
+    const group = this.fb.group({
+      nome: ['Pratos Feitos', Validators.required], 
+      limiteMaximoEscolhas: [1, [Validators.required, Validators.min(1)]],
+      itens: [[]],
+      isPratoFeitoSection: [true] 
+    });
+    
+    group.get('nome')?.disable(); 
+    
+    this.categorias.push(group);
+  }
+
   
 }

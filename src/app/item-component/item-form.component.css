@@ -1,0 +1,117 @@
+/* Container Centralizado */
+.container {
+    padding: 30px 15px;
+    font-family: 'Inter', Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+}
+
+/* Card do Formulário (Igual ao .card-section) */
+.card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e6e6e6;
+    width: 100%;
+    max-width: 600px; /* Limita largura para ficar elegante */
+}
+
+/* Título */
+h3 {
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+/* Labels */
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Inputs (Igual ao .form-group input) */
+.form-control {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box; /* Garante que padding não quebre layout */
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.15);
+}
+
+/* Erro de Validação */
+.is-invalid {
+    border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+    color: #dc3545;
+    font-size: 0.85rem;
+    margin-top: 5px;
+}
+
+/* Botões do Rodapé */
+.d-flex {
+    display: flex;
+    margin-top: 30px;
+}
+
+.gap-2 {
+    gap: 12px;
+}
+
+.justify-content-end {
+    justify-content: flex-end;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s;
+}
+
+/* Botão Cancelar (Igual ao .btn-back) */
+.btn-secondary {
+    background: #e0e0e0;
+    color: #333;
+    text-decoration: none; /* Caso seja link */
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-secondary:hover {
+    background: #d4d4d4;
+}
+
+/* Botão Salvar (Igual ao .btn-save) */
+.btn-success {
+    background: #28a745;
+    color: #fff;
+}
+
+.btn-success:hover {
+    background: #218838;
+}
+
+/* Espaçamento entre grupos de input */
+.mb-3 {
+    margin-bottom: 20px;
+}
