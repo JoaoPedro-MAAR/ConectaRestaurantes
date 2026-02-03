@@ -115,7 +115,7 @@ fetchPaginated(page: number): Observable<PaginatedResponse<Solicitation>> {
 
   this.currentPage = page; 
   return this.http.get<PaginatedResponse<Solicitation>>(
-    `${this.apiUrl}/all?page=${page}`
+    `${this.apiUrl}/all?page=${page}&size=5`
   ).pipe(
     tap(item => this.ordersSubject.next(item.content))
   );

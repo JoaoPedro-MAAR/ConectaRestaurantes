@@ -10,22 +10,22 @@
         <h3>Dados Gerais</h3>
         
         <div class="form-group">
-        <label for="nome">Nome do Cardápio: <span class="text-danger">*</span></label>
-        <input 
-            id="nome" 
-            formControlName="nome" 
-            type="text" 
-            placeholder="Ex: Almoço de Domingo"
-            [class.invalid-border]="menuForm.get('nome')?.invalid && menuForm.get('nome')?.touched"
-        >
-        <small class="error-message" *ngIf="menuForm.get('nome')?.invalid && menuForm.get('nome')?.touched">
-            Nome obrigatório.
-        </small>
+            <label for="nome">Nome do Cardápio: <span class="text-danger">*</span></label>
+            <input 
+                id="nome" 
+                formControlName="nome" 
+                type="text" 
+                placeholder="Ex: Almoço de Domingo"
+                [class.invalid-border]="menuForm.get('nome')?.invalid && menuForm.get('nome')?.touched"
+            >
+            <small class="error-message" *ngIf="menuForm.get('nome')?.invalid && menuForm.get('nome')?.touched">
+                Nome obrigatório.
+            </small>
         </div>
 
         <div class="form-group">
-        <label for="description">Descrição:</label>
-        <input id="description" formControlName="description" type="text" placeholder="Ex: Disponível das 11h às 14h">
+            <label for="description">Descrição:</label>
+            <input id="description" formControlName="description" type="text" placeholder="Ex: Disponível das 11h às 14h">
         </div>
 
         <div class="form-group">
@@ -40,11 +40,17 @@
     <hr class="divider">
 
     <div class="categories-area">
+        
         <div class="flex-between">
             <h3>Categorias do Cardápio</h3>
-            <button type="button" class="btn-secondary" (click)="addCategory()">
-                + Adicionar Categoria
-            </button>
+            <div class="d-flex gap-2" style="display: flex; gap: 10px;">
+                <button type="button" class="btn-secondary" style="background-color: #6c757d;" (click)="addPratosFeitosCategory()">
+                    + Adicionar Pratos Feitos
+                </button>
+                <button type="button" class="btn-secondary" (click)="addCategory()">
+                    + Adicionar Categoria
+                </button>
+            </div>
         </div>
 
         <div formArrayName="categorias">
@@ -60,7 +66,14 @@
                 <div class="form-row">
                     <div class="form-group col-md-8">
                         <label>Título da Categoria <span class="text-danger">*</span></label>
-                        <input type="text" formControlName="nome" placeholder="Ex: Prato Principal, Bebidas...">
+                        <input 
+                            type="text" 
+                            formControlName="nome" 
+                            placeholder="Ex: Prato Principal, Bebidas..."
+                            [readonly]="cat.get('isPratoFeitoSection')?.value === true"
+                            [class.bg-light]="cat.get('isPratoFeitoSection')?.value === true"
+                            [style.background-color]="cat.get('isPratoFeitoSection')?.value === true ? '#e9ecef' : ''"
+                        >
                     </div>
                     <div class="form-group col-md-4">
                         <label>Limite de Escolhas</label>

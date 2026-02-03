@@ -1,0 +1,157 @@
+.container-pedidos {
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Inter', sans-serif;
+}
+
+.header-action {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+h2 {
+  color: #333;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.subtitle {
+  color: #666;
+  margin-top: 5px;
+}
+
+.btn-voltar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #555;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.btn-voltar:hover {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+/* Card e Tabela */
+.card-table {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  padding: 20px;
+  border-top: 5px solid #f7b731;
+}
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.styled-table th {
+  background-color: #f9f9f9;
+  color: #444;
+  padding: 15px;
+  text-align: left;
+  border-bottom: 2px solid #eee;
+  font-weight: 600;
+}
+
+.styled-table td {
+  padding: 15px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #555;
+  vertical-align: middle;
+}
+
+.styled-table tr:hover {
+  background-color: #fffdf5; /* Amarelo bem clarinho no hover */
+}
+
+/* Estilos de Texto e Badges */
+.itens-text {
+  color: #444;
+  line-height: 1.4;
+}
+
+.obs-text {
+  font-style: italic;
+  color: #888;
+  font-size: 0.9rem;
+}
+
+.badge-status {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: #e0e0e0;
+  color: #555;
+}
+
+.badge-status.aberto { background-color: #e3f2fd; color: #1976d2; }
+.badge-status.pronto { background-color: #fff3cd; color: #856404; }
+.badge-status.entregue { background-color: #d4edda; color: #155724; }
+
+/* Empty State */
+.empty-box {
+  text-align: center;
+  padding: 50px;
+  color: #999;
+}
+.icon-empty {
+  font-size: 48px;
+  margin-bottom: 15px;
+  color: #ddd;
+}
+
+.pagination-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0 0 0;
+    gap: 15px;
+    border-top: 1px solid #eee;
+    margin-top: 20px;
+}
+
+.btn-page {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    background: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-page:hover:not(:disabled) {
+    background-color: #f7b731;
+    border-color: #f7b731;
+    color: white;
+}
+
+.btn-page:disabled {
+    background-color: #f9f9f9;
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.page-info {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.total-badge {
+    font-size: 0.8rem;
+    color: #999;
+    margin-left: 5px;
+}
