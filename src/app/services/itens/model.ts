@@ -2,6 +2,8 @@ export interface Item {
   id?: number;
   nome: string;
   categoria: string;
+  isPratoFeito?: boolean;
+  composicao?: Item[]; 
 }
 
 export interface Page<T> {

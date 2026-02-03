@@ -10,6 +10,8 @@ import { OrderVisualizationComponent } from './order-visualization/order-visuali
 import { RegistroPresencialComponent } from './registro-presencial/registro-presencial.component';
 import { ItemListComponent } from './item-component/item-list.component';    
 import { ItemFormComponent } from './item-component/item-form.component';
+import { PratoFeitoFormComponent } from './prato-feito-component/prato-feito-form.component';
+import { PratoFeitoListComponent } from './prato-feito-component/prato-feito-list.component';
 
 export const routes: Routes = [
     {path: '', component: LandingPageComponent },
@@ -24,6 +26,8 @@ export const routes: Routes = [
     { path: 'itens', component: ItemListComponent },
     { path: 'itens/novo', component: ItemFormComponent },
     { path: 'itens/editar/:id', component: ItemFormComponent },
+    { path: 'pratos-feitos', component: PratoFeitoListComponent },
+    { path: 'pratos-feitos/novo', component: PratoFeitoFormComponent },
     {path:'**', component: NotFoundPageComponent}
 
 

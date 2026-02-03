@@ -65,9 +65,10 @@ export class MenuVisualizationComponent implements OnInit {
     return this.fb.group({
       nome: [data?.nome || '', Validators.required],
       limiteMaximoEscolhas: [data?.limiteMaximoEscolhas || 1, [Validators.required, Validators.min(1)]],
-      itens: [data?.itens || []] 
+      itens: [data?.itens || []],
+      isPratoFeitoSection: [false] 
     });
-  } 
+  }
 
   addCategory(): void {
     this.categorias.push(this.createCategoryGroup());
@@ -112,24 +113,27 @@ export class MenuVisualizationComponent implements OnInit {
     const rawValue = (event.target as HTMLInputElement).value;
     this.activeSearchCategoryIndex = categoryIndex;
 
+    const isPfSection = this.categorias.at(categoryIndex).get('isPratoFeitoSection')?.value === true;
+
     if (!rawValue) {
       this.filteredItems = [];
       return;
     }
 
     const searchTerm = this.normalizeText(rawValue);
-
     const currentCategoryItems = this.categorias.at(categoryIndex).get('itens')?.value || [];
     const currentIds = currentCategoryItems.map((x: Item) => x.id);
 
     this.filteredItems = this.allAvailableItems.filter(item => {
-      const nomeNormalizado = this.normalizeText(item.nome);
-      const categoriaNormalizada = this.normalizeText(item.categoria); 
+        const tipoCorreto = isPfSection ? (item.isPratoFeito === true) : (!item.isPratoFeito);
 
-      const matchesSearch = nomeNormalizado.includes(searchTerm) || categoriaNormalizada.includes(searchTerm);
-      const notAlreadySelected = !currentIds.includes(item.id);
+        if (!tipoCorreto) return false;
 
-      return matchesSearch && notAlreadySelected;
+        const nomeNormalizado = this.normalizeText(item.nome);
+        const matchesSearch = nomeNormalizado.includes(searchTerm);
+        const notAlreadySelected = !currentIds.includes(item.id);
+
+        return matchesSearch && notAlreadySelected;
     });
   }
 
@@ -168,7 +172,7 @@ export class MenuVisualizationComponent implements OnInit {
       return;
     }
 
-    const formVal = this.menuForm.value;
+    const formVal = this.menuForm.getRawValue(); 
 
     const menuData: Menu = {
       nome: formVal.nome || '',
@@ -206,4 +210,19 @@ export class MenuVisualizationComponent implements OnInit {
     this.categorias.clear();
     this.addCategory(); 
   }
+
+  addPratosFeitosCategory(): void {
+    const group = this.fb.group({
+      nome: ['Pratos Feitos', Validators.required], 
+      limiteMaximoEscolhas: [1, [Validators.required, Validators.min(1)]],
+      itens: [[]],
+      isPratoFeitoSection: [true] 
+    });
+    
+    group.get('nome')?.disable(); 
+    
+    this.categorias.push(group);
+  }
+
+  
 }

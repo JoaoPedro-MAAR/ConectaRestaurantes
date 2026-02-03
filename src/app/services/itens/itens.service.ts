@@ -42,6 +42,14 @@ getPaginated(page?: number): Observable<PaginatedResponse<Item>> {
 
 }
 
+getPratosFeitos(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.apiUrl}/pratos-feitos`);
+  }
+
+createPratoFeito(nome: string, itensIds: number[]): Observable<Item> {
+  return this.http.post<Item>(`${this.apiUrl}/prato-feito`, { nome, itensIds });
+}
+
 
 
 
