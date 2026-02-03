@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
 import { FormComponentComponent } from './form-component/form-component.component';
 import { ListOrderComponent } from './list-order/list-order.component';
 import { LandingPageComponent } from './components/landing-page/landing-page.component';
@@ -10,6 +9,7 @@ import { MenuListPageComponent } from './menu-list-page/menu-list-page.component
 import { MenuVisualizationComponent } from './menu-visualization/menu-visualization.component';
 import { RegistroPresencialComponent } from './registro-presencial/registro-presencial.component';
 import { SolicitacaoPedidosComponent } from './solicitacao-pedidos/solicitacao-pedidos.componet';
+import { RelatorioComponent } from './relatorio/relatorio.component';
 
 export const routes: Routes = [
     {path: '', component: LandingPageComponent },
@@ -22,6 +22,7 @@ export const routes: Routes = [
     {path: 'menu/new', component: MenuVisualizationComponent},
     {path: 'registro-presencial', component: RegistroPresencialComponent },
     { path: 'solicitacao/:id/pedidos', component: SolicitacaoPedidosComponent },
+    { path: 'relatorio', component: RelatorioComponent },
     {path:'**', component: NotFoundPageComponent},
 
 

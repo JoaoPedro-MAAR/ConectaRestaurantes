@@ -7,6 +7,13 @@ import { map, tap } from 'rxjs/operators';
 import { Solicitation, StatusSolicitation, PaginatedResponse } from '../../types';
 import { baseUrl } from './InterfaceService';
 
+
+export interface RelatorioMetrics {
+  totalSolicitacoes: number;
+  totalMarmitas: number;
+  pedidosPorStatus: { [key: string]: number };
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -143,7 +150,13 @@ getByid(id:number){
   return this.http.get<Solicitation>(`${this.apiUrl}/${id}`)
 }
 
+getMetricas(): Observable<RelatorioMetrics> {
+    return this.http.get<RelatorioMetrics>(`${this.apiUrl}/relatorio/metricas`);
+  }
 
+  downloadCsv(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/relatorio/csv`, { responseType: 'blob' });
+  }
 
   
 

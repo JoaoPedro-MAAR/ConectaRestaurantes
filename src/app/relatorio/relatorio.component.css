@@ -1,0 +1,124 @@
+.container-relatorio {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+/* Header */
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-section h1 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+/* Botão CSV */
+.btn-csv {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 0.95rem;
+}
+
+.btn-csv:hover {
+    background-color: #219150;
+}
+
+/* Grid do Dashboard */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 colunas */
+    gap: 20px;
+}
+
+/* Cards */
+.card-metric {
+    padding: 25px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card-metric.blue {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.card-metric.green {
+    background: linear-gradient(135deg, #2ecc71, #27ae60);
+}
+
+.card-metric.white {
+    background: white;
+    color: #333;
+    border: 1px solid #e0e0e0;
+}
+
+.full-width {
+    grid-column: span 2; /* Ocupa a largura total */
+}
+
+.card-title {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.card-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+}
+
+/* Lista de Status */
+.status-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.status-item {
+    background-color: #f8f9fa;
+    border: 1px solid #eee;
+    padding: 10px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 150px;
+    justify-content: space-between;
+}
+
+.status-name {
+    font-weight: 500;
+    color: #555;
+}
+
+.badge {
+    background-color: #e0e0e0;
+    color: #333;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.loading {
+    text-align: center;
+    margin-top: 50px;
+    color: #777;
+}
