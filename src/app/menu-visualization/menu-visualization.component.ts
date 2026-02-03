@@ -5,13 +5,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MenuService } from '../services/menu/menu.service';
 import { ItemService } from '../services/itens/itens.service';
 import { Item } from '../services/itens/model';
-<<<<<<< HEAD
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
 import { Menu, CategoriaMenu, DiaSemana } from '../services/menu/model';
-=======
-import { Menu } from '../services/menu/model';
->>>>>>> develop
 
 @Component({
   selector: 'app-menu-visualization',
