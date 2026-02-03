@@ -9,6 +9,7 @@ import { OrderVisualizationComponent } from './order-visualization/order-visuali
 import { MenuListPageComponent } from './menu-list-page/menu-list-page.component';
 import { MenuVisualizationComponent } from './menu-visualization/menu-visualization.component';
 import { RegistroPresencialComponent } from './registro-presencial/registro-presencial.component';
+import { SolicitacaoPedidosComponent } from './solicitacao-pedidos/solicitacao-pedidos.componet';
 
 export const routes: Routes = [
     {path: '', component: LandingPageComponent },
@@ -20,6 +21,7 @@ export const routes: Routes = [
     {path : "menu/:id", component: MenuVisualizationComponent},
     {path: 'menu/new', component: MenuVisualizationComponent},
     {path: 'registro-presencial', component: RegistroPresencialComponent },
+    { path: 'solicitacao/:id/pedidos', component: SolicitacaoPedidosComponent },
     {path:'**', component: NotFoundPageComponent},
 
 

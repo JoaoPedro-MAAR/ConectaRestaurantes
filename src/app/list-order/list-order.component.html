@@ -1,92 +1,92 @@
-<div class="Modal_filtro">
-    <!-- Filtro aqui -->
-</div>
+<div class="list-container">
 
-<div class="Cabecalho">
-    <h1>Listagem de solicitações</h1>
-    <div class="botoes">
-        <button>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/>
-            </svg>
-        </button>
-        <button (click)="toggleFilterModal()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M11 20q-.425 0-.712-.288T10 19v-6L4.2 5.6q-.375-.5-.112-1.05T5 4h14q.65 0 .913.55T19.8 5.6L14 13v6q0 .425-.288.713T13 20z"/>
-            </svg>
-        </button>
+    <div class="Cabecalho">
+        <h1>Listagem de Solicitações</h1>
+        <div class="botoes">
+            <button class="btn-top-icon" title="Atualizar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z"/>
+                </svg>
+            </button>
+            
+            <button class="btn-top-icon" (click)="toggleFilterModal()" title="Filtrar">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M11 20q-.425 0-.712-.288T10 19v-6L4.2 5.6q-.375-.5-.112-1.05T5 4h14q.65 0 .913.55T19.8 5.6L14 13v6q0 .425-.288.713T13 20z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <app-filter-modal 
+      [isOpen]="isFilterOpen()" 
+      (closeModal)="toggleFilterModal()"
+      (filterApplied)="handleFilterApplied($event)">
+    </app-filter-modal>
+
+    <div style="overflow-x: auto;"> <table class="styled-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%">ID</th>
+                    <th style="width: 20%">Obra</th>
+                    <th style="width: 20%">Gestor</th>
+                    <th style="width: 10%">Qtd. Marmitas</th>
+                    <th style="width: 25%">Estado</th>
+                    <th style="width: 20%; text-align: center;">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+@for (order of orders$ | async; track order.id) {
+                        <tr>
+                        <td><strong>#{{order.id}}</strong></td>
+                        <td>{{ order.obra }}</td>
+                        <td>{{ order.gestor }}</td>
+                        <td>{{ order.qtd_Marmitas }}</td>
+                        
+                        <td>
+                            <select 
+                                (change)="onStatusChange(order, $any($event).target.value)"
+                                class="status-select">
+                                @for (status of allStatuses; track status) {
+                                    <option [value]="status" [selected]="status === order.status">
+                                        {{ status }}
+                                    </option>
+                                }
+                            </select>
+                        </td>
+            
+                        <td class="col-actions">
+                            <button [routerLink]="['/order', order.id]" class="action-button view-button" title="Ver Detalhes da Solicitação">
+                                <i class="fas fa-eye"></i> 
+                            </button>
+                            
+                            <button [routerLink]="['/solicitacao', order.id, 'pedidos']" class="action-button list-button" title="Ver Pedidos/Marmitas">
+                                <span class="material-symbols-outlined" style="font-size: 18px;">list_alt</span>
+                            </button>
+
+                            <button (click)="deleteOrder(order.id)" class="action-button delete-button" title="Excluir">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </td>
+                    </tr>
+                } @empty {
+                    <tr>
+                        <td colspan="6" class="empty-message">
+                            Nenhuma solicitação encontrada.
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+<div class="pagination-controls">
+        <button (click)="prevPage()" [disabled]="current_page === 0" class="btn-page">Anterior</button>
+        
+        <span class="page-info">
+            Página <strong>{{ current_page + 1 }}</strong> de <strong>{{ total_pages }}</strong> 
+            <small>(Total: {{total_itens}})</small>
+        </span>
+        
+        <button (click)="nextPage()" [disabled]="current_page >= total_pages - 1" class="btn-page">Próxima</button>
     </div>
 </div>
-<app-filter-modal 
-  [isOpen]="isFilterOpen()" 
-  (closeModal)="toggleFilterModal()"
-  (filterApplied)="handleFilterApplied($event)">
-</app-filter-modal>
-
-<table class="List_order_table">
-    <thead class="table_header">
-        <tr>
-            <th style="width: 10%;text-align:center"> ID</th>
-            <th style="width: 19%;text-align:center">Obra</th>
-            <th style="width: 19%;text-align:center">Gestor</th>
-            <th style="width: 14%;text-align:center">Quantidade de refeições</th>
-            <th style="width: 16%;text-align:center">Estado</th>
-            <th style="width: 10%; text-align:center"> Ações </th>
-        </tr>
-    </thead>
-    <tbody>
-
-
-    @for (order of orders$.source.value; track order.id) {
-        <tr>
-            <td>{{order.id}}</td>
-            <td>{{ order.obra }}</td>
-            <td>{{ order.gestor }}</td>
-            <td>{{ order.qtd_Marmitas }}</td>
-            
-            <td style="text-align:center;">
-                <select 
-                    (change)="onStatusChange(order, $any($event).target.value)"
-                    style="padding: 5px; border-radius: 4px; border: 1px solid #ccc; min-width: 120px;">
-                    
-                    @for (status of allStatuses; track status) {
-                        <option [value]="status" [selected]="status === order.status">
-                            {{ status }}
-                        </option>
-                    }
-                </select>
-            </td>
-
-            <td style="text-align: center;">
-                <button [routerLink]="['/order', order.id]" class="action-button view-button">
-                    <i class="fas fa-eye text-primary"></i> 
-                </button>
-                <button (click)="deleteOrder(order.id)" class="action-button delete-button">
-                    <i class="fas fa-trash-alt"></i>
-                </button>
-            </td>
-        </tr>
-    } @empty {
-        <tr>
-            <td colspan="6" style="text-align: center; padding: 20px;">
-                Nenhum pedido encontrado.
-            </td>
-        </tr>
-    }
-        
-    </tbody>
-    <tfoot style="width: 100%;">
-        <tr>
-            <td colspan="6" style="text-align: center;">
-                <button (click)="prevPage()">Anterior</button>
-                <span>Página {{ this.current_page + 1 }} de {{this.total_pages}} </span>
-                <button (click)="nextPage()">Próxima</button>
-            </td>
-        </tr>
-    </tfoot>
-</table>
-
-
-
-
-
