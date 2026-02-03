@@ -1,0 +1,130 @@
+/* Container Principal (Baseado no .form-wrapper) */
+.container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 0 15px 60px;
+    font-family: 'Inter', Arial, sans-serif;
+}
+
+/* Título e Cabeçalho */
+h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0;
+}
+
+/* Botão Novo (Baseado no .btn-secondary, mas ajustado) */
+.btn-primary {
+    background: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+    transform: translateY(-1px);
+}
+
+/* Estilização da Tabela para parecer um Card */
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #ffffff;
+    border-radius: 10px;
+    overflow: hidden; /* Para arredondar as bordas */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    border: 1px solid #e6e6e6;
+    margin-top: 20px;
+}
+
+thead {
+    background-color: #f8f9fa;
+}
+
+th {
+    padding: 18px 22px;
+    text-align: left;
+    font-weight: 600;
+    color: #34495e;
+    border-bottom: 2px solid #e6e6e6;
+}
+
+td {
+    padding: 16px 22px;
+    border-bottom: 1px solid #eee;
+    color: #555;
+    vertical-align: middle;
+}
+
+/* Hover na linha da tabela */
+tbody tr:hover {
+    background-color: #fcfcfc;
+}
+
+/* A última linha não precisa de borda */
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Botões de Ação na Tabela */
+.btn-sm {
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+}
+
+.btn-outline-primary {
+    background: transparent;
+    color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.btn-outline-danger {
+    background: transparent;
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-outline-danger:hover {
+    background: #dc3545;
+    color: #fff;
+}
+
+/* Paginação */
+.gap-2 {
+    gap: 10px;
+}
+
+.btn-secondary {
+    background: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #d6d6d6;
+}

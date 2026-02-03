@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
+import { PaginatedResponse } from '../../../types';
 import { BaseService, baseUrl } from '../InterfaceService';
 import { Item } from './model';
-import { Observable, tap } from 'rxjs';
-import { PaginatedResponse } from '../../../types';
 @Injectable({
   providedIn: 'root',
 })
@@ -24,7 +24,7 @@ export class ItemService implements BaseService<Item> {
   }
  
   findAll(){
-      return this.http.get<Item[]>(`${this.apiUrl}`) 
+      return this.http.get<Item[]>(`${this.apiUrl}/all`) 
   }
 
   extractData(res: any): Item[] | null {
@@ -41,6 +41,15 @@ getPaginated(page?: number): Observable<PaginatedResponse<Item>> {
   return result 
 
 }
+
+getPratosFeitos(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.apiUrl}/pratos-feitos`);
+  }
+
+createPratoFeito(nome: string, itensIds: number[]): Observable<Item> {
+  return this.http.post<Item>(`${this.apiUrl}/prato-feito`, { nome, itensIds });
+}
+
 
 
 

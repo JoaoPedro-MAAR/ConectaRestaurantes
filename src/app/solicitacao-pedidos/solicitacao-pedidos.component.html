@@ -1,0 +1,72 @@
+<div class="container-pedidos">
+  
+  <div class="header-action">
+    <div>
+      <h2>Pedidos da Solicitação #{{ idSolicitacao }}</h2>
+      <p class="subtitle">Gerencie as refeições individuais desta solicitação.</p>
+    </div>
+    <a routerLink="/orders" class="btn-voltar">
+      <span class="material-symbols-outlined">arrow_back</span> Voltar
+    </a>
+  </div>
+
+  <div class="card-table">
+    <table class="styled-table" *ngIf="!isLoading && listaPedidos.length > 0; else emptyState">
+      <thead>
+        <tr>
+          <th style="width: 5%">ID</th>
+          <th style="width: 25%">Funcionário</th>
+          <th style="width: 35%">Itens Escolhidos</th>
+          <th style="width: 20%">Observação</th>
+          <th style="width: 15%">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of listaPedidos">
+          <td>#{{ p.id }}</td>
+          <td>
+            <strong>{{ p.solicitante?.nome || 'Não informado' }}</strong>
+          </td>
+          <td>
+            <span class="itens-text">{{ formatarItens(p.itens) }}</span>
+          </td>
+          <td>
+            <span class="obs-text">{{ p.observacao || '-' }}</span>
+          </td>
+          <td>
+            <span class="badge-status" 
+                  [class.aberto]="p.status === 'ABERTO'"
+                  [class.pronto]="p.status === 'PRONTO'"
+                  [class.entregue]="p.status === 'ENTREGUE'">
+              {{ p.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="pagination-footer" *ngIf="!isLoading && totalItems > 0">
+    <button (click)="prevPage()" [disabled]="currentPage === 0" class="btn-page">
+        Anterior
+    </button>
+    
+    <span class="page-info">
+        Página <strong>{{ currentPage + 1 }}</strong> de <strong>{{ totalPages }}</strong>
+        <span class="total-badge">(Total: {{ totalItems }})</span>
+    </span>
+
+    <button (click)="nextPage()" [disabled]="currentPage >= totalPages - 1" class="btn-page">
+        Próxima
+    </button>
+</div>
+
+    <ng-template #emptyState>
+      <div class="empty-box" *ngIf="!isLoading">
+        <span class="material-symbols-outlined icon-empty">no_meals</span>
+        <p>Nenhum pedido registrado para esta solicitação ainda.</p>
+      </div>
+      <div class="loading-box" *ngIf="isLoading">
+        <p>Carregando pedidos...</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

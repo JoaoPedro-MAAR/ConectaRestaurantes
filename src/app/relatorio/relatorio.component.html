@@ -1,0 +1,42 @@
+<div class="container-relatorio">
+  
+  <div class="header-section">
+    <h1>Relatório de Solicitações</h1>
+    <button class="btn-csv" (click)="exportarCsv()">
+      ⬇ Exportar CSV
+    </button>
+  </div>
+
+  <div *ngIf="metrics" class="dashboard-grid">
+    
+    <div class="card-metric blue">
+      <div class="card-title">Total de Pedidos</div>
+      <div class="card-value">{{ metrics.totalSolicitacoes }}</div>
+    </div>
+
+    <div class="card-metric green">
+      <div class="card-title">Total de Marmitas</div>
+      <div class="card-value">{{ metrics.totalMarmitas }}</div>
+    </div>
+
+    <div class="card-metric white full-width">
+      <div class="card-title" style="color: #333; margin-bottom: 15px;">Pedidos por Status</div>
+      
+      <div class="status-list">
+        <div *ngFor="let status of statusKeys" class="status-item">
+          <span class="status-name">{{ status }}</span>
+          <span class="status-count badge">{{ metrics.pedidosPorStatus[status] }}</span>
+        </div>
+        <div *ngIf="statusKeys.length === 0" class="text-muted">
+            Nenhum pedido registrado.
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div *ngIf="!metrics" class="loading">
+    Carregando dados...
+  </div>
+
+</div>
