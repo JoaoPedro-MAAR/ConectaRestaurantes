@@ -7,7 +7,7 @@ import { ItemService } from '../services/itens/itens.service';
 import { Item } from '../services/itens/model';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { Menu, CategoriaMenu } from '../services/menu/model';
+import { Menu, CategoriaMenu, DiaSemana } from '../services/menu/model';
 
 @Component({
   selector: 'app-menu-visualization',
@@ -25,11 +25,13 @@ export class MenuVisualizationComponent implements OnInit {
 
   menuId: number | null = null;
   isEditMode: boolean = false; 
+  diasSemana = Object.values(DiaSemana);
 
   menuForm = this.fb.group({
     id: [''],
     nome: ['', Validators.required],
     description: [''],
+    diaSemana: [''],
     categorias: this.fb.array([]) 
   });
 
@@ -88,7 +90,8 @@ export class MenuVisualizationComponent implements OnInit {
         this.menuForm.patchValue({
             id: menu.id?.toString(),
             nome: menu.nome,
-            description: menu.descricao
+            description: menu.descricao,
+            diaSemana: menu.diaSemana || ''
         });
 
         // Preenche o FormArray de categorias
@@ -169,6 +172,7 @@ export class MenuVisualizationComponent implements OnInit {
       nome: formVal.nome || '',
       descricao: formVal.description || '',
       ativo: null, // Será tratado no backend
+      diaSemana: formVal.diaSemana ? formVal.diaSemana as DiaSemana : null,
       // Mapeia as categorias do formulário para o formato da API
       categorias: (formVal.categorias || []).map((cat: any) => ({
           nome: cat.nome,

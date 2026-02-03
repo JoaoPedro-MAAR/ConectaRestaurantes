@@ -27,6 +27,14 @@
         <label for="description">Descrição:</label>
         <input id="description" formControlName="description" type="text" placeholder="Ex: Disponível das 11h às 14h">
         </div>
+
+        <div class="form-group">
+        <label for="diaSemana">Dia da Semana:</label>
+        <select id="diaSemana" formControlName="diaSemana">
+            <option value="">Selecione um dia (opcional)</option>
+            <option *ngFor="let dia of diasSemana" [value]="dia">{{ dia }}</option>
+        </select>
+        </div>
     </div>
 
     <hr class="divider">
