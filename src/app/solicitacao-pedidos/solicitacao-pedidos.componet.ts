@@ -27,7 +27,7 @@ export class SolicitacaoPedidosComponent implements OnInit {
     const idParam = this.route.snapshot.paramMap.get('id');
     if (idParam) {
       this.idSolicitacao = Number(idParam);
-      this.carregarPedidos(this.idSolicitacao, 0); // Começa na página 0
+      this.carregarPedidos(this.idSolicitacao, 0); 
     }
   }
 
@@ -35,10 +35,9 @@ export class SolicitacaoPedidosComponent implements OnInit {
     this.isLoading = true;
     this.pedidoService.getPedidosPorSolicitacao(id, page).subscribe({
       next: (dados) => {
-        // O Spring retorna 'content' com a lista e metadados de página
         this.listaPedidos = dados.content; 
         this.totalPages = dados.totalPages;
-        this.totalItems = dados.items || dados.totalElements; // Depende de como seu PaginatedResponse mapeia
+        this.totalItems = dados.items || dados.totalElements;
         this.currentPage = page;
         this.isLoading = false;
       },
@@ -49,7 +48,6 @@ export class SolicitacaoPedidosComponent implements OnInit {
     });
   }
 
-  // Controles de Navegação
   nextPage() {
     if (this.idSolicitacao && this.currentPage < this.totalPages - 1) {
       this.carregarPedidos(this.idSolicitacao, this.currentPage + 1);
@@ -63,7 +61,6 @@ export class SolicitacaoPedidosComponent implements OnInit {
   }
 
 
-  // Helper para formatar lista de itens numa string bonita
   formatarItens(itens: any[]): string {
     if (!itens || itens.length === 0) return '-';
     return itens.map(i => i.nome).join(', ');

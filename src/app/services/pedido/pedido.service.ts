@@ -31,12 +31,11 @@ export class PedidoService {
   private http = inject(HttpClient);
   private apiUrl = `${baseUrl}/pedidos`;
 
-  // MUDANÇA: Agora recebe 'page' e retorna 'PaginatedResponse'
   getPedidosPorSolicitacao(idSolicitacao: number, page: number = 0): Observable<PaginatedResponse<PedidoDetalhado>> {
     
     const params = new HttpParams()
         .set('page', page.toString())
-        .set('size', '5'); // Define o tamanho fixo ou recebe por parâmetro
+        .set('size', '5');
 
     return this.http.get<PaginatedResponse<PedidoDetalhado>>(
         `${this.apiUrl}/solicitacao/${idSolicitacao}`, 

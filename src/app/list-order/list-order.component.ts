@@ -18,12 +18,10 @@ export class ListOrderComponent {
 
   title = 'Listagem';
   
-  // Inicializamos com valores padrão
   total_pages: number = 1; 
   total_itens: number = 0;
   current_page: number = 0;
   
-  // Usamos observable direto do serviço
   orders$ = this.requisicaoService.orders$;
   
   allStatuses: StatusSolicitation[] = ["Recebido", "Em preparo", "Enviado", "Finalizado", "Cancelado"]; 
