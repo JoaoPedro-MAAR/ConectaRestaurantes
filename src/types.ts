@@ -23,6 +23,7 @@ interface Solicitation {
 
 
 interface PaginatedResponse<T>{
+    totalElements: number;
     first: number;
     prev: number | null;
     next: number | null;
