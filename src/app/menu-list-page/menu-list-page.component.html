@@ -35,6 +35,7 @@
           <th>ID</th>
           <th>Nome</th>
           <th>Descrição</th>
+          <th>Dia da Semana</th>
           <th>Padrão</th> <th class="col-actions">Ações</th>
         </tr>
       </thead>
@@ -52,6 +53,10 @@
                     {{ activeMenu.descricao.length > 50 ? (activeMenu.descricao | slice:0:50) + '...' : activeMenu.descricao }}
                 </span>
             </td> 
+            <td>
+                <span *ngIf="activeMenu.diaSemana" class="badge-dia">{{ formatDiaSemana(activeMenu.diaSemana) }}</span>
+                <span *ngIf="!activeMenu.diaSemana" class="text-muted">-</span>
+            </td>
             <td>
                 <span *ngIf="activeMenu.turnoPadrao" class="badge-turno">{{ formatTurno(activeMenu.turnoPadrao) }}</span>
                 <span *ngIf="!activeMenu.turnoPadrao" class="text-muted">-</span>
@@ -86,6 +91,10 @@
                     <span title="{{ menu.descricao }}">
                         {{ menu.descricao.length > 50 ? (menu.descricao | slice:0:50) + '...' : menu.descricao }}
                     </span>
+                </td>
+                <td>
+                    <span *ngIf="menu.diaSemana" class="badge-dia">{{ formatDiaSemana(menu.diaSemana) }}</span>
+                    <span *ngIf="!menu.diaSemana" class="text-muted">-</span>
                 </td>
                 <td>
                     <span *ngIf="menu.turnoPadrao" class="badge-turno">{{ formatTurno(menu.turnoPadrao) }}</span>
