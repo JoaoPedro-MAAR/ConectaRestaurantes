@@ -1,106 +1,153 @@
-
-table {
-  border-collapse: separate;
-  border-spacing: 9px; 
-  width: 100%;
-  min-height: 500%;
+/* Container principal para alinhar como as outras telas */
+.list-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-th, td {
-  padding: 12px 16px; 
-  border: 1px solid #ddd;
-  text-align: left;
-}
-
-th {
-  background-color: #f2f2f2;
-}
-
-
-tfoot td {
-  background-color: #f9f9f9;
-  padding: 16px 0;
-  border-top: 2px solid #e0e0e0;
-}
-
-tfoot button {
-  background-color: #1976d2;
-  color: #fff;
-  border: none;
-  padding: 8px 18px;
-  margin: 0 8px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s;
-}
-
-tfoot button:disabled {
-  background-color: #bdbdbd;
-  cursor: not-allowed;
-}
-
-tfoot span {
-  font-size: 1.1em;
-  margin: 0 12px;
-  font-weight: 500;
-}
-
-
-
-.Cabecalho{
+/* Cabeçalho com título e botões de ação */
+.Cabecalho {
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
-  align-items: center ;
-  align-content: center;
-
+  align-items: center;
+  margin-bottom: 25px;
 }
 
+.Cabecalho h1 {
+  font-size: 1.8rem;
+  color: #333;
+  margin: 0;
+}
 
 .botoes {
   display: flex;
-  flex-direction: row;
+  gap: 10px;
 }
 
+/* Botões de ícone do topo (Filtro/Refresh) */
+.btn-top-icon {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  transition: all 0.2s;
+}
+
+.btn-top-icon:hover {
+  background-color: #f7b731;
+  border-color: #f7b731;
+  color: white;
+}
+
+/* --- ESTILO DA TABELA (Igual Menu-List) --- */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden; /* Para arredondar cantos */
+}
+
+.styled-table th, .styled-table td {
+  padding: 15px 20px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.styled-table th {
+  background-color: #f8f9fa;
+  color: #444;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  border-bottom: 3px solid #f7b731; /* O detalhe amarelo */
+}
+
+.styled-table tr:hover {
+  background-color: #fffdf5; /* Hover suave amarelo */
+}
+
+/* Coluna de Ações */
+.col-actions {
+  white-space: nowrap;
+  text-align: center;
+}
+
+/* Botões de Ação dentro da tabela */
 .action-button {
-  background-color: transparent;
+  background: none;
   border: none;
   cursor: pointer;
-  padding: 0.5rem;
-  margin: 0 0.25rem; 
+  padding: 6px;
+  margin: 0 2px;
   border-radius: 50%;
-  width: 36px;
-  height: 36px;
+  transition: transform 0.2s, background-color 0.2s;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease-in-out;
+  color: #666;
 }
 
-.action-button i {
-  font-size: 1rem; 
-  color: #555;
+.action-button:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.1);
 }
 
-.view-button i{
-  color: rgb(3, 3, 190);
+.view-button:hover { color: #007bff; background-color: #e6f0ff; }
+.list-button:hover { color: #f7b731; background-color: #fff8e1; }
+.delete-button:hover { color: #dc3545; background-color: #ffe6e6; }
+
+
+/* Select de Status estilizado */
+.status-select {
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  font-size: 0.9rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
 }
 
-.delete-button i {
-  color: rgb(189, 4, 4)
+.status-select:focus {
+  border-color: #f7b731;
 }
 
-.view-button:hover {
-  background-color: #e0f0ff; 
-}
-.view-button:hover i {
-  color: #007bff; 
+/* --- PAGINAÇÃO (Igual Menu-List) --- */
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 20px;
 }
 
-.delete-button:hover {
-  background-color: #ffeeee; 
+.btn-page {
+  padding: 8px 16px;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  background: white;
+  border-radius: 4px;
+  transition: 0.2s;
 }
-.delete-button:hover i {
-  color: #dc3545; 
+
+.btn-page:hover:not(:disabled) {
+  background-color: #f7b731;
+  border-color: #f7b731;
+  color: white;
+}
+
+.btn-page:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #f2f2f2;
 }
