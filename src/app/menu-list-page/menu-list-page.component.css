@@ -1,6 +1,6 @@
 .list-container {
   padding: 20px;
-  max-width: 1000px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -154,6 +154,18 @@ tr.active-menu td {
     text-transform: uppercase;
     border: 1px solid #dee2e6;
 }
+
+/* --- Badge do Dia da Semana --- */
+.badge-dia {
+    background-color: #d1ecf1;
+    color: #0c5460;
+    padding: 3px 6px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border: 1px solid #bee5eb;
+}
+
 .text-muted { color: #ccc; font-size: 0.8rem; }
 
 /* --- NOVO: Estilos do Modal --- */

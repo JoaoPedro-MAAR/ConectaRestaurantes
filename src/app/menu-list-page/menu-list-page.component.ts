@@ -180,6 +180,19 @@ export class MenuListPageComponent implements OnInit {
     }
   }
 
+  formatDiaSemana(dia: string): string {
+    switch(dia) {
+        case 'SEGUNDA': return 'Segunda';
+        case 'TERCA': return 'Terça';
+        case 'QUARTA': return 'Quarta';
+        case 'QUINTA': return 'Quinta';
+        case 'SEXTA': return 'Sexta';
+        case 'SABADO': return 'Sábado';
+        case 'DOMINGO': return 'Domingo';
+        default: return dia;
+    }
+  }
+
   toggleFilterModal(): void {
       this.isFilterOpen.set(!this.isFilterOpen());
       console.log("Toggled Filter Modal. Now open:", this.isFilterOpen());
