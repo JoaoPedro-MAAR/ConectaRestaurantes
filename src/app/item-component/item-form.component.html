@@ -1,0 +1,39 @@
+<div class="container mt-4" style="max-width: 600px;">
+  <div class="card p-4">
+    <h3>{{ isEdicao ? 'Editar' : 'Novo' }} Item</h3>
+    
+    <form [formGroup]="form" (ngSubmit)="salvar()">
+      
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome do Item</label>
+        <input 
+          id="nome" 
+          type="text" 
+          class="form-control" 
+          formControlName="nome"
+          [class.is-invalid]="form.get('nome')?.invalid && form.get('nome')?.touched"
+        >
+        <div class="invalid-feedback">O nome é obrigatório.</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="categoria" class="form-label">Categoria</label>
+        <input 
+          id="categoria" 
+          type="text" 
+          class="form-control" 
+          formControlName="categoria" 
+          placeholder="Ex: Bebida, Prato Principal"
+          [class.is-invalid]="form.get('categoria')?.invalid && form.get('categoria')?.touched"
+        >
+        <div class="invalid-feedback">A categoria é obrigatória.</div>
+      </div>
+
+      <div class="d-flex gap-2 justify-content-end">
+        <button type="button" class="btn btn-secondary" routerLink="/itens">Cancelar</button>
+        <button type="submit" class="btn btn-success">Salvar</button>
+      </div>
+
+    </form>
+  </div>
+</div>
